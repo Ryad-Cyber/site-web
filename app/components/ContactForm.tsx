@@ -1,0 +1,121 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+
+type FormStatus = "idle" | "loading" | "success" | "error";
+
+export default function ContactForm() {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(json.error ?? "Erreur lors de l'envoi.");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setErrorMsg("Impossible d'envoyer le message. Réessayez.");
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="glass-card rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl shadow-violet-500/10">
+      <div className="mb-8">
+        <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-2">
+          Contact direct
+        </p>
+        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+          Écrivez-moi directement
+        </h3>
+        <p className="mt-2 text-zinc-400 text-sm md:text-base">
+          Alternative au WhatsApp — réponse sous 24h garantie.
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
+            Nom
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            placeholder="Votre nom"
+            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="votre@email.com"
+            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-zinc-300 mb-2">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows={4}
+            placeholder="Décrivez votre projet..."
+            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all resize-none"
+          />
+        </div>
+
+        {status === "success" && (
+          <p className="text-emerald-400 text-sm font-medium animate-fade-in">
+            Message envoyé ! Je vous réponds sous 24h.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="text-red-400 text-sm font-medium animate-fade-in">{errorMsg}</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold hover:from-violet-500 hover:to-blue-500 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-violet-500/25 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+        >
+          {status === "loading" ? "Envoi en cours..." : "Envoyer"}
+        </button>
+      </form>
+    </div>
+  );
+}

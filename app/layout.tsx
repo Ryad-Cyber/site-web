@@ -13,11 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Ryad Web Studio | Création de sites web modernes",
+  title: "Ryad Web Studio | Création de sites web qui génèrent des clients",
   description:
-    "Création de sites web modernes, rapides et optimisés Google pour restaurants, artisans et entreprises.",
+    "Développeur freelance spécialisé dans la création de sites web modernes et optimisés pour restaurants, artisans et entreprises locales.",
   keywords:
-    "création site web, freelance web, site vitrine, développeur web, SEO, restaurant site internet",
+    "création site web, freelance web, site vitrine, développeur web France, SEO local, site restaurant",
+  openGraph: {
+    title: "Ryad Web Studio",
+    description: "Sites web modernes qui transforment vos visiteurs en clients",
+    type: "website",
+  },
 };
 export default function RootLayout({
   children,
@@ -26,10 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );
 }
