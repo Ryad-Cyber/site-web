@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
@@ -12,7 +12,7 @@ const WHATSAPP_URL =
 const SOCIAL_LINKS = [
   {
     name: "Instagram",
-    href: "https://instagram.com",
+    href: "https://instagram.com/ryad.bjn_",
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -21,7 +21,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: "Snapchat",
-    href: "https://snapchat.com",
+    href: "https://snapchat.com/add/ryadbjn",
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12.166 3c-3.003 0-5.5 2.243-5.5 5.01 0 .553-.447 1-1 1s-1-.447-1-1C4.666 4.132 8.01 1 12.166 1c4.155 0 7.5 3.132 7.5 7.01 0 3.767-2.497 6.01-5.5 6.01-.828 0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5c4.155 0 7.5-3.243 7.5-7.26C21.666 5.757 17.321 3 12.166 3zm-4 10.5c0 .828.672 1.5 1.5 1.5h5c.828 0 1.5-.672 1.5-1.5S15.494 12 14.666 12h-5c-.828 0-1.5.672-1.5 1.5z" />
@@ -30,10 +30,10 @@ const SOCIAL_LINKS = [
   },
   {
     name: "TikTok",
-    href: "https://tiktok.com",
+    href: "https://www.tiktok.com/@ryad.bjn_",
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z" />
+        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z" />
       </svg>
     ),
   },
@@ -101,6 +101,10 @@ function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; dela
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 50]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
     <>
@@ -194,7 +198,10 @@ export default function Home() {
       <main className="bg-zinc-50 text-zinc-900">
 
         {/* HERO — Premium TikTok / Framer style */}
-        <section className="relative overflow-hidden bg-zinc-950 text-white pt-32 pb-24 sm:pt-40 sm:pb-32 md:pt-52 md:pb-44">
+        <motion.section 
+          className="relative overflow-hidden bg-zinc-950 text-white pt-24 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-36"
+          style={{ y: heroY, opacity: heroOpacity }}
+        >
           {/* Layered gradients + grid */}
           <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.3),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(168,85,247,0.3),transparent_40%),radial-gradient(circle_at_50%_80%,rgba(236,72,153,0.15),transparent_50%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,black,transparent)]" />
@@ -213,7 +220,7 @@ export default function Home() {
                   Web agency freelance — disponibilité limitée
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.1] sm:leading-[1.02] tracking-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.1] sm:leading-[1.05] tracking-tight">
                   Des sites web qui
                   <br />
                   <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent animate-shimmer">
@@ -221,11 +228,11 @@ export default function Home() {
                   </span>
                 </h1>
 
-                <p className="mt-5 sm:mt-7 text-base sm:text-lg md:text-xl text-zinc-400 max-w-xl leading-relaxed">
+                <p className="mt-4 sm:mt-5 text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
                   Je crée des sites premium pour <strong className="text-white">restaurants, coiffeurs, artisans</strong> et entrepreneurs qui veulent <strong className="text-white">plus d'appels, de réservations et de clients</strong> — pas juste un site &ldquo;joli&rdquo;.
                 </p>
 
-                <div className="mt-5 sm:mt-7 flex flex-wrap gap-2 sm:gap-3">
+                <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-3">
                   {["⚡ Livraison rapide", "📈 Optimisé conversion", "📱 Mobile-first"].map((tag) => (
                     <span
                       key={tag}
@@ -236,7 +243,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <a
                     href={WHATSAPP_URL}
                     className="group px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.03] transition-all shadow-xl shadow-white/10 text-center"
@@ -255,13 +262,15 @@ export default function Home() {
 
               {/* RIGHT — Dynamic visual */}
               <ScrollReveal delay={0.2}>
-                <HeroVisual />
+                <motion.div style={{ scale: heroScale }}>
+                  <HeroVisual />
+                </motion.div>
               </ScrollReveal>
             </div>
 
             {/* Stats bar — glassmorphism */}
             <ScrollReveal delay={0.3}>
-              <div className="mt-16 sm:mt-20 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+              <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                 {[
                   { value: "15+", label: "Sites livrés" },
                   { value: "48h", label: "Premier aperçu" },
@@ -282,10 +291,64 @@ export default function Home() {
               </div>
             </ScrollReveal>
           </div>
+        </motion.section>
+
+        {/* INFINITE TICKER — Apple/Framer style */}
+        <section className="bg-zinc-900 border-y border-white/10 overflow-hidden">
+          <div className="relative">
+            <motion.div
+              className="flex whitespace-nowrap"
+              animate={{ x: [0, -1000] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              {[
+                "📞 Plus d'appels",
+                "⭐ Plus de clients",
+                "📈 Plus de réservations",
+                "🚀 Plus de visibilité",
+                "💬 Plus de demandes de devis",
+                "📞 Plus d'appels",
+                "⭐ Plus de clients",
+                "📈 Plus de réservations",
+                "🚀 Plus de visibilité",
+                "💬 Plus de demandes de devis",
+              ].map((item, i) => (
+                <span key={i} className="inline-flex items-center gap-3 px-8 py-4 text-white/80 text-sm font-medium">
+                  {item}
+                </span>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* BENEFITS CHECKMARKS */}
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <ScrollReveal>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                "✔ Plus d'appels",
+                "✔ Plus de réservations",
+                "✔ Plus de demandes de devis",
+                "✔ Plus de clients grâce à une présence en ligne professionnelle",
+              ].map((benefit, index) => (
+                <motion.div
+                  key={benefit}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="flex items-center gap-3 p-4 bg-white rounded-xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <CheckIcon />
+                  <span className="text-sm font-medium text-zinc-700">{benefit.replace("✔ ", "")}</span>
+                </motion.div>
+              ))}
+            </div>
+          </ScrollReveal>
         </section>
 
         {/* PROBLEME */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Le constat</p>
@@ -335,15 +398,15 @@ export default function Home() {
 
         {/* SERVICES / POURQUOI MOI */}
         <section id="services" className="bg-white border-y border-zinc-200/80">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
               <ScrollReveal>
                 <div>
                   <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Pourquoi moi</p>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                     Un partenaire web, pas juste un prestataire
                   </h2>
-                  <p className="mt-4 sm:mt-5 text-zinc-600 text-base sm:text-lg leading-relaxed">
+                  <p className="mt-3 sm:mt-4 text-zinc-600 text-base leading-relaxed">
                     Je ne livre pas un simple site joli — je crée un <strong className="text-zinc-900">outil de conversion</strong> pensé pour votre activité et votre marché local, pour <strong className="text-zinc-900">augmenter vos appels et réservations</strong>.
                   </p>
                   <a
@@ -386,7 +449,7 @@ export default function Home() {
         </section>
 
         {/* PROCESS */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Processus</p>
@@ -395,7 +458,7 @@ export default function Home() {
               </h2>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            <div className="grid md:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
               {[
                 { step: "1", title: "Échange gratuit", desc: "On discute de votre activité, vos objectifs et votre budget." },
                 { step: "2", title: "Maquette & validation", desc: "Vous recevez un aperçu sous 48h avant toute mise en ligne." },
@@ -414,12 +477,12 @@ export default function Home() {
                   {i < 3 && (
                     <div className="hidden md:block absolute top-6 left-[calc(50%+2rem)] w-[calc(100%-2rem)] h-px bg-zinc-200" />
                   )}
-                  <div className="relative bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 text-center transition-all duration-300">
-                    <span className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-zinc-950 text-white font-bold text-base sm:text-lg">
+                  <div className="relative bg-white border border-zinc-200 rounded-2xl p-3 sm:p-5 text-center transition-all duration-300">
+                    <span className="inline-flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-zinc-950 text-white font-bold text-sm sm:text-base">
                       {item.step}
                     </span>
-                    <h3 className="mt-3 sm:mt-4 font-semibold text-sm sm:text-base">{item.title}</h3>
-                    <p className="mt-2 text-xs sm:text-sm text-zinc-600">{item.desc}</p>
+                    <h3 className="mt-2 sm:mt-3 font-semibold text-sm sm:text-base">{item.title}</h3>
+                    <p className="mt-1.5 text-xs sm:text-sm text-zinc-600">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -430,19 +493,19 @@ export default function Home() {
         {/* PROJETS */}
         <section id="projets" className="bg-zinc-950 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.08),transparent_50%)]" />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
             <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 mb-12 sm:mb-16 md:mb-20">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 mb-10 sm:mb-12 md:mb-16">
                 <div>
                   <p className="text-sm font-medium text-blue-400 uppercase tracking-wider mb-3">Portfolio</p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Projets récents</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Projets récents</h2>
                 </div>
                 <p className="text-zinc-400 max-w-md leading-relaxed text-sm sm:text-base">
                   Chaque projet est conçu pour <strong className="text-white">générer plus d'appels, réservations et clients</strong>.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid md:grid-cols-3 gap-3 sm:gap-5">
                 {[
                   {
                     name: "Restaurant Le Palmier",
@@ -475,18 +538,18 @@ export default function Home() {
                     whileHover={{ y: -8, scale: 1.02 }}
                     className="group rounded-2xl border border-white/10 overflow-hidden hover:border-white/25 transition-all duration-300 bg-white/[0.02]"
                   >
-                    <div className={`h-36 sm:h-44 bg-gradient-to-br ${project.gradient} flex items-end p-4 sm:p-6 relative overflow-hidden`}>
+                    <div className={`h-32 sm:h-40 bg-gradient-to-br ${project.gradient} flex items-end p-3 sm:p-5 relative overflow-hidden`}>
                       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
                       <span className="relative text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 backdrop-blur text-zinc-300">
                         {project.tag}
                       </span>
                     </div>
-                    <div className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-semibold group-hover:text-blue-400 transition-colors">
+                    <div className="p-3 sm:p-5">
+                      <h3 className="text-base sm:text-lg font-semibold group-hover:text-blue-400 transition-colors">
                         {project.name}
                       </h3>
                       <p className="mt-2 text-zinc-400 text-sm leading-relaxed">{project.desc}</p>
-                      <p className="mt-3 sm:mt-4 text-sm font-medium text-emerald-400">{project.result}</p>
+                      <p className="mt-3 text-sm font-medium text-emerald-400">{project.result}</p>
                     </div>
                   </motion.article>
                 ))}
@@ -496,19 +559,19 @@ export default function Home() {
         </section>
 
         {/* TARIFS */}
-        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 lg:py-20">
           <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
+            <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Tarifs</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
                 Des offres claires, sans surprise
               </h2>
-              <p className="mt-4 sm:mt-5 text-zinc-600 text-base sm:text-lg leading-relaxed">
+              <p className="mt-3 sm:mt-4 text-zinc-600 text-sm sm:text-base leading-relaxed">
                 Choisissez la formule adaptée à votre activité. Paiement en une ou deux fois possible.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 sm:gap-6 items-stretch">
+            <div className="grid md:grid-cols-3 gap-3 sm:gap-4 items-stretch">
               {[
                 {
                   name: "Starter",
@@ -538,10 +601,9 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -8 }}
-                  className={`relative flex flex-col p-5 sm:p-8 rounded-2xl border transition-all duration-300 ${
+                  className={`relative flex flex-col p-3 sm:p-5 rounded-2xl border transition-all duration-300 ${
                     plan.popular
-                      ? "bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/20 scale-[1.02]"
+                      ? "bg-zinc-950 text-white border-zinc-950 shadow-xl shadow-zinc-950/20"
                       : "bg-white border-zinc-200 hover:shadow-lg"
                   }`}
                 >
@@ -550,17 +612,17 @@ export default function Home() {
                       Le plus choisi
                     </span>
                   )}
-                  <h3 className="text-lg sm:text-xl font-semibold">{plan.name}</h3>
-                  <p className={`mt-2 text-sm ${plan.popular ? "text-zinc-400" : "text-zinc-600"}`}>
+                  <h3 className="text-xs sm:text-sm font-semibold">{plan.name}</h3>
+                  <p className={`mt-1 text-xs ${plan.popular ? "text-zinc-400" : "text-zinc-600"}`}>
                     {plan.desc}
                   </p>
-                  <p className="mt-4 sm:mt-6 text-3xl sm:text-4xl font-bold">
+                  <p className="mt-2 text-lg sm:text-xl font-bold">
                     {plan.price}
-                    <span className={`text-base font-normal ${plan.popular ? "text-zinc-500" : "text-zinc-400"}`}>
+                    <span className={`text-xs font-normal ${plan.popular ? "text-zinc-500" : "text-zinc-400"}`}>
                       {" "}TTC
                     </span>
                   </p>
-                  <ul className={`mt-6 sm:mt-8 space-y-3 text-sm flex-1 ${plan.popular ? "text-zinc-300" : "text-zinc-600"}`}>
+                  <ul className={`mt-3 space-y-2 text-xs flex-1 ${plan.popular ? "text-zinc-300" : "text-zinc-600"}`}>
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-center gap-2">
                         <CheckIcon />
@@ -572,7 +634,7 @@ export default function Home() {
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`mt-6 sm:mt-8 block text-center py-3.5 rounded-xl font-semibold transition-all hover:scale-[1.02] ${
+                    className={`mt-3 block text-center py-2 rounded-lg font-semibold transition-all hover:scale-[1.02] text-xs ${
                       plan.popular
                         ? "bg-white text-zinc-950 hover:bg-zinc-100"
                         : "bg-zinc-950 text-white hover:bg-zinc-800"
@@ -588,14 +650,14 @@ export default function Home() {
 
         {/* FAQ */}
         <section className="bg-white border-y border-zinc-200/80">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
             <ScrollReveal>
-              <div className="text-center mb-12 sm:mb-16 md:mb-20">
+              <div className="text-center mb-10 sm:mb-12 md:mb-16">
                 <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">FAQ</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Questions fréquentes</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Questions fréquentes</h2>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-2.5 sm:space-y-3">
                 {[
                   {
                     q: "Combien de temps pour avoir mon site en ligne ?",
@@ -620,7 +682,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="group p-4 sm:p-6 rounded-xl border border-zinc-200 bg-zinc-50 open:bg-white open:shadow-md transition-all duration-300 hover:border-zinc-300"
+                    className="group p-3 sm:p-5 rounded-xl border border-zinc-200 bg-zinc-50 open:bg-white open:shadow-md transition-all duration-300 hover:border-zinc-300"
                   >
                     <summary className="font-semibold cursor-pointer list-none flex items-center justify-between gap-4 text-sm sm:text-base">
                       {item.q}
@@ -639,46 +701,46 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(59,130,246,0.2),transparent)]" />
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-violet-500/10 blur-[100px] rounded-full" />
 
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28 lg:py-36">
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
             <ScrollReveal>
-              <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-16">
+              <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12">
                 <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-3">Contact</p>
-                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight">
+                <h2 className="text-xl sm:text-2xl md:text-4xl font-bold tracking-tight">
                   Prêt à attirer plus de clients ?
                 </h2>
-                <p className="mt-4 sm:mt-5 text-base sm:text-lg text-zinc-400 leading-relaxed">
+                <p className="mt-3 sm:mt-4 text-base text-zinc-400 leading-relaxed">
                   Formulaire direct ou WhatsApp — choisissez ce qui vous convient le mieux.
                 </p>
               </div>
 
-              <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 items-start">
+              <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-start">
                 {/* Contact form */}
                 <ContactForm />
 
                 {/* WhatsApp alternative */}
-                <div className="flex flex-col gap-4 sm:gap-6">
+                <div className="flex flex-col gap-3 sm:gap-5">
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                     whileHover={{ y: -4 }}
-                    className="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 border border-white/10 text-center lg:text-left"
+                    className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-9 border border-white/10 text-center lg:text-left"
                   >
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto lg:mx-0 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-4 sm:mb-6">
+                    <div className="w-11 h-11 sm:w-13 sm:h-13 mx-auto lg:mx-0 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-3 sm:mb-5">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                       </svg>
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-3">Discuter sur WhatsApp</h3>
-                    <p className="text-zinc-400 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Discuter sur WhatsApp</h3>
+                    <p className="text-zinc-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                       Devis gratuit en 5 minutes. Réponse garantie sous 24h — idéal si vous préférez le chat instantané.
                     </p>
                     <a
                       href={WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full px-6 sm:px-8 py-3.5 sm:py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-400 transition-all hover:scale-[1.02] shadow-lg shadow-emerald-500/25"
+                      className="inline-flex items-center justify-center gap-2 w-full px-5 sm:px-7 py-3 sm:py-3.5 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-400 transition-all hover:scale-[1.02] shadow-lg shadow-emerald-500/25"
                     >
                       Ouvrir WhatsApp
                     </a>
@@ -689,7 +751,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="glass-card rounded-2xl p-4 sm:p-6 border border-white/10 text-center"
+                    className="glass-card rounded-2xl p-3 sm:p-5 border border-white/10 text-center"
                   >
                     <p className="text-xs sm:text-sm text-zinc-500">
                       Ou appelez directement :{" "}
@@ -733,7 +795,7 @@ export default function Home() {
         </footer>
       </main>
 
-      {/* FLOATING WHATSAPP — left side to avoid chatbot overlap, visible on all devices */}
+      {/* FLOATING WHATSAPP — circular on mobile to match chatbot, pill on desktop */}
       <motion.a
         href={WHATSAPP_URL}
         target="_blank"
@@ -742,11 +804,11 @@ export default function Home() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, delay: 1 }}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 left-4 sm:left-6 z-40 flex items-center gap-2 bg-emerald-500 text-white pl-3 sm:pl-4 pr-4 sm:pr-5 py-2.5 sm:py-3 rounded-full font-semibold shadow-lg shadow-emerald-500/30 hover:bg-emerald-400 transition-all animate-pulse-ring text-sm sm:text-base"
+        className="fixed bottom-6 left-6 z-40 w-14 h-14 sm:w-auto sm:h-auto sm:flex sm:items-center sm:gap-2 bg-emerald-500 text-white sm:pl-4 sm:pr-5 sm:py-3 rounded-full font-semibold shadow-xl shadow-emerald-500/30 hover:bg-emerald-400 transition-all animate-pulse-ring flex items-center justify-center"
       >
-        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
         <span className="hidden sm:inline">WhatsApp</span>
