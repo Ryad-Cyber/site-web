@@ -71,6 +71,27 @@ function CloseIcon() {
   );
 }
 
+function ProblemIcon({ type }: { type: "clients" | "credibility" | "seo" }) {
+  const icons = {
+    clients: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.21a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+      </svg>
+    ),
+    credibility: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+      </svg>
+    ),
+    seo: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+      </svg>
+    ),
+  };
+  return icons[type];
+}
+
 // Scroll reveal wrapper component
 function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const controls = useAnimation();
@@ -109,7 +130,7 @@ export default function Home() {
   return (
     <>
       {/* NAV */}
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-zinc-950">
+      <header className="fixed top-0 inset-x-0 z-50 glass-header border-b border-white/10">
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <a href="#" className="text-white font-semibold tracking-tight hover:opacity-80 transition-opacity text-lg">
             Ryad Web Studio
@@ -149,7 +170,7 @@ export default function Home() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/10 bg-zinc-950/95 backdrop-blur-xl"
+            className="md:hidden border-t border-white/10 glass-header"
           >
             <div className="px-4 py-6 space-y-4">
               <a
@@ -182,8 +203,7 @@ export default function Home() {
               </a>
               <a
                 href="#contact"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
                 className="block w-full text-center mt-4 bg-white text-zinc-950 px-4 py-3 rounded-lg font-semibold hover:bg-zinc-100 transition-all"
               >
                 Demander un devis gratuit
@@ -227,11 +247,11 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-6 sm:mt-7 text-lg sm:text-xl text-zinc-300 font-medium">
-                  Un site web n'est pas une vitrine. C'est une machine à clients.
+                  Un site web n&apos;est pas une vitrine. C&apos;est une machine à clients.
                 </p>
 
                 <p className="mt-4 sm:mt-5 text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
-                  Je crée des sites premium pour <strong className="text-white">restaurants, coiffeurs, artisans</strong> et entrepreneurs qui veulent <strong className="text-white">plus d'appels, de réservations et de clients</strong> — pas juste un site &ldquo;joli&rdquo;.
+                  Je crée des sites premium pour <strong className="text-white">restaurants, coiffeurs, artisans</strong> et entrepreneurs qui veulent <strong className="text-white">plus d&apos;appels, de réservations et de clients</strong> — pas juste un site &ldquo;joli&rdquo;.
                 </p>
 
                 <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-3">
@@ -254,7 +274,7 @@ export default function Home() {
                     <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                   </a>
                   <a
-                    href="tel:33749635085"
+                    href="tel:+33749635085"
                     className="px-6 sm:px-8 py-4 sm:py-4.5 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/25 transition-all text-center text-base sm:text-lg"
                   >
                     Appeler maintenant
@@ -339,7 +359,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-4 bg-white rounded-xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-center gap-3 p-4 sm:p-5 bg-white rounded-xl border border-zinc-200 shadow-sm hover:shadow-md hover:border-zinc-300 hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <CheckIcon />
                   <span className="text-sm font-medium text-zinc-700">{benefit.replace("✔ ", "")}</span>
@@ -350,9 +370,10 @@ export default function Home() {
         </section>
 
         {/* PROBLEME */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
+        <section className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-64 bg-gradient-to-r from-blue-500/5 via-violet-500/5 to-blue-500/5 blur-3xl pointer-events-none" />
           <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
+            <div className="relative text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Le constat</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                 Votre site ne devrait pas vous coûter des clients
@@ -362,22 +383,25 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="relative grid md:grid-cols-3 gap-5 sm:gap-6">
               {[
                 {
                   title: "Pas assez de clients",
                   desc: "Votre site actuel ne génère aucun contact. Vous dépendez du bouche-à-oreille.",
-                  icon: "01",
+                  icon: "clients" as const,
+                  accent: "from-blue-500 to-cyan-500",
                 },
                 {
                   title: "Image peu crédible",
                   desc: "Un design daté fait fuir vos visiteurs en moins de 3 secondes.",
-                  icon: "02",
+                  icon: "credibility" as const,
+                  accent: "from-violet-500 to-purple-500",
                 },
                 {
                   title: "Invisible sur Google",
                   desc: "Vos concurrents apparaissent en premier. Vous perdez en visibilité locale.",
-                  icon: "03",
+                  icon: "seo" as const,
+                  accent: "from-emerald-500 to-teal-500",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -385,13 +409,22 @@ export default function Home() {
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -8, boxShadow: "0 20px 40px -12px rgba(0,0,0,0.15)" }}
-                  className="group p-6 sm:p-8 bg-white rounded-2xl border border-zinc-200/80 shadow-sm hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300 transition-all duration-300"
+                  transition={{ duration: 0.5, delay: index * 0.12 }}
+                  whileHover={{ y: -10 }}
+                  className="group relative"
                 >
-                  <span className="text-xs font-mono text-zinc-400">{item.icon}</span>
-                  <h3 className="mt-4 text-lg sm:text-xl font-semibold">{item.title}</h3>
-                  <p className="mt-3 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.desc}</p>
+                  <div className="absolute -inset-px rounded-3xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 from-blue-500/20 via-violet-500/20 to-emerald-500/20 blur-sm" />
+                  <div className="relative premium-card h-full p-7 sm:p-8 rounded-3xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group-hover:shadow-[0_20px_50px_-12px_rgb(0,0,0,0.12)] group-hover:border-zinc-300/80 transition-all duration-500">
+                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br ${item.accent} text-white shadow-lg shadow-black/10 group-hover:scale-110 transition-transform duration-300`}>
+                      <ProblemIcon type={item.icon} />
+                    </div>
+                    <h3 className="mt-5 text-lg sm:text-xl font-semibold tracking-tight">{item.title}</h3>
+                    <p className="mt-3 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.desc}</p>
+                    <div className="mt-5 pt-5 border-t border-zinc-100 flex items-center gap-2 text-xs font-medium text-zinc-400 group-hover:text-blue-600 transition-colors">
+                      <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.accent}`} />
+                      Impact direct sur votre chiffre d&apos;affaires
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -451,45 +484,65 @@ export default function Home() {
         </section>
 
         {/* PROCESS */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-          <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
-              <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Processus</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                De l&apos;idée au site en ligne, simplement
-              </h2>
-            </div>
+        <section className="relative bg-zinc-950 text-white overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.12),transparent_50%)]" />
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
+            <ScrollReveal>
+              <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
+                <p className="text-sm font-medium text-blue-400 uppercase tracking-wider mb-3">Processus</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  De l&apos;idée au site en ligne, simplement
+                </h2>
+                <p className="mt-4 text-zinc-400 text-base sm:text-lg leading-relaxed">
+                  Un parcours clair en 4 étapes — sans jargon, sans surprise.
+                </p>
+              </div>
 
-            <div className="grid md:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
-              {[
-                { step: "1", title: "Échange gratuit", desc: "On discute de votre activité, vos objectifs et votre budget." },
-                { step: "2", title: "Maquette & validation", desc: "Vous recevez un aperçu sous 48h avant toute mise en ligne." },
-                { step: "3", title: "Développement", desc: "Je crée votre site optimisé, rapide et prêt à convertir." },
-                { step: "4", title: "Mise en ligne", desc: "Votre site est en ligne. Vous commencez à recevoir des contacts." },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.step}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -8, boxShadow: "0 20px 40px -12px rgba(0,0,0,0.15)" }}
-                  className="relative"
+              <div className="grid md:grid-cols-4 gap-5 sm:gap-6">
+                {[
+                  { step: "1", title: "Échange gratuit", desc: "On discute de votre activité, vos objectifs et votre budget.", duration: "15 min" },
+                  { step: "2", title: "Maquette & validation", desc: "Vous recevez un aperçu sous 48h avant toute mise en ligne.", duration: "48h" },
+                  { step: "3", title: "Développement", desc: "Je crée votre site optimisé, rapide et prêt à convertir.", duration: "7-10 j" },
+                  { step: "4", title: "Mise en ligne", desc: "Votre site est en ligne. Vous commencez à recevoir des contacts.", duration: "Jour J" },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.step}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    whileHover={{ y: -8 }}
+                    className="relative group"
+                  >
+                    {i < 3 && (
+                      <div className="hidden md:block absolute top-8 left-[calc(50%+2.5rem)] w-[calc(100%-2.5rem)] h-px bg-gradient-to-r from-white/20 to-white/5" />
+                    )}
+                    <div className="relative premium-card-dark h-full rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-white/10 group-hover:border-white/20 shadow-[0_8px_32px_rgb(0,0,0,0.3)] group-hover:shadow-[0_16px_48px_rgb(0,0,0,0.4)] transition-all duration-500">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 text-white font-bold text-sm shadow-lg shadow-violet-500/25">
+                          {item.step}
+                        </span>
+                        <span className="text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-400">
+                          {item.duration}
+                        </span>
+                      </div>
+                      <h3 className="font-semibold text-base sm:text-lg tracking-tight">{item.title}</h3>
+                      <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-10 sm:mt-12 text-center">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 hover:scale-[1.02] transition-all shadow-lg shadow-white/10 text-sm sm:text-base"
                 >
-                  {i < 3 && (
-                    <div className="hidden md:block absolute top-6 left-[calc(50%+2rem)] w-[calc(100%-2rem)] h-px bg-zinc-200" />
-                  )}
-                  <div className="relative bg-white border border-zinc-200 rounded-2xl p-3 sm:p-5 text-center transition-all duration-300">
-                    <span className="inline-flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-zinc-950 text-white font-bold text-sm sm:text-base">
-                      {item.step}
-                    </span>
-                    <h3 className="mt-2 sm:mt-3 font-semibold text-sm sm:text-base">{item.title}</h3>
-                    <p className="mt-1.5 text-xs sm:text-sm text-zinc-600">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </ScrollReveal>
+                  Démarrer mon projet gratuitement <ArrowIcon />
+                </a>
+              </div>
+            </ScrollReveal>
+          </div>
         </section>
 
         {/* PROJETS */}
@@ -503,7 +556,7 @@ export default function Home() {
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Projets récents</h2>
                 </div>
                 <p className="text-zinc-400 max-w-md leading-relaxed text-sm sm:text-base">
-                  Chaque projet est conçu pour <strong className="text-white">générer plus d'appels, réservations et clients</strong>.
+                  Chaque projet est conçu pour <strong className="text-white">générer plus d&apos;appels, réservations et clients</strong>.
                 </p>
               </div>
 
@@ -561,19 +614,19 @@ export default function Home() {
         </section>
 
         {/* TARIFS */}
-        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 md:py-18 lg:py-22">
+        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
           <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-14">
+            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14 md:mb-16">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Tarifs</p>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                 Des offres claires, sans surprise
               </h2>
-              <p className="mt-3 sm:mt-4 text-zinc-600 text-sm sm:text-base leading-relaxed">
+              <p className="mt-4 text-zinc-600 text-base sm:text-lg leading-relaxed">
                 Choisissez la formule adaptée à votre activité. Paiement en une ou deux fois possible.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 sm:gap-5 items-stretch">
+            <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
               {[
                 {
                   name: "Starter",
@@ -603,30 +656,30 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`relative flex flex-col p-4 sm:p-6 rounded-2xl border transition-all duration-300 ${
+                  className={`relative flex flex-col min-h-[420px] sm:min-h-[460px] p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 ${
                     plan.popular
-                      ? "bg-zinc-950 text-white border-zinc-950 shadow-xl shadow-zinc-950/20"
-                      : "bg-white border-zinc-200 hover:shadow-lg"
+                      ? "bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/25 scale-[1.02]"
+                      : "bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300"
                   }`}
                 >
                   {plan.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white">
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-semibold px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-violet-500/25">
                       Le plus choisi
                     </span>
                   )}
-                  <h3 className="text-xs sm:text-sm font-semibold">{plan.name}</h3>
-                  <p className={`mt-1 text-xs ${plan.popular ? "text-zinc-400" : "text-zinc-600"}`}>
+                  <h3 className="text-sm sm:text-base font-semibold tracking-wide uppercase">{plan.name}</h3>
+                  <p className={`mt-2 text-sm ${plan.popular ? "text-zinc-400" : "text-zinc-600"}`}>
                     {plan.desc}
                   </p>
-                  <p className="mt-2 text-lg sm:text-xl font-bold">
+                  <p className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight">
                     {plan.price}
-                    <span className={`text-xs font-normal ${plan.popular ? "text-zinc-500" : "text-zinc-400"}`}>
-                      {" "}TTC
+                    <span className={`text-sm font-normal ml-1 ${plan.popular ? "text-zinc-500" : "text-zinc-400"}`}>
+                      TTC
                     </span>
                   </p>
-                  <ul className={`mt-3 space-y-2 text-xs flex-1 ${plan.popular ? "text-zinc-300" : "text-zinc-600"}`}>
+                  <ul className={`mt-6 space-y-3 text-sm sm:text-base flex-1 ${plan.popular ? "text-zinc-300" : "text-zinc-600"}`}>
                     {plan.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2">
+                      <li key={f} className="flex items-center gap-2.5">
                         <CheckIcon />
                         {f}
                       </li>
@@ -634,10 +687,10 @@ export default function Home() {
                   </ul>
                   <a
                     href="#contact"
-                    className={`mt-4 sm:mt-5 block text-center py-2.5 rounded-lg font-semibold transition-all hover:scale-[1.02] text-xs ${
+                    className={`mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base ${
                       plan.popular
-                        ? "bg-white text-zinc-950 hover:bg-zinc-100"
-                        : "bg-zinc-950 text-white hover:bg-zinc-800"
+                        ? "bg-white text-zinc-950 hover:bg-zinc-100 shadow-lg shadow-white/10"
+                        : "bg-zinc-950 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-950/20"
                     }`}
                   >
                     Demander un devis gratuit
@@ -646,10 +699,45 @@ export default function Home() {
               ))}
             </div>
 
-            <p className="mt-6 text-center text-zinc-500 text-sm">
+            <p className="mt-8 text-center text-zinc-500 text-sm">
               Chaque projet est unique : le prix dépend de vos besoins et objectifs.
             </p>
           </ScrollReveal>
+        </section>
+
+        {/* CTA intermédiaire — conversion */}
+        <section className="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-y border-white/10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-14">
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div>
+                  <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-2">Prêt à passer à l&apos;action ?</p>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
+                    Obtenez votre devis gratuit en moins de 24h
+                  </h2>
+                  <p className="mt-2 text-zinc-400 text-sm sm:text-base">
+                    15+ sites livrés · Réponse garantie · Sans engagement
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                  <a
+                    href="#contact"
+                    className="px-6 py-3.5 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 hover:scale-[1.02] transition-all text-sm sm:text-base text-center"
+                  >
+                    Demander un devis gratuit
+                  </a>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3.5 rounded-xl border border-white/15 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all text-sm sm:text-base text-center"
+                  >
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
         </section>
 
         {/* FAQ */}
@@ -733,7 +821,7 @@ export default function Home() {
                   >
                     <h3 className="text-lg sm:text-xl font-bold mb-4">Pourquoi me choisir ?</h3>
                     <p className="text-zinc-400 leading-relaxed text-sm sm:text-base mb-6">
-                      Chaque projet commence par un échange gratuit. J'analyse votre activité et propose une solution adaptée à vos objectifs.
+                      Chaque projet commence par un échange gratuit. J&apos;analyse votre activité et propose une solution adaptée à vos objectifs.
                     </p>
                     <div className="space-y-3">
                       {[

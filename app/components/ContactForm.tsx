@@ -4,6 +4,16 @@ import { FormEvent, useState } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
+async function parseJsonResponse(res: Response) {
+  const text = await res.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text) as { success?: boolean; error?: string };
+  } catch {
+    throw new Error("Réponse serveur invalide.");
+  }
+}
+
 export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -15,11 +25,24 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      activity: (form.elements.namedItem("activity") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      activity: (form.elements.namedItem("activity") as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
     };
+
+    if (!data.email) {
+      setErrorMsg("Le champ email est requis.");
+      setStatus("error");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      setErrorMsg("Adresse email invalide.");
+      setStatus("error");
+      return;
+    }
 
     try {
       const res = await fetch("/api/contact", {
@@ -27,7 +50,8 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const json = await res.json();
+
+      const json = await parseJsonResponse(res);
 
       if (!res.ok) {
         setErrorMsg(json.error ?? "Erreur lors de l'envoi.");
@@ -37,8 +61,12 @@ export default function ContactForm() {
 
       setStatus("success");
       form.reset();
-    } catch {
-      setErrorMsg("Impossible d'envoyer le message. Réessayez.");
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : "Impossible d'envoyer le message. Réessayez."
+      );
       setStatus("error");
     }
   }
@@ -57,7 +85,7 @@ export default function ContactForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
             Nom (optionnel)
@@ -80,6 +108,7 @@ export default function ContactForm() {
             name="email"
             type="email"
             required
+            autoComplete="email"
             placeholder="votre@email.com"
             className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
           />
@@ -87,7 +116,7 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="activity" className="block text-sm font-medium text-zinc-300 mb-2">
-            Type d'activité (optionnel)
+            Type d&apos;activité (optionnel)
           </label>
           <input
             id="activity"
