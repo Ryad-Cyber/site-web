@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
+import Header from "./components/Header";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
@@ -41,10 +42,10 @@ const SOCIAL_LINKS = [
 
 const TARIFS_PLANS = [
   {
-    name: "Starter",
+    name: "Pack Essentiel",
     price: "À partir de 299€",
-    desc: "Site vitrine simple pour démarrer votre présence en ligne.",
-    features: ["1 à 3 pages", "Design responsive", "Formulaire de contact", "Livraison 7 jours"],
+    desc: "Site vitrine premium pour capter des contacts et transmettre confiance.",
+    features: ["Analyse & proposition gratuite", "Design conversion orientée client", "Formulaire de contact + WhatsApp", "Responsive mobile-first"],
     popular: false,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
@@ -55,10 +56,10 @@ const TARIFS_PLANS = [
       "mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base bg-zinc-950 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-950/20",
   },
   {
-    name: "Business",
+    name: "Pack Business",
     price: "À partir de 499€",
-    desc: "Site professionnel optimisé pour convertir vos visiteurs.",
-    features: ["Jusqu'à 5 pages", "SEO de base", "Intégration WhatsApp", "Livraison 10 jours"],
+    desc: "Site professionnel avec prise de rendez-vous, réservation et optimisation de leads.",
+    features: ["Maquette incluse avant paiement", "Pages stratégiques axées conversion", "Intégration réservations / WhatsApp", "Référencement local amélioré"],
     popular: true,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/25 scale-[1.02]",
@@ -69,10 +70,10 @@ const TARIFS_PLANS = [
       "mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base bg-white text-zinc-950 hover:bg-zinc-100 shadow-lg shadow-white/10",
   },
   {
-    name: "Premium",
-    price: "Sur devis",
-    desc: "Solution complète pour dominer votre marché local.",
-    features: ["Pages illimitées", "SEO avancé", "Optimisation vitesse", "Support 30 jours"],
+    name: "Pack Premium",
+    price: "À partir de 799€",
+    desc: "Solution haut de gamme pour booster votre présence, vos conversions et votre visibilité locale.",
+    features: ["Stratégie de conversion incluse", "SEO local & performance", "Intégrations avancées", "Support prioritaire"],
     popular: false,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
@@ -90,51 +91,6 @@ function CheckIcon() {
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </svg>
   );
-}
-
-function ArrowIcon() {
-  return (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
-
-function ProblemIcon({ type }: { type: "clients" | "credibility" | "seo" }) {
-  const icons = {
-    clients: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.21a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-      </svg>
-    ),
-    credibility: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-      </svg>
-    ),
-    seo: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-      </svg>
-    ),
-  };
-  return icons[type];
 }
 
 // Scroll reveal wrapper component
@@ -166,101 +122,19 @@ function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; dela
 }
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 50]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
 
   return (
     <>
-      {/* NAV */}
-      <header className="fixed top-0 inset-x-0 z-50 bg-zinc-950 border-b border-white/10 backdrop-blur-none opacity-100">
-        <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <a href="#" className="text-white font-semibold tracking-tight hover:opacity-80 transition-opacity text-lg">
-            Ryad Web Studio
-          </a>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 text-sm text-zinc-400">
-            <a href="#services" className="hover:text-white transition-colors">Services</a>
-            <a href="#projets" className="hover:text-white transition-colors">Projets</a>
-            <a href="#tarifs" className="hover:text-white transition-colors">Tarifs</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-          
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <a
-              href="#contact"
-              className="text-sm font-medium bg-white text-zinc-950 px-4 py-2 rounded-lg hover:bg-zinc-100 hover:scale-105 transition-all"
-            >
-              Demander un devis gratuit
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-white p-2"
-            aria-label="Menu"
-          >
-            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
-        </nav>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/10 bg-zinc-950"
-          >
-            <div className="px-4 py-6 space-y-4">
-              <a
-                href="#services"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-lg hover:text-blue-400 transition-colors"
-              >
-                Services
-              </a>
-              <a
-                href="#projets"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-lg hover:text-blue-400 transition-colors"
-              >
-                Projets
-              </a>
-              <a
-                href="#tarifs"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-lg hover:text-blue-400 transition-colors"
-              >
-                Tarifs
-              </a>
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-white text-lg hover:text-blue-400 transition-colors"
-              >
-                Contact
-              </a>
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center mt-4 bg-white text-zinc-950 px-4 py-3 rounded-lg font-semibold hover:bg-zinc-100 transition-all"
-              >
-                Demander un devis gratuit
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </header>
+      <Header />
 
       <main className="bg-zinc-50 text-zinc-900">
 
         {/* HERO — Premium TikTok / Framer style */}
         <motion.section
+  id="home"
   className="relative overflow-hidden bg-zinc-950 text-white pt-24 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-36"
   style={{ y: heroY }}
 >
@@ -296,10 +170,11 @@ export default function Home() {
 
                 <p className="mt-4 sm:mt-5 text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
                   Je crée des sites premium pour <strong className="text-white">restaurants, coiffeurs, artisans</strong> et entrepreneurs qui veulent <strong className="text-white">plus d&apos;appels, de réservations et de clients</strong> — pas juste un site &ldquo;joli&rdquo;.
+                  <br className="hidden sm:block" /> Analyse, maquette et proposition gratuites avant toute validation.
                 </p>
 
                 <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-3">
-                  {["⚡ Livraison rapide", "📈 Optimisé conversion", "📱 Mobile-first"].map((tag) => (
+                  {["⚡ Livraison rapide", "🧠 Analyse gratuite", "📱 Mobile-first"].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm text-zinc-300 bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:scale-105 transition-all cursor-default"
@@ -359,302 +234,120 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* INFINITE TICKER — Apple/Framer style */}
-        <section className="bg-zinc-900 border-y border-white/10 overflow-hidden">
-          <div className="relative">
-            <motion.div
-              className="flex whitespace-nowrap"
-              animate={{ x: [0, -1000] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-              {[
-                "📞 Plus d'appels",
-                "⭐ Plus de clients",
-                "📈 Plus de réservations",
-                "🚀 Plus de visibilité",
-                "💬 Plus de demandes de devis",
-                "📞 Plus d'appels",
-                "⭐ Plus de clients",
-                "📈 Plus de réservations",
-                "🚀 Plus de visibilité",
-                "💬 Plus de demandes de devis",
-              ].map((item, i) => (
-                <span key={i} className="inline-flex items-center gap-3 px-8 py-4 text-white/80 text-base sm:text-lg md:text-xl font-semibold">
-                  {item}
-                </span>
-              ))}
-            </motion.div>
-          </div>
+        {/* Portfolio section removed as requested */}
+
+        <section className="w-full px-4 sm:px-6 py-8">
+          <ScrollReveal>
+            <div className="overflow-hidden rounded-full border border-white/15 bg-zinc-950 shadow-xl shadow-black/20">
+              <motion.div
+                className="flex gap-12 whitespace-nowrap py-4 px-4 text-base sm:text-lg font-semibold uppercase tracking-[0.18em] text-white"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+              >
+                {[
+                  "Plus d'appels",
+                  "Plus de clients",
+                  "Plus de rendez-vous",
+                  "Faites croître votre activité",
+                ].map((item, index) => (
+                  <span key={`${item}-${index}`} className="inline-block">
+                    {item}
+                    {index < 3 ? " •" : ""}
+                  </span>
+                ))}
+                {[
+                  "Plus d'appels",
+                  "Plus de clients",
+                  "Plus de rendez-vous",
+                  "Faites croître votre activité",
+                ].map((item, index) => (
+                  <span key={`${item}-duplicate-${index}`} className="inline-block">
+                    {item}
+                    {index < 3 ? " •" : ""}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          </ScrollReveal>
         </section>
 
-        {/* BENEFITS CHECKMARKS */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14">
           <ScrollReveal>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                "✔ Plus d'appels",
-                "✔ Plus de réservations",
-                "✔ Plus de demandes de devis",
-                "✔ Plus de clients grâce à une présence en ligne professionnelle",
-              ].map((benefit, index) => (
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/95 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.24)] p-6 sm:p-8 backdrop-blur-xl">
+              <div className="pointer-events-none absolute -left-14 top-10 h-32 w-32 rounded-full bg-blue-500/10 blur-3xl" />
+              <div className="pointer-events-none absolute right-0 top-20 h-40 w-40 rounded-full bg-violet-500/10 blur-3xl" />
+
+              <div className="relative max-w-3xl">
+                <p className="text-sm uppercase tracking-[0.32em] text-blue-600 mb-2">Pourquoi un site web ?</p>
+                <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-950 leading-tight">
+                  Un site web qui transforme le doute en contact.
+                </h2>
+                <p className="mt-4 text-base text-zinc-600 leading-7 max-w-2xl">
+                  Votre site doit être clair, rapide et professionnel. Il ne doit pas seulement exister : il doit donner confiance.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
                 <motion.div
-                  key={benefit}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-4 sm:p-5 bg-white rounded-xl border border-zinc-200 shadow-sm hover:shadow-md hover:border-zinc-300 hover:-translate-y-0.5 transition-all duration-300"
+                  transition={{ duration: 0.45 }}
+                  className="rounded-[1.75rem] border border-white/15 bg-white/95 p-5 shadow-xl shadow-slate-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-violet-500/10"
                 >
-                  <CheckIcon />
-                  <span className="text-sm font-medium text-zinc-700">{benefit.replace("✔ ", "")}</span>
-                </motion.div>
-              ))}
-            </div>
-          </ScrollReveal>
-        </section>
-
-        {/* PROBLEME */}
-        <section className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-64 bg-gradient-to-r from-blue-500/5 via-violet-500/5 to-blue-500/5 blur-3xl pointer-events-none" />
-          <ScrollReveal>
-            <div className="relative text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
-              <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Le constat</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                Votre site ne devrait pas vous coûter des clients
-              </h2>
-              <p className="mt-4 sm:mt-5 text-zinc-600 text-base sm:text-lg leading-relaxed">
-                Chaque jour sans présence en ligne performante, ce sont des prospects qui choisissent vos concurrents.
-              </p>
-            </div>
-
-            <div className="relative grid md:grid-cols-3 gap-5 sm:gap-6">
-              {[
-                {
-                  title: "Pas assez de clients",
-                  desc: "Votre site actuel ne génère aucun contact. Vous dépendez du bouche-à-oreille.",
-                  icon: "clients" as const,
-                  accent: "from-blue-500 to-cyan-500",
-                },
-                {
-                  title: "Image peu crédible",
-                  desc: "Un design daté fait fuir vos visiteurs en moins de 3 secondes.",
-                  icon: "credibility" as const,
-                  accent: "from-violet-500 to-purple-500",
-                },
-                {
-                  title: "Invisible sur Google",
-                  desc: "Vos concurrents apparaissent en premier. Vous perdez en visibilité locale.",
-                  icon: "seo" as const,
-                  accent: "from-emerald-500 to-teal-500",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.12 }}
-                  whileHover={{ y: -10 }}
-                  className="group relative"
-                >
-                  <div className="absolute -inset-px rounded-3xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 from-blue-500/20 via-violet-500/20 to-emerald-500/20 blur-sm" />
-                  <div className="relative premium-card h-full p-7 sm:p-8 rounded-3xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group-hover:shadow-[0_20px_50px_-12px_rgb(0,0,0,0.12)] group-hover:border-zinc-300/80 transition-all duration-500">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br ${item.accent} text-white shadow-lg shadow-black/10 group-hover:scale-110 transition-transform duration-300`}>
-                      <ProblemIcon type={item.icon} />
-                    </div>
-                    <h3 className="mt-5 text-lg sm:text-xl font-semibold tracking-tight">{item.title}</h3>
-                    <p className="mt-3 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.desc}</p>
-                    <div className="mt-5 pt-5 border-t border-zinc-100 flex items-center gap-2 text-xs font-medium text-zinc-400 group-hover:text-blue-600 transition-colors">
-                      <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.accent}`} />
-                      Impact direct sur votre chiffre d&apos;affaires
-                    </div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-blue-600 mb-4">Vision</p>
+                  <h3 className="text-2xl font-semibold text-zinc-950 leading-tight">
+                    Des sites qui ont l&apos;air d&apos;appartenir à une entreprise organisée et ambitieuse.
+                  </h3>
+                  <p className="mt-4 text-sm text-zinc-600 leading-6">
+                    Nous créons des expériences digitales lisibles au premier regard, avec des messages clairs et un style soigné.
+                  </p>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {[
+                      "Restaurant",
+                      "Barbier",
+                      "Fitness",
+                      "Startup",
+                    ].map((item) => (
+                      <span key={item} className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-950/5 px-4 py-2 text-sm font-semibold text-zinc-700 backdrop-blur-md">
+                        {item}
+                      </span>
+                    ))}
                   </div>
                 </motion.div>
-              ))}
+
+                <div className="grid gap-4">
+                  {[
+                    {
+                      title: "Confiance immédiate",
+                      description: "Un design premium qui donne l’impression que votre entreprise est déjà établie.",
+                    },
+                    {
+                      title: "Contact naturel",
+                      description: "Des parcours simples pour que vos visiteurs sachent quoi faire en une seconde.",
+                    },
+                    {
+                      title: "Identité claire",
+                      description: "Une esthétique moderne qui valorise votre offre sans exagération.",
+                    },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.title}
+                      initial={{ opacity: 0, y: 18 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      whileHover={{ y: -2 }}
+                      className="rounded-[1.75rem] border border-white/15 bg-white/95 p-5 shadow-lg shadow-slate-900/5 transition-all duration-300 hover:shadow-violet-500/10"
+                    >
+                      <p className="text-xs uppercase tracking-[0.3em] text-blue-600 mb-3">{item.title}</p>
+                      <p className="text-sm leading-6 text-zinc-600">{item.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </ScrollReveal>
-        </section>
-
-        {/* SERVICES / POURQUOI MOI */}
-        <section id="services" className="bg-white border-y border-zinc-200/80">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-              <ScrollReveal>
-                <div>
-                  <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Pourquoi moi</p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                    Un partenaire web, pas juste un prestataire
-                  </h2>
-                  <p className="mt-3 sm:mt-4 text-zinc-600 text-base leading-relaxed">
-                    Je ne livre pas un simple site joli — je crée un <strong className="text-zinc-900">outil de conversion</strong> pensé pour votre activité et votre marché local, pour <strong className="text-zinc-900">augmenter vos appels et réservations</strong>.
-                  </p>
-                  <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 sm:mt-8 inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
-                  >
-                    Demander un devis gratuit <ArrowIcon />
-                  </a>
-                </div>
-              </ScrollReveal>
-
-              <ul className="space-y-4 sm:space-y-5">
-                {[
-                  { title: "Design premium sur-mesure", desc: "Une image professionnelle qui inspire confiance dès la première visite." },
-                  { title: "Performance & SEO local", desc: "Sites ultra-rapides, optimisés pour apparaître sur Google dans votre zone." },
-                  { title: "100% mobile-first", desc: "Parfait sur smartphone, tablette et ordinateur — là où vos clients vous cherchent." },
-                  { title: "Orienté conversion", desc: "Boutons d'appel, WhatsApp, formulaires — chaque élément pousse à l'action." },
-                ].map((item, index) => (
-                  <motion.li
-                    key={item.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ x: 4, backgroundColor: "#ffffff", boxShadow: "0 4px 20px -4px rgba(0,0,0,0.1)" }}
-                    className="flex gap-4 p-4 sm:p-5 rounded-xl bg-zinc-50 border border-zinc-100 hover:border-zinc-200 transition-all duration-300"
-                  >
-                    <CheckIcon />
-                    <div>
-                      <p className="font-semibold text-sm sm:text-base">{item.title}</p>
-                      <p className="mt-1 text-sm text-zinc-600">{item.desc}</p>
-                    </div>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* PROCESS */}
-        <section className="relative bg-zinc-950 text-white overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.12),transparent_50%)]" />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-            <ScrollReveal>
-              <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 md:mb-20">
-                <p className="text-sm font-medium text-blue-400 uppercase tracking-wider mb-3">Processus</p>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                  De l&apos;idée au site en ligne, simplement
-                </h2>
-                <p className="mt-4 text-zinc-400 text-base sm:text-lg leading-relaxed">
-                  Un parcours clair en 4 étapes — sans jargon, sans surprise.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-4 gap-5 sm:gap-6">
-                {[
-                  { step: "1", title: "Échange gratuit", desc: "On discute de votre activité, vos objectifs et votre budget.", duration: "15 min" },
-                  { step: "2", title: "Maquette & validation", desc: "Vous recevez un aperçu sous 48h avant toute mise en ligne.", duration: "48h" },
-                  { step: "3", title: "Développement", desc: "Je crée votre site optimisé, rapide et prêt à convertir.", duration: "7-10 j" },
-                  { step: "4", title: "Mise en ligne", desc: "Votre site est en ligne. Vous commencez à recevoir des contacts.", duration: "Jour J" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.step}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
-                    whileHover={{ y: -8 }}
-                    className="relative group"
-                  >
-                    {i < 3 && (
-                      <div className="hidden md:block absolute top-8 left-[calc(50%+2.5rem)] w-[calc(100%-2.5rem)] h-px bg-gradient-to-r from-white/20 to-white/5" />
-                    )}
-                    <div className="relative premium-card-dark h-full rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-white/10 group-hover:border-white/20 shadow-[0_8px_32px_rgb(0,0,0,0.3)] group-hover:shadow-[0_16px_48px_rgb(0,0,0,0.4)] transition-all duration-500">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 text-white font-bold text-sm shadow-lg shadow-violet-500/25">
-                          {item.step}
-                        </span>
-                        <span className="text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-400">
-                          {item.duration}
-                        </span>
-                      </div>
-                      <h3 className="font-semibold text-base sm:text-lg tracking-tight">{item.title}</h3>
-                      <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{item.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="mt-10 sm:mt-12 text-center">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 hover:scale-[1.02] transition-all shadow-lg shadow-white/10 text-sm sm:text-base"
-                >
-                  Démarrer mon projet gratuitement <ArrowIcon />
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* PROJETS */}
-        <section id="projets" className="bg-zinc-950 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.08),transparent_50%)]" />
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-            <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6 mb-10 sm:mb-12 md:mb-16">
-                <div>
-                  <p className="text-sm font-medium text-blue-400 uppercase tracking-wider mb-3">Portfolio</p>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Projets récents</h2>
-                </div>
-                <p className="text-zinc-400 max-w-md leading-relaxed text-sm sm:text-base">
-                  Chaque projet est conçu pour <strong className="text-white">générer plus d&apos;appels, réservations et clients</strong>.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-3 sm:gap-5">
-                {[
-                  {
-                    name: "Restaurant Le Palmier",
-                    tag: "Restauration",
-                    desc: "Site vitrine moderne optimisé pour réservations et visibilité locale.",
-                    result: "+40% de réservations en ligne",
-                    gradient: "from-amber-500/20 to-orange-600/20",
-                  },
-                  {
-                    name: "Salon Elite Coiffure",
-                    tag: "Beauté",
-                    desc: "Site premium avec prise de rendez-vous et image haut de gamme.",
-                    result: "+60% de prises de RDV",
-                    gradient: "from-violet-500/20 to-purple-600/20",
-                  },
-                  {
-                    name: "Artisan BTP Pro",
-                    tag: "BTP",
-                    desc: "Site professionnel conçu pour générer des demandes de devis qualifiées.",
-                    result: "3× plus de demandes de devis",
-                    gradient: "from-blue-500/20 to-cyan-600/20",
-                  },
-                ].map((project, index) => (
-                  <motion.article
-                    key={project.name}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group rounded-2xl border border-white/10 overflow-hidden hover:border-white/25 transition-all duration-300 bg-white/[0.02]"
-                  >
-                    <div className={`h-32 sm:h-40 bg-gradient-to-br ${project.gradient} flex items-end p-3 sm:p-5 relative overflow-hidden`}>
-                      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
-                      <span className="relative text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 backdrop-blur text-zinc-300">
-                        {project.tag}
-                      </span>
-                    </div>
-                    <div className="p-3 sm:p-5">
-                      <h3 className="text-base sm:text-lg font-semibold group-hover:text-blue-400 transition-colors">
-                        {project.name}
-                      </h3>
-                      <p className="mt-2 text-zinc-400 text-sm leading-relaxed">{project.desc}</p>
-                      <p className="mt-3 text-sm font-medium text-emerald-400">{project.result}</p>
-                    </div>
-                  </motion.article>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
         </section>
 
         {/* TARIFS */}
@@ -666,7 +359,7 @@ export default function Home() {
                 Des offres claires, sans surprise
               </h2>
               <p className="mt-4 text-zinc-600 text-base sm:text-lg leading-relaxed">
-                Choisissez la formule adaptée à votre activité. Paiement en une ou deux fois possible.
+                Analyse, maquette et proposition gratuites. Le paiement intervient uniquement après validation de votre projet.
               </p>
             </div>
 
@@ -792,6 +485,268 @@ export default function Home() {
                 ))}
               </div>
             </ScrollReveal>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="relative py-16 md:py-24 px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Testimonials</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight mb-4">
+                  Nos clients parlent pour nous
+                </h2>
+                <p className="text-zinc-600 text-base leading-relaxed">
+                  Découvrez comment Ryad Web Studio a transformé les affaires de nos clients.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid md:grid-cols-3 gap-6"
+            >
+              {[
+                {
+                  quote: "Ryad a complètement transformé notre présence en ligne. Nos rendez-vous ont augmenté de 200% en 3 mois.",
+                  author: "Marco Rossi",
+                  role: "Propriétaire, Studio de Coiffure Premium",
+                  emoji: "🪑",
+                },
+                {
+                  quote: "Professionnel, rapide et qui a dépassé nos attentes. L'équipe est à l'écoute et livre à temps.",
+                  author: "Chef Alexandre",
+                  role: "Chef, Bella Trattoria",
+                  emoji: "🍽️",
+                },
+                {
+                  quote: "Le nouveau site web nous a permis d'attirer beaucoup plus de clients. L'investissement en vaut vraiment la peine.",
+                  author: "Emma Rousseau",
+                  role: "Coach Fitness",
+                  emoji: "💪",
+                },
+              ].map((testimonial, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  className="group relative rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                >
+                  <div className="absolute top-6 left-6 text-3xl opacity-20 group-hover:opacity-40 transition-opacity">
+                    {testimonial.emoji}
+                  </div>
+                  
+                  <p className="text-lg font-semibold text-zinc-700 mb-1">★★★★★</p>
+                  
+                  <p className="text-zinc-600 leading-relaxed mb-6 italic">
+                    "{testimonial.quote}"
+                  </p>
+
+                  <div>
+                    <p className="font-semibold text-zinc-950">{testimonial.author}</p>
+                    <p className="text-xs sm:text-sm text-zinc-500">{testimonial.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section className="relative py-16 md:py-24 px-4 sm:px-6 bg-gradient-to-b from-zinc-50 to-white">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Notre processus</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight mb-4">
+                  Comment nous travaillons
+                </h2>
+                <p className="text-zinc-600 text-base leading-relaxed">
+                  Un processus clair et transparent du début à la fin.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid md:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                {
+                  step: "01",
+                  title: "Discovery Call",
+                  description: "Nous explorons votre activité, vos objectifs et votre vision.",
+                  icon: "🎯",
+                },
+                {
+                  step: "02",
+                  title: "Design & Prototype",
+                  description: "Vous validez le design avant que nous ne codions une seule ligne.",
+                  icon: "🎨",
+                },
+                {
+                  step: "03",
+                  title: "Développement",
+                  description: "Nous construisons un site rapide, sécurisé et performant.",
+                  icon: "⚙️",
+                },
+                {
+                  step: "04",
+                  title: "Lancement",
+                  description: "Votre site est en ligne. Nous restons là pour vous soutenir.",
+                  icon: "🚀",
+                },
+              ].map((process, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                >
+                  <div className="text-4xl font-bold text-blue-600/20 group-hover:text-blue-600/40 transition-colors mb-3">
+                    {process.step}
+                  </div>
+                  <div className="text-3xl mb-3">{process.icon}</div>
+                  <h3 className="text-lg font-semibold text-zinc-950 mb-2">{process.title}</h3>
+                  <p className="text-sm text-zinc-600 leading-relaxed">{process.description}</p>
+
+                  {index < 3 && (
+                    <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2">
+                      <svg className="w-6 h-6 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ ACCORDION */}
+        <section className="relative py-16 md:py-24 px-4 sm:px-6 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-12 sm:mb-16">
+                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">FAQ</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight mb-4">
+                  Questions fréquentes
+                </h2>
+                <p className="text-zinc-600 text-base leading-relaxed max-w-2xl mx-auto">
+                  Vous avez des questions ? Consultez notre FAQ ou contactez-nous directement.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                {
+                  q: "Combien coûte un site web ?",
+                  a: "Les prix commencent à partir de 299€ pour un site vitrine. Chaque projet est unique et dépend de vos besoins. Nous proposons une analyse gratuite sans engagement.",
+                },
+                {
+                  q: "Combien de temps cela prend-il ?",
+                  a: "Généralement 7 à 14 jours. Vous recevez un aperçu du design sous 48h après notre premier échange.",
+                },
+                {
+                  q: "Puis-je modifier mon site moi-même ?",
+                  a: "Oui, nous vous formons à la gestion de base. Pour les modifications avancées, nous restons disponibles et offrons des forfaits de maintenance.",
+                },
+                {
+                  q: "L'hébergement est-il inclus ?",
+                  a: "Oui, l'hébergement professionnel est inclus. Vous n'avez rien à gérer, tout est pris en charge.",
+                },
+                {
+                  q: "Le SEO est-il inclus ?",
+                  a: "Les bases du SEO (optimisation on-page, vitesse) sont incluses. Nous proposons aussi des forfaits SEO avancés.",
+                },
+                {
+                  q: "Pouvez-vous redesigner un site existant ?",
+                  a: "Absolument ! Nous redesignons des sites existants pour améliorer l'expérience utilisateur et les conversions.",
+                },
+              ].map((item, index) => (
+                <motion.details
+                  key={item.q}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="group p-4 sm:p-6 rounded-2xl border border-zinc-200 bg-zinc-50 open:bg-white open:shadow-md open:shadow-blue-500/10 transition-all duration-300 hover:border-blue-300"
+                >
+                  <summary className="font-semibold cursor-pointer list-none flex items-center justify-between gap-4 text-sm sm:text-base text-zinc-950">
+                    {item.q}
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm group-open:bg-blue-500 transition-all">
+                      +
+                    </span>
+                  </summary>
+                  <p className="mt-4 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.a}</p>
+                </motion.details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="relative overflow-hidden bg-zinc-950 text-white py-16 md:py-24 px-4 sm:px-6">
+          <div className="absolute inset-0 opacity-50">
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/15 blur-[120px] rounded-full" />
+          </div>
+
+          <div className="relative max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-4">
+                Prêt à commencer ?
+              </p>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Faites croître votre
+                <br />
+                <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
+                  activité en ligne
+                </span>
+              </h2>
+              <p className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Un site web professionnel qui transforme les visiteurs en clients. Analyse, maquette et proposition gratuites — engagez-vous seulement si vous êtes convaincu.
+              </p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <a
+                  href="#contact"
+                  className="px-8 py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all hover:scale-[1.02] shadow-lg shadow-white/10"
+                >
+                  Obtenir un devis gratuit
+                </a>
+                <a
+                  href="tel:+33749635085"
+                  className="px-8 py-4 rounded-2xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all"
+                >
+                  Appeler directement
+                </a>
+              </motion.div>
+
+              <p className="mt-8 text-sm text-zinc-400">
+                15+ sites livrés • Réponse garantie en 24h • Sans engagement
+              </p>
+            </motion.div>
           </div>
         </section>
 

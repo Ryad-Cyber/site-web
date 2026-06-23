@@ -144,7 +144,3 @@ header {
 }
 
 /* sécurité anti effet glass/global */
-header,
-header * {
-  backdrop-filter: none !important;
-}
