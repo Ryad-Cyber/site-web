@@ -17,6 +17,7 @@ export default function ContactForm() {
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      activity: (form.elements.namedItem("activity") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
@@ -46,34 +47,33 @@ export default function ContactForm() {
     <div className="glass-card rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl shadow-violet-500/10">
       <div className="mb-8">
         <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-2">
-          Contact direct
+          Devis gratuit
         </p>
         <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-          Écrivez-moi directement
+          Obtenez votre estimation gratuite
         </h3>
         <p className="mt-2 text-zinc-400 text-sm md:text-base">
-          Alternative au WhatsApp — réponse sous 24h garantie.
+          Réponse sous 24h — Devis sans engagement.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
-            Nom
+            Nom (optionnel)
           </label>
           <input
             id="name"
             name="name"
             type="text"
-            required
             placeholder="Votre nom"
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
           />
         </div>
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
-            Email
+            Email *
           </label>
           <input
             id="email"
@@ -81,21 +81,33 @@ export default function ContactForm() {
             type="email"
             required
             placeholder="votre@email.com"
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="activity" className="block text-sm font-medium text-zinc-300 mb-2">
+            Type d'activité (optionnel)
+          </label>
+          <input
+            id="activity"
+            name="activity"
+            type="text"
+            placeholder="Restaurant, coiffeur, artisan..."
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
           />
         </div>
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-zinc-300 mb-2">
-            Message
+            Description du projet
           </label>
           <textarea
             id="message"
             name="message"
-            required
             rows={4}
-            placeholder="Décrivez votre projet..."
-            className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all resize-none"
+            placeholder="Décrivez votre projet et vos objectifs..."
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all resize-none"
           />
         </div>
 
@@ -113,7 +125,7 @@ export default function ContactForm() {
           disabled={status === "loading"}
           className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold hover:from-violet-500 hover:to-blue-500 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-violet-500/25 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          {status === "loading" ? "Envoi en cours..." : "Envoyer"}
+          {status === "loading" ? "Envoi en cours..." : "Recevoir mon devis gratuit"}
         </button>
       </form>
     </div>

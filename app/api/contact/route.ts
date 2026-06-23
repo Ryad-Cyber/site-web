@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { name, email, activity, message } = body;
 
-    if (!name?.trim() || !email?.trim() || !message?.trim()) {
+    if (!email?.trim()) {
       return NextResponse.json(
-        { error: "Tous les champs sont requis." },
+        { error: "Le champ email est requis." },
         { status: 400 }
       );
     }
@@ -20,11 +23,34 @@ export async function POST(request: Request) {
       );
     }
 
-    // Prêt pour intégration Formspree / Resend / Nodemailer
+    // Send email notification
+    if (process.env.RESEND_API_KEY) {
+      try {
+        await resend.emails.send({
+          from: "Ryad Web Studio <onboarding@resend.dev>",
+          to: "ryadboujenan@outlook.com",
+          subject: `Nouvelle demande de devis - ${name?.trim() || "Anonyme"}`,
+          html: `
+            <h2>Nouvelle demande de devis</h2>
+            <p><strong>Nom:</strong> ${name?.trim() || "Non renseigné"}</p>
+            <p><strong>Email:</strong> ${email.trim()}</p>
+            <p><strong>Activité:</strong> ${activity?.trim() || "Non renseignée"}</p>
+            <p><strong>Message:</strong> ${message?.trim() || "Aucun message"}</p>
+            <p><strong>Date:</strong> ${new Date().toLocaleString("fr-FR")}</p>
+          `,
+        });
+      } catch (emailError) {
+        console.error("[Email Error]", emailError);
+        // Continue even if email fails
+      }
+    }
+
+    // Log the submission
     console.log("[Contact]", {
-      name: name.trim(),
+      name: name?.trim() || "Non renseigné",
       email: email.trim(),
-      message: message.trim(),
+      activity: activity?.trim() || "Non renseignée",
+      message: message?.trim() || "Aucun message",
       at: new Date().toISOString(),
     });
 

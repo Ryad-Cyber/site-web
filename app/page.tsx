@@ -109,7 +109,7 @@ export default function Home() {
   return (
     <>
       {/* NAV */}
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-zinc-950/80 backdrop-blur-xl">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-zinc-950">
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <a href="#" className="text-white font-semibold tracking-tight hover:opacity-80 transition-opacity text-lg">
             Ryad Web Studio
@@ -126,12 +126,10 @@ export default function Home() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="text-sm font-medium bg-white text-zinc-950 px-4 py-2 rounded-lg hover:bg-zinc-100 hover:scale-105 transition-all"
             >
-              Devis gratuit
+              Demander un devis gratuit
             </a>
           </div>
 
@@ -183,12 +181,12 @@ export default function Home() {
                 Contact
               </a>
               <a
-                href={WHATSAPP_URL}
+                href="#contact"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center mt-4 bg-white text-zinc-950 px-4 py-3 rounded-lg font-semibold hover:bg-zinc-100 transition-all"
               >
-                Devis gratuit
+                Demander un devis gratuit
               </a>
             </div>
           </motion.div>
@@ -228,6 +226,10 @@ export default function Home() {
                   </span>
                 </h1>
 
+                <p className="mt-6 sm:mt-7 text-lg sm:text-xl text-zinc-300 font-medium">
+                  Un site web n'est pas une vitrine. C'est une machine à clients.
+                </p>
+
                 <p className="mt-4 sm:mt-5 text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
                   Je crée des sites premium pour <strong className="text-white">restaurants, coiffeurs, artisans</strong> et entrepreneurs qui veulent <strong className="text-white">plus d'appels, de réservations et de clients</strong> — pas juste un site &ldquo;joli&rdquo;.
                 </p>
@@ -245,17 +247,17 @@ export default function Home() {
 
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <a
-                    href={WHATSAPP_URL}
-                    className="group px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.03] transition-all shadow-xl shadow-white/10 text-center"
+                    href="#contact"
+                    className="group px-6 sm:px-8 py-4 sm:py-4.5 rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.03] transition-all shadow-xl shadow-white/10 text-center text-base sm:text-lg"
                   >
-                    Demander un devis
+                    Demander un devis gratuit
                     <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                   </a>
                   <a
-                    href="#projets"
-                    className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/25 transition-all text-center"
+                    href="tel:33749635085"
+                    className="px-6 sm:px-8 py-4 sm:py-4.5 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/25 transition-all text-center text-base sm:text-lg"
                   >
-                    Voir des résultats
+                    Appeler maintenant
                   </a>
                 </div>
               </ScrollReveal>
@@ -313,7 +315,7 @@ export default function Home() {
                 "🚀 Plus de visibilité",
                 "💬 Plus de demandes de devis",
               ].map((item, i) => (
-                <span key={i} className="inline-flex items-center gap-3 px-8 py-4 text-white/80 text-sm font-medium">
+                <span key={i} className="inline-flex items-center gap-3 px-8 py-4 text-white/80 text-base sm:text-lg md:text-xl font-semibold">
                   {item}
                 </span>
               ))}
@@ -415,7 +417,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="mt-6 sm:mt-8 inline-flex items-center gap-2 text-blue-600 font-semibold hover:gap-3 transition-all"
                   >
-                    Discutons de votre projet <ArrowIcon />
+                    Demander un devis gratuit <ArrowIcon />
                   </a>
                 </div>
               </ScrollReveal>
@@ -559,9 +561,9 @@ export default function Home() {
         </section>
 
         {/* TARIFS */}
-        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 lg:py-20">
+        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 md:py-18 lg:py-22">
           <ScrollReveal>
-            <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12">
+            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-14">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Tarifs</p>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
                 Des offres claires, sans surprise
@@ -571,25 +573,25 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-3 sm:gap-4 items-stretch">
+            <div className="grid md:grid-cols-3 gap-4 sm:gap-5 items-stretch">
               {[
                 {
                   name: "Starter",
-                  price: "299€",
+                  price: "À partir de 299€",
                   desc: "Site vitrine simple pour démarrer votre présence en ligne.",
                   features: ["1 à 3 pages", "Design responsive", "Formulaire de contact", "Livraison 7 jours"],
                   popular: false,
                 },
                 {
                   name: "Business",
-                  price: "499€",
+                  price: "À partir de 499€",
                   desc: "Site professionnel optimisé pour convertir vos visiteurs.",
                   features: ["Jusqu'à 5 pages", "SEO de base", "Intégration WhatsApp", "Livraison 10 jours"],
                   popular: true,
                 },
                 {
                   name: "Premium",
-                  price: "899€",
+                  price: "Sur devis",
                   desc: "Solution complète pour dominer votre marché local.",
                   features: ["Pages illimitées", "SEO avancé", "Optimisation vitesse", "Support 30 jours"],
                   popular: false,
@@ -601,7 +603,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`relative flex flex-col p-3 sm:p-5 rounded-2xl border transition-all duration-300 ${
+                  className={`relative flex flex-col p-4 sm:p-6 rounded-2xl border transition-all duration-300 ${
                     plan.popular
                       ? "bg-zinc-950 text-white border-zinc-950 shadow-xl shadow-zinc-950/20"
                       : "bg-white border-zinc-200 hover:shadow-lg"
@@ -631,20 +633,22 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href={WHATSAPP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`mt-3 block text-center py-2 rounded-lg font-semibold transition-all hover:scale-[1.02] text-xs ${
+                    href="#contact"
+                    className={`mt-4 sm:mt-5 block text-center py-2.5 rounded-lg font-semibold transition-all hover:scale-[1.02] text-xs ${
                       plan.popular
                         ? "bg-white text-zinc-950 hover:bg-zinc-100"
                         : "bg-zinc-950 text-white hover:bg-zinc-800"
                     }`}
                   >
-                    Choisir {plan.name}
+                    Demander un devis gratuit
                   </a>
                 </motion.div>
               ))}
             </div>
+
+            <p className="mt-6 text-center text-zinc-500 text-sm">
+              Chaque projet est unique : le prix dépend de vos besoins et objectifs.
+            </p>
           </ScrollReveal>
         </section>
 
@@ -717,30 +721,57 @@ export default function Home() {
                 {/* Contact form */}
                 <ContactForm />
 
-                {/* WhatsApp alternative */}
+                {/* Trust card + WhatsApp alternative */}
                 <div className="flex flex-col gap-3 sm:gap-5">
+                  {/* Trust card */}
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    whileHover={{ y: -4 }}
-                    className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-9 border border-white/10 text-center lg:text-left"
+                    className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/10"
+                  >
+                    <h3 className="text-lg sm:text-xl font-bold mb-4">Pourquoi me choisir ?</h3>
+                    <p className="text-zinc-400 leading-relaxed text-sm sm:text-base mb-6">
+                      Chaque projet commence par un échange gratuit. J'analyse votre activité et propose une solution adaptée à vos objectifs.
+                    </p>
+                    <div className="space-y-3">
+                      {[
+                        { icon: "⚡", text: "Réponse sous 24h" },
+                        { icon: "💰", text: "Devis gratuit" },
+                        { icon: "✨", text: "Aucun engagement" },
+                        { icon: "🤝", text: "Accompagnement personnalisé" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 text-sm">
+                          <span className="text-lg">{item.icon}</span>
+                          <span className="text-zinc-300">{item.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* WhatsApp alternative */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/10 text-center lg:text-left"
                   >
                     <div className="w-11 h-11 sm:w-13 sm:h-13 mx-auto lg:mx-0 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-3 sm:mb-5">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Discuter sur WhatsApp</h3>
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Alternative rapide : WhatsApp</h3>
                     <p className="text-zinc-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                      Devis gratuit en 5 minutes. Réponse garantie sous 24h — idéal si vous préférez le chat instantané.
+                      Préférez le chat instantané ? Réponse garantie sous 24h.
                     </p>
                     <a
                       href={WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full px-5 sm:px-7 py-3 sm:py-3.5 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-400 transition-all hover:scale-[1.02] shadow-lg shadow-emerald-500/25"
+                      className="inline-flex items-center justify-center gap-2 w-full px-5 sm:px-7 py-4 sm:py-3.5 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-400 transition-all hover:scale-[1.02] shadow-lg shadow-emerald-500/25 text-base sm:text-sm"
                     >
                       Ouvrir WhatsApp
                     </a>
@@ -751,14 +782,14 @@ export default function Home() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="glass-card rounded-2xl p-3 sm:p-5 border border-white/10 text-center"
+                    className="glass-card rounded-2xl p-4 sm:p-5 border border-white/10 text-center"
                   >
-                    <p className="text-xs sm:text-sm text-zinc-500">
-                      Ou appelez directement :{" "}
-                      <a href="tel:+33749635085" className="text-zinc-300 hover:text-white transition-colors font-medium">
-                        07 49 63 50 85
-                      </a>
+                    <p className="text-sm sm:text-sm text-zinc-400 mb-2">
+                      Ou appelez directement :
                     </p>
+                    <a href="tel:+33749635085" className="text-lg sm:text-base text-white hover:text-blue-400 transition-colors font-bold">
+                      07 49 63 50 85
+                    </a>
                   </motion.div>
                 </div>
               </div>
