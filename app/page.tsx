@@ -125,12 +125,11 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 50]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
     <>
       {/* NAV */}
-      <header className="fixed top-0 inset-x-0 z-50 glass-header border-b border-white/10">
+      <header className="fixed top-0 inset-x-0 z-50 bg-zinc-950 border-b border-white/10 backdrop-blur-none opacity-100">
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <a href="#" className="text-white font-semibold tracking-tight hover:opacity-80 transition-opacity text-lg">
             Ryad Web Studio
@@ -170,7 +169,7 @@ export default function Home() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/10 glass-header"
+            className="md:hidden border-t border-white/10 bg-zinc-950"
           >
             <div className="px-4 py-6 space-y-4">
               <a
@@ -216,10 +215,10 @@ export default function Home() {
       <main className="bg-zinc-50 text-zinc-900">
 
         {/* HERO — Premium TikTok / Framer style */}
-        <motion.section 
-          className="relative overflow-hidden bg-zinc-950 text-white pt-24 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-36"
-          style={{ y: heroY, opacity: heroOpacity }}
-        >
+        <motion.section
+  className="relative overflow-hidden bg-zinc-950 text-white pt-24 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-36"
+  style={{ y: heroY }}
+>
           {/* Layered gradients + grid */}
           <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.3),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(168,85,247,0.3),transparent_40%),radial-gradient(circle_at_50%_80%,rgba(236,72,153,0.15),transparent_50%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,black,transparent)]" />

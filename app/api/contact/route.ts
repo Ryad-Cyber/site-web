@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-function getResendClient() {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey?.trim()) return null;
-  return new Resend(apiKey);
-}
-
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -40,13 +34,28 @@ export async function POST(request: Request) {
     const safeActivity = escapeHtml(activity?.trim() || "Non renseignée");
     const safeMessage = escapeHtml(message?.trim() || "Aucun message");
 
-    const resend = getResendClient();
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      console.error("[Contact API] RESEND_API_KEY manquante");
+      console.log("[Contact] Soumission enregistrée en logs:", {
+        name: safeName,
+        email: safeEmail,
+        activity: safeActivity,
+        message: safeMessage,
+        at: new Date().toISOString(),
+      });
+      return NextResponse.json({ success: true });
+    }
+
+    const resend = new Resend(apiKey);
     const contactEmail = process.env.CONTACT_EMAIL ?? "ryadboujenan@outlook.com";
     const fromEmail =
       process.env.RESEND_FROM ?? "Ryad Web Studio <onboarding@resend.dev>";
 
-    if (resend) {
-      const { error } = await resend.emails.send({
+    console.log("[Contact API] Tentative d'envoi d'email à:", contactEmail);
+
+    const { error } = await resend.emails.send({
         from: fromEmail,
         to: contactEmail,
         replyTo: email.trim(),
@@ -62,25 +71,14 @@ export async function POST(request: Request) {
       });
 
       if (error) {
-        console.error("[Email Error]", error);
+        console.error("[Contact API] Erreur Resend:", error);
         return NextResponse.json(
           { error: "Impossible d'envoyer l'email. Réessayez plus tard." },
           { status: 502 }
         );
       }
-    } else {
-      console.warn(
-        "[Contact] RESEND_API_KEY manquante — soumission enregistrée en logs uniquement."
-      );
-    }
 
-    console.log("[Contact]", {
-      name: name?.trim() || "Non renseigné",
-      email: email.trim(),
-      activity: activity?.trim() || "Non renseignée",
-      message: message?.trim() || "Aucun message",
-      at: new Date().toISOString(),
-    });
+    console.log("[Contact API] Email envoyé avec succès");
 
     return NextResponse.json({ success: true });
   } catch (error) {
