@@ -39,6 +39,51 @@ const SOCIAL_LINKS = [
   },
 ];
 
+const TARIFS_PLANS = [
+  {
+    name: "Starter",
+    price: "À partir de 299€",
+    desc: "Site vitrine simple pour démarrer votre présence en ligne.",
+    features: ["1 à 3 pages", "Design responsive", "Formulaire de contact", "Livraison 7 jours"],
+    popular: false,
+    cardClass:
+      "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
+    descClass: "mt-2 text-sm text-zinc-600",
+    priceTagClass: "text-sm font-normal ml-1 text-zinc-400",
+    featuresClass: "mt-6 space-y-3 text-sm sm:text-base flex-1 text-zinc-600",
+    buttonClass:
+      "mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base bg-zinc-950 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-950/20",
+  },
+  {
+    name: "Business",
+    price: "À partir de 499€",
+    desc: "Site professionnel optimisé pour convertir vos visiteurs.",
+    features: ["Jusqu'à 5 pages", "SEO de base", "Intégration WhatsApp", "Livraison 10 jours"],
+    popular: true,
+    cardClass:
+      "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/25 scale-[1.02]",
+    descClass: "mt-2 text-sm text-zinc-400",
+    priceTagClass: "text-sm font-normal ml-1 text-zinc-500",
+    featuresClass: "mt-6 space-y-3 text-sm sm:text-base flex-1 text-zinc-300",
+    buttonClass:
+      "mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base bg-white text-zinc-950 hover:bg-zinc-100 shadow-lg shadow-white/10",
+  },
+  {
+    name: "Premium",
+    price: "Sur devis",
+    desc: "Solution complète pour dominer votre marché local.",
+    features: ["Pages illimitées", "SEO avancé", "Optimisation vitesse", "Support 30 jours"],
+    popular: false,
+    cardClass:
+      "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
+    descClass: "mt-2 text-sm text-zinc-600",
+    priceTagClass: "text-sm font-normal ml-1 text-zinc-400",
+    featuresClass: "mt-6 space-y-3 text-sm sm:text-base flex-1 text-zinc-600",
+    buttonClass:
+      "mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base bg-zinc-950 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-950/20",
+  },
+];
+
 function CheckIcon() {
   return (
     <svg className="w-5 h-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -613,7 +658,7 @@ export default function Home() {
         </section>
 
         {/* TARIFS */}
-        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
+        <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16 lg:py-20">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14 md:mb-16">
               <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Tarifs</p>
@@ -626,40 +671,14 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-              {[
-                {
-                  name: "Starter",
-                  price: "À partir de 299€",
-                  desc: "Site vitrine simple pour démarrer votre présence en ligne.",
-                  features: ["1 à 3 pages", "Design responsive", "Formulaire de contact", "Livraison 7 jours"],
-                  popular: false,
-                },
-                {
-                  name: "Business",
-                  price: "À partir de 499€",
-                  desc: "Site professionnel optimisé pour convertir vos visiteurs.",
-                  features: ["Jusqu'à 5 pages", "SEO de base", "Intégration WhatsApp", "Livraison 10 jours"],
-                  popular: true,
-                },
-                {
-                  name: "Premium",
-                  price: "Sur devis",
-                  desc: "Solution complète pour dominer votre marché local.",
-                  features: ["Pages illimitées", "SEO avancé", "Optimisation vitesse", "Support 30 jours"],
-                  popular: false,
-                },
-              ].map((plan, index) => (
+              {TARIFS_PLANS.map((plan, index) => (
                 <motion.div
                   key={plan.name}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`relative flex flex-col min-h-[420px] sm:min-h-[460px] p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 ${
-                    plan.popular
-                      ? "bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/25 scale-[1.02]"
-                      : "bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300"
-                  }`}
+                  className={plan.cardClass}
                 >
                   {plan.popular && (
                     <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-semibold px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-violet-500/25">
@@ -667,16 +686,12 @@ export default function Home() {
                     </span>
                   )}
                   <h3 className="text-sm sm:text-base font-semibold tracking-wide uppercase">{plan.name}</h3>
-                  <p className={`mt-2 text-sm ${plan.popular ? "text-zinc-400" : "text-zinc-600"}`}>
-                    {plan.desc}
-                  </p>
+                  <p className={plan.descClass}>{plan.desc}</p>
                   <p className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight">
                     {plan.price}
-                    <span className={`text-sm font-normal ml-1 ${plan.popular ? "text-zinc-500" : "text-zinc-400"}`}>
-                      TTC
-                    </span>
+                    <span className={plan.priceTagClass}>TTC</span>
                   </p>
-                  <ul className={`mt-6 space-y-3 text-sm sm:text-base flex-1 ${plan.popular ? "text-zinc-300" : "text-zinc-600"}`}>
+                  <ul className={plan.featuresClass}>
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-center gap-2.5">
                         <CheckIcon />
@@ -684,14 +699,7 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="#contact"
-                    className={`mt-8 block text-center py-3.5 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base ${
-                      plan.popular
-                        ? "bg-white text-zinc-950 hover:bg-zinc-100 shadow-lg shadow-white/10"
-                        : "bg-zinc-950 text-white hover:bg-zinc-800 shadow-lg shadow-zinc-950/20"
-                    }`}
-                  >
+                  <a href="#contact" className={plan.buttonClass}>
                     Demander un devis gratuit
                   </a>
                 </motion.div>
