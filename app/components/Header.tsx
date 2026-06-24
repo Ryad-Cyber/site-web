@@ -123,9 +123,10 @@ export default function Header() {
             {/* Navigation Links */}
             <div className="flex-1 px-5 py-8 space-y-3 overflow-y-auto">
               {[
-                { href: "/why-us", label: "Pourquoi nous", icon: "✨" },
-                { href: "/designs", label: "Designs", icon: "🎨" },
-                { href: "/projects", label: "Projets", icon: "🚀" },
+                { href: "/why-us", label: "Pourquoi nous", icon: "✨", subtitle: "Découvrir notre approche" },
+                { href: "/designs", label: "Designs", icon: "🎨", subtitle: "Voir nos designs" },
+                { href: "/projects", label: "Projets", icon: "🚀", subtitle: "Explorer notre portfolio" },
+                { href: "/results", label: "Résultats", icon: "📈", subtitle: "L'impact concret d'un site pro" },
               ].map((link, index) => (
                 <motion.a
                   key={link.label}
@@ -145,7 +146,7 @@ export default function Header() {
                         {link.label}
                       </p>
                       <p className="text-xs text-zinc-500 mt-0.5 group-hover:text-zinc-400 transition-colors">
-                        {["Découvrir notre approche", "Voir nos designs", "Explorer notre portfolio"][index]}
+                        {link.subtitle}
                       </p>
                     </div>
                     <svg className="w-4 h-4 text-zinc-600 group-hover:text-blue-300 transition-all group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -164,18 +165,18 @@ export default function Header() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="border-t border-white/10 px-5 py-6 space-y-3"
+              className="border-t border-white/10 px-5 py-4 space-y-2"
             >
               <a
                 href="/#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full px-4 py-3.5 text-center rounded-xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all hover:scale-[1.02] shadow-lg shadow-white/10 text-sm"
+                className="block w-full px-3 py-2.5 text-center rounded-lg bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all hover:scale-[1.01] shadow-md shadow-white/10 text-xs"
               >
                 Obtenir un devis gratuit
               </a>
               <a
                 href="tel:+33749635085"
-                className="block w-full px-4 py-3.5 text-center rounded-xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all text-sm"
+                className="block w-full px-3 py-2.5 text-center rounded-lg border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all text-xs"
               >
                 Appeler directement
               </a>

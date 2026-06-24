@@ -144,3 +144,10 @@ header {
 }
 
 /* sécurité anti effet glass/global */
+
+/* =======================
+   RESULTS PAGE
+======================= */
+.results-page {
+  --results-bg: #fbfbfd;
+}

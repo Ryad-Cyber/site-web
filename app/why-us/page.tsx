@@ -124,12 +124,12 @@ export default function WhyUsPage() {
               },
               {
                 icon: "🤝",
-                title: "Partnership réel",
+                title: "Partenariat réel",
                 description: "Nous ne disparaissons pas après la livraison. Vous avez un vrai partenaire derrière vous.",
               },
               {
                 icon: "📱",
-                title: "Mobile-first",
+                title: "Mobile en priorité",
                 description: "Chaque site est optimisé mobile en premier. Car 80% de vos clients sont sur téléphone.",
               },
               {

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
@@ -10,42 +11,12 @@ import HeroVisual from "./components/HeroVisual";
 const WHATSAPP_URL =
   "https://wa.me/33749635085?text=Bonjour, j'aimerais un site web pour mon activité";
 
-const SOCIAL_LINKS = [
-  {
-    name: "Instagram",
-    href: "https://instagram.com/ryad.bjn_",
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-      </svg>
-    ),
-  },
-  {
-    name: "Snapchat",
-    href: "https://snapchat.com/add/ryadbjn",
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12.166 3c-3.003 0-5.5 2.243-5.5 5.01 0 .553-.447 1-1 1s-1-.447-1-1C4.666 4.132 8.01 1 12.166 1c4.155 0 7.5 3.132 7.5 7.01 0 3.767-2.497 6.01-5.5 6.01-.828 0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5c4.155 0 7.5-3.243 7.5-7.26C21.666 5.757 17.321 3 12.166 3zm-4 10.5c0 .828.672 1.5 1.5 1.5h5c.828 0 1.5-.672 1.5-1.5S15.494 12 14.666 12h-5c-.828 0-1.5.672-1.5 1.5z" />
-      </svg>
-    ),
-  },
-  {
-    name: "TikTok",
-    href: "https://www.tiktok.com/@ryad.bjn_",
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z" />
-      </svg>
-    ),
-  },
-];
-
 const TARIFS_PLANS = [
   {
     name: "Pack Essentiel",
     price: "À partir de 299€",
     desc: "Site vitrine premium pour capter des contacts et transmettre confiance.",
-    features: ["Analyse & proposition gratuite", "Design conversion orientée client", "Formulaire de contact + WhatsApp", "Responsive mobile-first"],
+    features: ["Analyse & proposition gratuite", "Design conversion orientée client", "Formulaire de contact + WhatsApp", "Responsive mobile"],
     popular: false,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
@@ -90,6 +61,164 @@ function CheckIcon() {
     <svg className="w-5 h-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </svg>
+  );
+}
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "Process clair du début à la fin. J'ai pu valider le design avant la mise en ligne, et le résultat correspond exactement à ce que j'avais en tête.",
+    rating: 5,
+  },
+  {
+    quote:
+      "Site livré rapidement, design soigné et professionnel. Le formulaire de contact et WhatsApp facilitent vraiment la prise de rendez-vous.",
+    rating: 5,
+  },
+  {
+    quote:
+      "Accompagnement réactif et à l'écoute. Les ajustements demandés ont été intégrés sans friction, et le site inspire confiance dès la première visite.",
+    rating: 5,
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Combien de temps pour avoir mon site en ligne ?",
+    a: "Entre 7 et 14 jours selon la formule choisie. Vous recevez une maquette sous 48 h après notre premier échange, puis nous affinons ensemble avant le développement et la mise en ligne.",
+  },
+  {
+    q: "Le devis est-il vraiment gratuit ?",
+    a: "Oui, sans aucune condition. Nous échangeons sur votre projet, j'analyse vos besoins et vous propose une solution adaptée — vous décidez ensuite, sans pression ni engagement.",
+  },
+  {
+    q: "Puis-je demander des modifications ?",
+    a: "Bien sûr. Des rounds de révisions sont inclus à chaque étape clé : maquette, contenu et mise en page. L'objectif est que le site vous corresponde parfaitement avant la livraison.",
+  },
+  {
+    q: "Mon site sera-t-il adapté au mobile ?",
+    a: "Oui, chaque site est conçu mobile en priorité. Il s'affiche correctement sur smartphone, tablette et ordinateur, avec une navigation fluide et des temps de chargement optimisés.",
+  },
+  {
+    q: "Puis-je modifier le contenu moi-même ?",
+    a: "Oui. Je vous forme à la gestion de base (textes, images, horaires). Pour des changements plus avancés ou des ajouts de fonctionnalités, je reste disponible sur demande.",
+  },
+  {
+    q: "Proposez-vous l'hébergement ?",
+    a: "Oui, l'hébergement professionnel peut être inclus selon la formule. Certificat SSL, sauvegardes et performance sont pris en charge — vous n'avez rien à gérer techniquement.",
+  },
+  {
+    q: "Aidez-vous pour le référencement (SEO) ?",
+    a: "Les fondamentaux sont inclus : structure optimisée, balises meta, vitesse de chargement et SEO local de base. Des forfaits SEO avancés sont disponibles si vous souhaitez aller plus loin.",
+  },
+  {
+    q: "Que se passe-t-il après la livraison ?",
+    a: "Votre site est mis en ligne et testé. Je vous remets les accès, un guide rapide et reste disponible pour le support. Des forfaits de maintenance optionnels existent pour garder le site à jour.",
+  },
+  {
+    q: "Comment démarrons-nous ensemble ?",
+    a: "Remplissez le formulaire de contact ou écrivez-moi sur WhatsApp. Nous planifions un échange gratuit, je vous envoie une proposition sur mesure, et nous lançons dès votre validation.",
+  },
+];
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-1" aria-label={`${rating} sur 5 étoiles`}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${i < rating ? "text-amber-400" : "text-zinc-200"}`}
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function FaqAccordion() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <div className="space-y-3">
+      {FAQ_ITEMS.map((item, index) => {
+        const isOpen = openIndex === index;
+
+        return (
+          <motion.div
+            key={item.q}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.04 }}
+            className={`rounded-2xl border transition-colors duration-300 ${
+              isOpen
+                ? "border-blue-200/80 bg-white shadow-lg shadow-blue-500/5 ring-1 ring-blue-500/10"
+                : "border-zinc-200/80 bg-white/80 hover:border-zinc-300 hover:bg-white"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenIndex(isOpen ? null : index)}
+              aria-expanded={isOpen}
+              className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left cursor-pointer group"
+            >
+              <span className="flex items-start gap-4 min-w-0">
+                <span
+                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold transition-colors duration-300 ${
+                    isOpen
+                      ? "bg-blue-600 text-white"
+                      : "bg-zinc-100 text-zinc-500 group-hover:bg-zinc-200"
+                  }`}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`font-semibold text-[15px] sm:text-base leading-snug transition-colors duration-300 ${
+                    isOpen ? "text-zinc-950" : "text-zinc-800 group-hover:text-zinc-950"
+                  }`}
+                >
+                  {item.q}
+                </span>
+              </span>
+              <motion.span
+                animate={{ rotate: isOpen ? 45 : 0 }}
+                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg leading-none transition-colors duration-300 ${
+                  isOpen
+                    ? "bg-blue-600 text-white"
+                    : "bg-zinc-100 text-zinc-500 group-hover:bg-blue-50 group-hover:text-blue-600"
+                }`}
+                aria-hidden="true"
+              >
+                +
+              </motion.span>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
+                    <div className="ml-11 border-t border-zinc-100 pt-4">
+                      <p className="text-[15px] sm:text-base text-zinc-600 leading-relaxed">{item.a}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -174,7 +303,7 @@ export default function Home() {
                 </p>
 
                 <div className="mt-4 sm:mt-5 flex flex-wrap gap-2 sm:gap-3">
-                  {["⚡ Livraison rapide", "🧠 Analyse gratuite", "📱 Mobile-first"].map((tag) => (
+                  {["⚡ Livraison rapide", "🧠 Analyse gratuite", "📱 Mobile"].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm text-zinc-300 bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:scale-105 transition-all cursor-default"
@@ -440,65 +569,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="bg-white border-y border-zinc-200/80">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20 lg:py-24">
-            <ScrollReveal>
-              <div className="text-center mb-10 sm:mb-12 md:mb-16">
-                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">FAQ</p>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Questions fréquentes</h2>
-              </div>
-
-              <div className="space-y-2.5 sm:space-y-3">
-                {[
-                  {
-                    q: "Combien de temps pour avoir mon site en ligne ?",
-                    a: "Entre 7 et 14 jours selon la formule. Vous recevez un aperçu sous 48h après notre premier échange.",
-                  },
-                  {
-                    q: "Est-ce que je peux modifier le contenu moi-même ?",
-                    a: "Oui, je vous forme à la gestion de base. Pour des modifications avancées, je reste disponible.",
-                  },
-                  {
-                    q: "Le devis est-il vraiment gratuit ?",
-                    a: "Absolument. On échange sur votre projet, je vous propose une solution adaptée, sans aucun engagement.",
-                  },
-                  {
-                    q: "Proposez-vous la maintenance ?",
-                    a: "Oui, des forfaits de maintenance optionnels sont disponibles pour garder votre site à jour et performant.",
-                  },
-                ].map((item, index) => (
-                  <motion.details
-                    key={item.q}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="group p-3 sm:p-5 rounded-xl border border-zinc-200 bg-zinc-50 open:bg-white open:shadow-md transition-all duration-300 hover:border-zinc-300"
-                  >
-                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between gap-4 text-sm sm:text-base">
-                      {item.q}
-                      <span className="text-zinc-400 group-open:rotate-45 transition-transform text-xl leading-none">+</span>
-                    </summary>
-                    <p className="mt-4 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.a}</p>
-                  </motion.details>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
         {/* TESTIMONIALS */}
-        <section className="relative py-16 md:py-24 px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative py-16 md:py-24 px-4 sm:px-6 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(59,130,246,0.06),transparent)] pointer-events-none" />
+
+          <div className="relative max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Testimonials</p>
+                <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">Avis</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight mb-4">
-                  Nos clients parlent pour nous
+                  Retours après livraison
                 </h2>
                 <p className="text-zinc-600 text-base leading-relaxed">
-                  Découvrez comment Ryad Web Studio a transformé les affaires de nos clients.
+                  Ce que nos clients disent le plus souvent une fois leur site en ligne — sans attribution fictive.
                 </p>
               </div>
             </ScrollReveal>
@@ -506,56 +589,37 @@ export default function Home() {
             <motion.div
               variants={{
                 hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+                visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
               }}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="grid md:grid-cols-3 gap-6"
+              className="grid md:grid-cols-3 gap-5 sm:gap-6"
             >
-              {[
-                {
-                  quote: "Ryad a complètement transformé notre présence en ligne. Nos rendez-vous ont augmenté de 200% en 3 mois.",
-                  author: "Marco Rossi",
-                  role: "Propriétaire, Studio de Coiffure Premium",
-                  emoji: "🪑",
-                },
-                {
-                  quote: "Professionnel, rapide et qui a dépassé nos attentes. L'équipe est à l'écoute et livre à temps.",
-                  author: "Chef Alexandre",
-                  role: "Chef, Bella Trattoria",
-                  emoji: "🍽️",
-                },
-                {
-                  quote: "Le nouveau site web nous a permis d'attirer beaucoup plus de clients. L'investissement en vaut vraiment la peine.",
-                  author: "Emma Rousseau",
-                  role: "Coach Fitness",
-                  emoji: "💪",
-                },
-              ].map((testimonial, index) => (
-                <motion.div
+              {TESTIMONIALS.map((testimonial, index) => (
+                <motion.blockquote
                   key={index}
                   variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                    hidden: { opacity: 0, y: 24 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } },
                   }}
-                  className="group relative rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                  className="group relative flex flex-col rounded-2xl border border-zinc-200/80 bg-white p-6 sm:p-8 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-200/60 transition-all duration-300"
                 >
-                  <div className="absolute top-6 left-6 text-3xl opacity-20 group-hover:opacity-40 transition-opacity">
-                    {testimonial.emoji}
-                  </div>
-                  
-                  <p className="text-lg font-semibold text-zinc-700 mb-1">★★★★★</p>
-                  
-                  <p className="text-zinc-600 leading-relaxed mb-6 italic">
-                    "{testimonial.quote}"
-                  </p>
+                  <svg
+                    className="absolute top-5 right-6 w-10 h-10 text-blue-600/8 group-hover:text-blue-600/12 transition-colors duration-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+                  </svg>
 
-                  <div>
-                    <p className="font-semibold text-zinc-950">{testimonial.author}</p>
-                    <p className="text-xs sm:text-sm text-zinc-500">{testimonial.role}</p>
-                  </div>
-                </motion.div>
+                  <StarRating rating={testimonial.rating} />
+
+                  <p className="mt-5 text-zinc-700 leading-relaxed text-[15px] sm:text-base flex-1">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                </motion.blockquote>
               ))}
             </motion.div>
           </div>
@@ -580,13 +644,13 @@ export default function Home() {
               {[
                 {
                   step: "01",
-                  title: "Discovery Call",
+                  title: "Échange initial",
                   description: "Nous explorons votre activité, vos objectifs et votre vision.",
                   icon: "🎯",
                 },
                 {
                   step: "02",
-                  title: "Design & Prototype",
+                  title: "Design & Maquette",
                   description: "Vous validez le design avant que nous ne codions une seule ligne.",
                   icon: "🎨",
                 },
@@ -598,7 +662,7 @@ export default function Home() {
                 },
                 {
                   step: "04",
-                  title: "Lancement",
+                  title: "Mise en ligne",
                   description: "Votre site est en ligne. Nous restons là pour vous soutenir.",
                   icon: "🚀",
                 },
@@ -631,66 +695,46 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ ACCORDION */}
-        <section className="relative py-16 md:py-24 px-4 sm:px-6 bg-white">
-          <div className="max-w-3xl mx-auto">
+        {/* FAQ */}
+        <section id="faq" className="relative py-16 md:py-24 px-4 sm:px-6 overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)] pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
+
+          <div className="relative max-w-3xl mx-auto">
             <ScrollReveal>
-              <div className="text-center mb-12 sm:mb-16">
+              <div className="text-center mb-10 sm:mb-14">
                 <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">FAQ</p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight mb-4">
                   Questions fréquentes
                 </h2>
-                <p className="text-zinc-600 text-base leading-relaxed max-w-2xl mx-auto">
-                  Vous avez des questions ? Consultez notre FAQ ou contactez-nous directement.
+                <p className="text-zinc-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
+                  Tout ce qu&apos;il faut savoir avant de lancer votre projet — réponses claires, sans jargon.
                 </p>
               </div>
             </ScrollReveal>
 
-            <div className="space-y-3 sm:space-y-4">
-              {[
-                {
-                  q: "Combien coûte un site web ?",
-                  a: "Les prix commencent à partir de 299€ pour un site vitrine. Chaque projet est unique et dépend de vos besoins. Nous proposons une analyse gratuite sans engagement.",
-                },
-                {
-                  q: "Combien de temps cela prend-il ?",
-                  a: "Généralement 7 à 14 jours. Vous recevez un aperçu du design sous 48h après notre premier échange.",
-                },
-                {
-                  q: "Puis-je modifier mon site moi-même ?",
-                  a: "Oui, nous vous formons à la gestion de base. Pour les modifications avancées, nous restons disponibles et offrons des forfaits de maintenance.",
-                },
-                {
-                  q: "L'hébergement est-il inclus ?",
-                  a: "Oui, l'hébergement professionnel est inclus. Vous n'avez rien à gérer, tout est pris en charge.",
-                },
-                {
-                  q: "Le SEO est-il inclus ?",
-                  a: "Les bases du SEO (optimisation on-page, vitesse) sont incluses. Nous proposons aussi des forfaits SEO avancés.",
-                },
-                {
-                  q: "Pouvez-vous redesigner un site existant ?",
-                  a: "Absolument ! Nous redesignons des sites existants pour améliorer l'expérience utilisateur et les conversions.",
-                },
-              ].map((item, index) => (
-                <motion.details
-                  key={item.q}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="group p-4 sm:p-6 rounded-2xl border border-zinc-200 bg-zinc-50 open:bg-white open:shadow-md open:shadow-blue-500/10 transition-all duration-300 hover:border-blue-300"
-                >
-                  <summary className="font-semibold cursor-pointer list-none flex items-center justify-between gap-4 text-sm sm:text-base text-zinc-950">
-                    {item.q}
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm group-open:bg-blue-500 transition-all">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-4 text-zinc-600 leading-relaxed text-sm sm:text-base">{item.a}</p>
-                </motion.details>
-              ))}
-            </div>
+            <FaqAccordion />
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-10 sm:mt-12 rounded-2xl border border-zinc-200/80 bg-white p-6 sm:p-8 text-center shadow-sm"
+            >
+              <p className="text-zinc-600 text-[15px] sm:text-base mb-4">
+                Vous ne trouvez pas votre réponse ?
+              </p>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-zinc-950 text-white text-sm font-semibold hover:bg-zinc-800 transition-all hover:scale-[1.02] shadow-lg shadow-zinc-950/10"
+              >
+                Poser une question
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </motion.div>
           </div>
         </section>
 
@@ -847,33 +891,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="bg-zinc-950 border-t border-white/10 text-zinc-500 text-sm">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
-            {/* Social icons — centered */}
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              {SOCIAL_LINKS.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  whileHover={{ scale: 1.15, y: -4 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
-
-            <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-center md:text-left">
-              <p className="text-xs sm:text-sm">© 2026 Ryad Web Studio — Tous droits réservés</p>
-              <p className="text-xs sm:text-sm text-zinc-600">Sites web sur-mesure pour entreprises locales</p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
 
       {/* FLOATING WHATSAPP — circular on mobile to match chatbot, pill on desktop */}

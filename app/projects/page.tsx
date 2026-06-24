@@ -24,7 +24,7 @@ export default function ProjectsPage() {
       image: "🍽️",
       stats: ["80+ réservations/mois", "18 mois en ligne", "5★ avis"],
       color: "from-red-500/20 to-pink-500/10",
-      features: ["Menu Digital", "Réservations", "Photos HD", "Livraison"],
+      features: ["Menu digital", "Réservations", "Photos HD", "Livraison"],
     },
     {
       id: 3,
@@ -39,22 +39,22 @@ export default function ProjectsPage() {
     {
       id: 4,
       title: "Artisan Plomberie",
-      category: "Local Business",
+      category: "Entreprise locale",
       description: "Site professionnel pour artisan local avec devis rapide et interventions.",
       image: "🔧",
       stats: ["50+ appels/mois", "1 an en ligne", "4.9★ recommandé"],
       color: "from-blue-500/20 to-cyan-500/10",
-      features: ["Devis Rapide", "Urgences", "Tarifs", "Secteur"],
+      features: ["Devis rapide", "Urgences", "Tarifs", "Secteur"],
     },
     {
       id: 5,
       title: "SaaS Analytics",
-      category: "SaaS Startup",
+      category: "Startup SaaS",
       description: "Plateforme d'analyse données avec dashboard et API intégrée.",
       image: "📊",
       stats: ["5000+ utilisateurs", "2 ans en ligne", "4.7★ produit"],
       color: "from-violet-500/20 to-purple-500/10",
-      features: ["Dashboard", "API", "Export", "Analytics"],
+      features: ["Tableau de bord", "API", "Export", "Analytiques"],
     },
     {
       id: 6,
@@ -127,7 +127,7 @@ export default function ProjectsPage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-zinc-400 text-sm uppercase tracking-widest"
           >
-            Explorér {projects.length} projets réussis
+            Explorer {projects.length} projets réussis
           </motion.div>
         </div>
       </section>

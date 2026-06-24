@@ -11,62 +11,57 @@ export default function DesignsPage() {
     {
       id: 1,
       name: "Barbershop Studio",
-      category: "Beauty & Grooming",
-      description: "Premium barbershop with appointment booking and portfolio showcase",
+      category: "Beauté & Coiffure",
+      description: "Salon de coiffure premium avec système de réservation et portfolio",
       gradient: "from-amber-500/20 via-orange-500/10 to-red-500/5",
       accentColor: "amber",
       mockup: "🪑",
-      features: ["Booking System", "Portfolio", "Reviews", "Pricing"],
+      features: ["Réservation en ligne", "Portfolio", "Avis clients", "Tarifs"],
       testimonial: "Nous avons augmenté nos rendez-vous de 180% en 3 mois.",
-      author: "Marco, Propriétaire",
     },
     {
       id: 2,
-      name: "Bella Trattoria",
-      category: "Fine Dining",
-      description: "Luxury restaurant with menu, reservations, and stunning photography",
+      name: "Restauration",
+      category: "Restaurant Gastronomique",
+      description: "Restaurant de luxe avec menu, réservations et photographie exceptionnelle",
       gradient: "from-red-500/20 via-pink-500/10 to-rose-500/5",
       accentColor: "red",
       mockup: "🍽️",
-      features: ["Digital Menu", "Reservations", "Photos HD", "Location"],
+      features: ["Menu digital", "Réservations", "Photos HD", "Localisation"],
       testimonial: "Le design élégant de notre site a changé la perception de notre restaurant.",
-      author: "Chef Alexandre, Bella Trattoria",
     },
     {
       id: 3,
-      name: "FitPulse",
-      category: "Fitness Coaching",
-      description: "Modern coaching platform with training programs and member dashboard",
+      name: "Fit Studio",
+      category: "Coaching Fitness",
+      description: "Plateforme de coaching moderne avec programmes d'entraînement et espace membre",
       gradient: "from-lime-500/20 via-green-500/10 to-emerald-500/5",
       accentColor: "lime",
       mockup: "💪",
-      features: ["Programs", "Dashboard", "Live Coaching", "Community"],
+      features: ["Programmes", "Tableau de bord", "Coaching en direct", "Communauté"],
       testimonial: "Le design moderne et les animations ont rendu mon plateforme irrésistible.",
-      author: "Emma, Coach Fitness",
     },
     {
       id: 4,
-      name: "ProFlow",
-      category: "SaaS Platform",
-      description: "Next-gen project management tool with real-time collaboration",
+      name: "Web Studio",
+      category: "Plateforme SaaS",
+      description: "Outil de gestion de projet nouvelle génération avec collaboration en temps réel",
       gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/5",
       accentColor: "blue",
       mockup: "📊",
-      features: ["Real-time", "Analytics", "API", "Integration"],
+      features: ["Temps réel", "Analytiques", "API", "Intégrations"],
       testimonial: "Ryad a créé une expérience utilisateur qui dépasse nos attentes.",
-      author: "Thomas, Co-fondateur ProFlow",
     },
     {
       id: 5,
-      name: "Elite Services",
-      category: "Local Business",
-      description: "Premium service provider website with instant quote system",
+      name: "Services Pro",
+      category: "Entreprise Locale",
+      description: "Site web de prestataire premium avec système de devis instantané",
       gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/5",
       accentColor: "purple",
       mockup: "🔧",
-      features: ["Instant Quotes", "Portfolio", "Reviews", "Contact"],
+      features: ["Devis instantanés", "Portfolio", "Avis clients", "Contact"],
       testimonial: "Notre présence en ligne a complètement transformé notre business.",
-      author: "Laurent, PDG Elite Services",
     },
   ];
 
@@ -179,9 +174,6 @@ export default function DesignsPage() {
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
                     <p className="text-sm italic text-zinc-300 mb-3">
                       "{designs[selectedProject].testimonial}"
-                    </p>
-                    <p className="text-xs font-semibold text-zinc-400">
-                      — {designs[selectedProject].author}
                     </p>
                   </div>
                 </div>
