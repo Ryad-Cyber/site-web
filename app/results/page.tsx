@@ -212,8 +212,6 @@ export default function ResultsPage() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
   const [compareTab, setCompareTab] = useState<"before" | "after">("before");
 
   return (
