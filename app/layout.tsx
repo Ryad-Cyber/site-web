@@ -17,10 +17,16 @@ export const metadata = {
     "Développeur freelance spécialisé dans la création de sites web modernes et optimisés pour restaurants, artisans et entreprises locales.",
   keywords:
     "création site web, freelance web, site vitrine, développeur web France, SEO local, site restaurant",
+  icons: {
+    icon: "/Ryad_Studio.png",
+    shortcut: "/Ryad_Studio.png",
+    apple: "/Ryad_Studio.png",
+  },
   openGraph: {
     title: "Ryad Web Studio",
     description: "Sites web modernes qui transforment vos visiteurs en clients",
     type: "website",
+    images: [{ url: "/Ryad_Studio.png", width: 512, height: 512, alt: "Ryad Web Studio" }],
   },
 };
 export default function RootLayout({

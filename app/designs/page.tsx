@@ -3,7 +3,7 @@
 import Header from "../components/Header";
 import DesignCarousel, { type CarouselSlide } from "../components/DesignCarousel";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Design = {
   id: number;
@@ -20,32 +20,33 @@ type Design = {
 
 export default function DesignsPage() {
   const [selectedProject, setSelectedProject] = useState(0);
+  const selectorRef = useRef<HTMLDivElement>(null);
 
   const designs: Design[] = [
     {
       id: 1,
-      name: "Barbershop Studio",
+      name: "Barbershop",
       category: "Beauté & Coiffure",
-      description: "Salon de coiffure premium avec système de réservation et portfolio",
+      description: "Un salon de coiffure premium avec réservation, galerie et image de marque soignée.",
       gradient: "from-amber-500/20 via-orange-500/10 to-red-500/5",
       accentColor: "amber",
       mockup: "🪑",
-      features: ["Réservation en ligne", "Portfolio", "Avis clients", "Tarifs"],
+      features: ["Réservation", "Galerie", "Avis clients", "Tarifs"],
       testimonial: "Nous avons augmenté nos rendez-vous de 180% en 3 mois.",
       slides: [
         {
-          label: "L'univers",
-          caption: "Un salon moderne où l'ambiance premium attire une clientèle exigeante.",
-          type: "photo",
-          src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1200&q=80&auto=format&fit=crop",
-          alt: "Salon de coiffure barbier moderne",
-        },
-        {
-          label: "Réserver",
-          caption: "Découvrez le site en action.",
-          type: "video",
-          src: "/video_barber.mp4",
-        },
+  label: "L'univers",
+  caption: "Découvrez l'ambiance premium de votre futur salon et l'expérience proposée à vos clients.",
+  type: "video",
+  src: "/video_barber.mp4",
+},
+{
+  label: "Réserver",
+  caption: "Un site pensé pour générer des clients, pas juste des visites.",
+  type: "photo",
+  src: "/barber_interface.png",
+  alt: "Interface web de barbier",
+},
         {
           label: "Nos clients",
           caption: "Des clients satisfaits qui reviennent.",
@@ -57,9 +58,9 @@ export default function DesignsPage() {
     },
     {
       id: 2,
-      name: "Restauration",
+      name: "Restaurant",
       category: "Restaurant Gastronomique",
-      description: "Restaurant de luxe avec menu, réservations et photographie exceptionnelle",
+      description: "Une présence élégante avec menu digital, réservations et storytelling visuel.",
       gradient: "from-red-500/20 via-pink-500/10 to-rose-500/5",
       accentColor: "red",
       mockup: "🍽️",
@@ -74,11 +75,12 @@ export default function DesignsPage() {
           alt: "Intérieur de restaurant gastronomique",
         },
         {
-          label: "Réserver",
-          caption: "Menu digital, réservations et photos HD pour séduire avant la visite.",
-          type: "mockup",
-          variant: "restaurant",
-        },
+  label: "Réserver",
+  caption: "Réservation en ligne, menu digital et parcours pensé pour convertir vos visiteurs en clients.",
+  type: "photo",
+  src: "/site_restau.jpeg",
+  alt: "Interface du site web du restaurant",
+},
         {
           label: "Le résultat",
           caption: "Tables réservées en avance, file d'attente en ligne, réputation renforcée.",
@@ -96,122 +98,262 @@ export default function DesignsPage() {
       ],
     },
     {
-      id: 3,
-      name: "Fit Studio",
-      category: "Coaching Fitness",
-      description: "Plateforme de coaching moderne avec programmes d'entraînement et espace membre",
-      gradient: "from-lime-500/20 via-green-500/10 to-emerald-500/5",
-      accentColor: "lime",
-      mockup: "💪",
-      features: ["Programmes", "Tableau de bord", "Coaching en direct", "Communauté"],
-      testimonial: "Le design moderne et les animations ont rendu mon plateforme irrésistible.",
-      slides: [
-        {
-          label: "L'univers",
-          caption: "Un coaching moderne, une énergie qui donne envie de s'engager dès la première seconde.",
-          type: "photo",
-          src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop",
-          alt: "Coach fitness en séance d'entraînement",
-        },
-        {
-          label: "Réserver",
-          caption: "Programmes, tarifs et prise de contact — une plateforme qui vend votre méthode.",
-          type: "mockup",
-          variant: "fitness",
-        },
-        {
-          label: "Le résultat",
-          caption: "Plus de membres, plus d'engagement, une présence en ligne qui inspire confiance.",
-          type: "outcome",
-          variant: "fitness",
-          src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
-          alt: "Salle de sport moderne avec clients actifs",
-          metrics: [
-            { value: "+90%", label: "Demandes coaching" },
-            { value: "2×", label: "Engagement en ligne" },
-            { value: "+150", label: "Membres actifs" },
-            { value: "Top 3", label: "Recherche locale" },
-          ],
-        },
-      ],
+  id: 3,
+  name: "Fitness & Coaching",
+  category: "Salle de sport & Coach sportif",
+  description:
+    "Un site premium pour présenter vos programmes, attirer de nouveaux clients et faciliter les prises de rendez-vous.",
+  gradient: "from-lime-500/20 via-green-500/10 to-emerald-500/5",
+  accentColor: "lime",
+  mockup: "💪",
+  features: [
+    "Programmes",
+    "Coaching",
+    "Prise de rendez-vous",
+    "Transformation",
+  ],
+  testimonial:
+    "Le nouveau site a renforcé notre image et augmenté les demandes de coaching.",
+
+  slides: [
+    {
+      label: "L'univers",
+      caption:
+        "Une identité forte qui inspire confiance et donne envie de commencer sa transformation.",
+      type: "photo",
+      src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop",
+      alt: "Salle de sport moderne et coaching sportif",
     },
     {
+      label: "Votre site",
+      caption:
+        "Une page d'accueil moderne conçue pour convertir vos visiteurs en nouveaux clients.",
+      type: "photo",
+      src: "/site_gym.jpeg",
+      alt: "Interface du site web d'une salle de sport",
+    },
+    {
+      label: "Prendre rendez-vous",
+      caption:
+        "Réservation de séances, présentation des programmes et prise de contact en quelques clics.",
+      type: "photo",
+      src: "/site_fit.png",
+      alt: "Page de réservation d'un coach sportif",
+    },
+  ],
+},
+    {
       id: 4,
-      name: "Web Studio",
-      category: "Plateforme SaaS",
-      description: "Outil de gestion de projet nouvelle génération avec collaboration en temps réel",
-      gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/5",
-      accentColor: "blue",
-      mockup: "📊",
-      features: ["Temps réel", "Analytiques", "API", "Intégrations"],
-      testimonial: "Ryad a créé une expérience utilisateur qui dépasse nos attentes.",
+      name: "Location de véhicules",
+      category: "Mobilité",
+      description: "Un site premium pour présenter votre flotte, les disponibilités et simplifier les réservations.",
+      gradient: "from-sky-500/20 via-cyan-500/10 to-slate-500/5",
+      accentColor: "sky",
+      mockup: "🚗",
+      features: ["Réservation", "Disponibilités", "Tarifs", "Mobile"],
+      testimonial: "Le parcours mobile a rendu la réservation plus simple et plus premium.",
       slides: [
         {
           label: "L'univers",
-          caption: "Une équipe produit qui a besoin d'une vitrine aussi performante que son outil.",
+          caption: "Une expérience moderne pour des services de mobilité haut de gamme.",
           type: "photo",
-          src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
-          alt: "Équipe travaillant sur un produit SaaS",
+          src: "/location_car.jpeg",
+          alt: "Interface web de location de voiture",
         },
         {
           label: "Réserver",
-          caption: "Landing page claire, démo produit et conversion vers l'inscription.",
-          type: "mockup",
-          variant: "saas",
+          caption: "Une expérience moderne pour des services de mobilité haut de gamme.",
+          type: "photo",
+          src: "/site_car.jpeg",
+          alt: "Interface web de location de voiture",
         },
         {
-          label: "Le résultat",
-          caption: "Plus de trials, meilleur taux de conversion, crédibilité startup → scale-up.",
-          type: "outcome",
-          variant: "saas",
-          src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop",
-          alt: "Tableau de bord analytics avec croissance",
-          metrics: [
-            { value: "+65%", label: "Inscriptions trial" },
-            { value: "3.2×", label: "Taux conversion" },
-            { value: "−40%", label: "Coût d'acquisition" },
-            { value: "+200", label: "Leads qualifiés/mois" },
-          ],
+          label: "Réserver",
+          caption: "Un parcours clair pour choisir, réserver et confirmer votre véhicule rapidement.",
+          type: "photo",
+          src: "/site_location.png",
+          alt: "Réservation de véhicule en ligne",
+        },
+        {
+          label: "Nos clients",
+          caption: "Des utilisateurs satisfaits qui reviennent pour une location simple et fiable.",
+          type: "photo",
+          src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80&auto=format&fit=crop",
+          alt: "Clients heureux avec leur voiture de location",
         },
       ],
     },
     {
       id: 5,
-      name: "Services Pro",
-      category: "Entreprise Locale",
-      description: "Site web de prestataire premium avec système de devis instantané",
-      gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/5",
-      accentColor: "purple",
-      mockup: "🔧",
-      features: ["Devis instantanés", "Portfolio", "Avis clients", "Contact"],
-      testimonial: "Notre présence en ligne a complètement transformé notre business.",
+      name: "Nettoyage automobile",
+      category: "Service / entretien",
+      description: "Une expérience rapide et propre pour des réservations, des prestations et une image professionnelle.",
+      gradient: "from-cyan-500/20 via-blue-500/10 to-slate-500/5",
+      accentColor: "cyan",
+      mockup: "🧼",
+      features: ["Réservation", "Prestations", "Avis", "Localisation"],
+      testimonial: "Nous avons rendu le service plus crédible et plus simple à réserver.",
       slides: [
         {
           label: "L'univers",
-          caption: "Un artisan ou prestataire local dont le savoir-faire mérite d'être visible en ligne.",
+          caption: "Une proposition claire, moderne et rassurante pour des services de qualité.",
           type: "photo",
-          src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80&auto=format&fit=crop",
-          alt: "Professionnel du bâtiment au travail",
+          src: "/clean_car.jpeg",
+          alt: "Interface web de nettoyage de voiture",
         },
         {
           label: "Réserver",
-          caption: "Devis instantané, portfolio de réalisations et avis clients — tout pour rassurer.",
+          caption: "Un formulaire rapide pour choisir votre prestation de nettoyage en un clin d'œil.",
+          type: "photo",
+          src: "/clean_car.png",
+          alt: "Réservation de nettoyage automobile",
+        },
+        {
+          label: "Nos clients",
+          caption: "Des clients rassurés par une interface professionnelle et une prise de rendez-vous rapide.",
+          type: "photo",
+          src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80&auto=format&fit=crop",
+          alt: "Client satisfait après nettoyage auto",
+        },
+      ],
+    },
+    {
+      id: 6,
+      name: "Vente de vêtements",
+      category: "Vêtements / e-commerce",
+      description: "Une boutique visuelle pensée pour mettre en avant vos produits et convertir rapidement.",
+      gradient: "from-rose-500/20 via-pink-500/10 to-fuchsia-500/5",
+      accentColor: "rose",
+      mockup: "👕",
+      features: ["Catalogue", "Paiement", "Marque", "Conversion"],
+      testimonial: "Le site a permis d'améliorer la perception de marque et les ventes.",
+      slides: [
+        {
+          label: "L'univers",
+          caption: "Un univers visuel premium, pensé pour faire rayonner les produits.",
+          type: "photo",
+          src: "/vetment.jpeg",
+          alt: "Interface web de site de vêtements",
+        },
+        {
+          label: "Réserver",
+          caption: "Une page boutique élégante pour ajouter rapidement au panier et finaliser l’achat.",
+          type: "photo",
+          src: "/site_vetment.png",
+          alt: "Parcours d'achat en ligne pour vêtements",
+        },
+        {
+          label: "Nos clients",
+          caption: "Une expérience client claire et élégante, pensée pour fidéliser et convertir.",
+          type: "photo",
+          src: "/client_vetment.jpeg",
+          alt: "Clients satisfaits achetant des vêtements en ligne",
+        },
+      ],
+    },
+    {
+      id: 7,
+      name: "Artisan",
+      category: "Entreprise locale",
+      description: "Un site professionnel pour présenter votre savoir-faire et générer des devis qualifiés.",
+      gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/5",
+      accentColor: "violet",
+      mockup: "🔧",
+      features: ["Devis", "Portfolio", "Avis", "Contact"],
+      testimonial: "Notre présence en ligne a complètement transformé notre activité.",
+      slides: [
+        {
+          label: "L'univers",
+          caption: "Un site qui transmet confiance, clarté et sérieux dès le premier regard.",
+          type: "photo",
+          src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
+          alt: "Professionnel artisanat",
+        },
+        {
+          label: "Réserver",
+          caption: "Un parcours simple pour demander un devis ou prendre contact.",
           type: "mockup",
           variant: "services",
         },
+      ],
+    },
+    {
+      id: 8,
+      name: "Immobilier",
+      category: "Immobilier",
+      description: "Une expérience claire pour mettre en avant les biens et accélérer les prises de contact.",
+      gradient: "from-indigo-500/20 via-violet-500/10 to-purple-500/5",
+      accentColor: "indigo",
+      mockup: "🏡",
+      features: ["Biens", "Visites", "Contact", "Conversion"],
+      testimonial: "Le site a fortement simplifié le parcours de nos prospects.",
+      slides: [
         {
-          label: "Le résultat",
-          caption: "Demandes de devis qualifiées, moins de prospects perdus, réputation locale solide.",
-          type: "outcome",
+          label: "L'univers",
+          caption: "Un design sobre, premium et orienté qualité pour une agence immobilière.",
+          type: "photo",
+          src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
+          alt: "Bien immobilier premium",
+        },
+        {
+  label: "Réserver",
+  caption: "Présentation des biens et prise de contact en quelques clics.",
+  type: "photo",
+  src: "/site_immobilier.jpeg",
+  alt: "Interface du site immobilier",
+},
+      ],
+    },
+    {
+      id: 9,
+      name: "Salon de beauté",
+      category: "Beauté & spa",
+      description: "Un site premium pour séduire, réserver et faire rayonner votre salon.",
+      gradient: "from-pink-500/20 via-fuchsia-500/10 to-purple-500/5",
+      accentColor: "pink",
+      mockup: "💅",
+      features: ["Réservation", "Galerie", "Avis", "Brand"],
+      testimonial: "Le design a transformé l’image de notre salon et les réservations.",
+      slides: [
+        {
+          label: "L'univers",
+          caption: "Une identité visuelle élégante pour un salon moderne et haut de gamme.",
+          type: "photo",
+          src: "/salon_beaute.jpeg",
+          alt: "Salon de beauté premium",
+        },
+        {
+  label: "Réserver",
+  caption: "Réservation en ligne et mise en avant de votre expertise.",
+  type: "photo",
+  src: "/site_salon.jpeg",
+  alt: "Interface du site du salon de beauté",
+},
+      ],
+    },
+    {
+      id: 10,
+      name: "Autre",
+      category: "Projet personnalisé",
+      description: "Un site sur mesure pour toute autre activité, à partir de votre besoin précis.",
+      gradient: "from-zinc-500/20 via-stone-500/10 to-slate-500/5",
+      accentColor: "zinc",
+      mockup: "✨",
+      features: ["Sur mesure", "Besoin précis", "Contact", "Adaptation"],
+      testimonial: "Chaque projet peut être pensé pour une réalité différente.",
+      slides: [
+        {
+          label: "L'univers",
+          caption: "Une expérience digitale pensée pour votre activité, quel que soit votre secteur.",
+          type: "photo",
+          src: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&q=80&auto=format&fit=crop",
+          alt: "Projet personnalisé",
+        },
+        {
+          label: "Réserver",
+          caption: "Contactez-nous pour créer quelque chose d'adapté à votre activité.",
+          type: "mockup",
           variant: "services",
-          src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
-          alt: "Équipe de professionnels sur un chantier",
-          metrics: [
-            { value: "+140%", label: "Demandes de devis" },
-            { value: "4.8★", label: "Satisfaction client" },
-            { value: "−50%", label: "Appels non qualifiés" },
-            { value: "+75%", label: "Visibilité locale" },
-          ],
         },
       ],
     },
@@ -235,6 +377,14 @@ export default function DesignsPage() {
       y: 0,
       transition: { duration: 0.5 },
     },
+  };
+
+  const handleSelectorScroll = () => {
+    selectorRef.current?.scrollBy({ left: 240, behavior: "smooth" });
+  };
+
+  const handleProjectAdvance = () => {
+    setSelectedProject((prev) => (prev + 1) % designs.length);
   };
 
   return (
@@ -261,13 +411,53 @@ export default function DesignsPage() {
               Designs qui
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
-                transforment les affaires
+                s’adaptent à tous vos projets
               </span>
             </h1>
             <p className="text-base sm:text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed">
-              Des interfaces premium conçues pour impressionner et convertir.
+              Des interfaces premium conçues pour impressionner et convertir, que vous soyez dans le barbershop, la restauration, le fitness, l’artisanat, la location de véhicules, le commerce ou tout autre secteur.
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* PROJECT HEADER */}
+      <section className="relative py-8 md:py-10 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 sm:p-10 lg:p-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <motion.div
+                key={selectedProject}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="max-w-2xl"
+              >
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-3">
+                  {designs[selectedProject].category}
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">
+                  {designs[selectedProject].name}
+                </h2>
+                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
+                  {designs[selectedProject].description}
+                </p>
+              </motion.div>
+
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={handleProjectAdvance}
+                className="inline-flex items-center justify-center gap-2 self-start rounded-full border border-white/10 bg-white/10 px-4 py-3 text-sm font-medium text-white transition hover:bg-white/20"
+              >
+                Suivant
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </motion.button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -334,26 +524,54 @@ export default function DesignsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mt-10 grid grid-cols-2 md:grid-cols-5 gap-3"
+            className="mt-10"
           >
-            {designs.map((design, index) => (
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div
+                ref={selectorRef}
+                className="flex-1 overflow-x-auto overflow-y-hidden pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                <div className="flex min-w-max gap-2 sm:gap-3">
+                  {designs.map((design, index) => {
+                    const isActive = selectedProject === index;
+                    return (
+                      <motion.button
+                        key={design.id}
+                        onClick={() => setSelectedProject(index)}
+                        whileHover={{ y: -1, scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`group relative flex h-20 w-24 sm:h-24 sm:w-28 items-center justify-center rounded-2xl border px-2 text-center transition-all duration-300 ease-out ${
+                          isActive
+                            ? "border-white/30 bg-white/16 shadow-[0_10px_30px_-12px_rgba(255,255,255,0.35)]"
+                            : "border-white/10 bg-white/[0.05] hover:border-white/20 hover:bg-white/[0.08]"
+                        }`}
+                      >
+                        <span className={`absolute inset-x-2 top-2 h-0.5 rounded-full transition-all duration-300 ${isActive ? "bg-gradient-to-r from-blue-400 to-violet-400" : "bg-transparent group-hover:bg-white/20"}`} />
+                        <span className="flex flex-col items-center gap-1.5">
+                          <span className="text-xl sm:text-2xl leading-none">{design.mockup}</span>
+                          <span className={`text-[11px] sm:text-xs font-semibold leading-tight ${isActive ? "text-white" : "text-zinc-300 group-hover:text-white"}`}>
+                            {design.name}
+                          </span>
+                        </span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <motion.button
-                key={design.id}
-                onClick={() => setSelectedProject(index)}
+                type="button"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`group relative p-4 rounded-xl border transition-all duration-300 ${
-                  selectedProject === index
-                    ? "bg-white/15 border-white/30"
-                    : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
-                }`}
+                onClick={handleSelectorScroll}
+                aria-label="Afficher les projets suivants"
+                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] text-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.55)] transition-all duration-300 hover:border-white/20 hover:bg-white/[0.12]"
               >
-                <div className="text-2xl sm:text-3xl mb-2">{design.mockup}</div>
-                <p className="text-xs font-semibold text-white text-left line-clamp-2">
-                  {design.name}
-                </p>
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
               </motion.button>
-            ))}
+            </div>
           </motion.div>
         </div>
       </section>

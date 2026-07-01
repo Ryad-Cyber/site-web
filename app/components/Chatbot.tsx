@@ -6,29 +6,44 @@ type Message = { role: "user" | "bot"; text: string };
 
 const BOT_REPLIES: { keywords: string[]; reply: string }[] = [
   {
+    keywords: ["bonjour", "salut", "coucou", "bienvenue"],
+    reply:
+      "Bonjour ! Je peux vous aider à préciser votre projet : site vitrine, application web, réservation en ligne ou visibilité sur Google. Dites-moi ce que vous souhaitez faire.",
+  },
+  {
     keywords: ["prix", "tarif", "coût", "combien", "budget"],
     reply:
-      "Mes formules démarrent à 299€ (Starter), 499€ (Business) et 899€ (Premium). Chaque projet inclut un devis gratuit personnalisé — voulez-vous en discuter ?",
+      "Mes formules démarrent à 299€ (Starter), 499€ (Business) et 899€ (Premium). Chaque projet démarre par une étude gratuite de votre besoin — voulez que je vous guide sur la bonne formule ?",
   },
   {
     keywords: ["délai", "temps", "livraison", "rapide", "jours"],
     reply:
-      "Vous recevez un premier aperçu sous 48h. La livraison finale se fait entre 7 et 14 jours selon la formule choisie.",
+      "Le premier aperçu peut être livré sous 48h, puis la livraison finale dépend du niveau de personnalisation choisi. Je peux vous donner un cadre précis selon votre projet.",
   },
   {
-    keywords: ["whatsapp", "contact", "appeler", "téléphone"],
+    keywords: ["whatsapp", "contact", "appeler", "téléphone", "devis"],
     reply:
-      "Vous pouvez me contacter via le formulaire sur la page, sur WhatsApp, ou au 07 49 63 50 85. Je réponds sous 24h !",
+      "Vous pouvez me contacter via le formulaire, WhatsApp ou au 07 49 63 50 85. Je vous réponds rapidement et je peux établir un devis sur mesure selon votre besoin.",
   },
   {
-    keywords: ["seo", "google", "référencement"],
+    keywords: ["seo", "google", "référencement", "visibilité"],
     reply:
-      "Tous mes sites sont optimisés pour le SEO local : vitesse, structure, mots-clés géolocalisés pour apparaître sur Google dans votre zone.",
+      "Oui, je peux proposer une base de visibilité locale et technique pour aider votre activité à mieux apparaître sur Google : structure, contenu, vitesse et optimisation mobile.",
   },
   {
-    keywords: ["restaurant", "artisan", "coiffure", "btp", "commerce"],
+    keywords: ["site", "site web", "landing", "vitrine", "application", "app", "webapp"],
     reply:
-      "Je travaille avec des restaurants, salons, artisans et commerces locaux. Chaque site est pensé pour votre secteur et vos objectifs business.",
+      "Je peux créer un site vitrine, une application web ou une expérience mobile pensée pour convertir vos visiteurs en clients. Dites-moi si vous souhaitez surtout générer des appels, des réservations ou des devis.",
+  },
+  {
+    keywords: ["réservation", "rdv", "prendre", "agenda", "booking"],
+    reply:
+      "Oui, j’intègre souvent des réservations, formulaires ou prises de contact pour simplifier le parcours client. Si vous avez déjà un besoin précis, je peux vous orienter vers la bonne solution.",
+  },
+  {
+    keywords: ["restaurant", "artisan", "coiffure", "btp", "commerce", "salon", "fitness"],
+    reply:
+      "Je travaille avec des restaurants, salons, artisans, commerces et structures locales. Chaque projet est pensé selon votre secteur, votre audience et vos objectifs business.",
   },
 ];
 
@@ -37,7 +52,7 @@ function getBotReply(input: string): string {
   for (const { keywords, reply } of BOT_REPLIES) {
     if (keywords.some((k) => lower.includes(k))) return reply;
   }
-  return "Merci pour votre message ! Pour un devis personnalisé, utilisez le formulaire de contact ou WhatsApp. Je suis là pour vous aider à créer un site qui convertit.";
+  return "Je peux vous aider à clarifier votre besoin. Dites-moi si vous cherchez un site vitrine, une application web, une réservation en ligne ou une amélioration de votre visibilité sur Google, et je vous guiderai vers la bonne solution.";
 }
 
 export default function Chatbot() {

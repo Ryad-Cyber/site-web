@@ -33,19 +33,9 @@ body {
 }
 
 /* =======================
-   ANIMATIONS
+   ANIMATIONS - Minimal
+   Only keep essential UX animations
 ======================= */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
-
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -56,47 +46,15 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes gradient-shift {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
-}
-
 /* =======================
    ANIMATION CLASSES
 ======================= */
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2s infinite;
-}
-
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
 }
 
 .animate-fade-in-up {
   animation: fade-in-up 0.7s ease-out forwards;
-}
-
-.animate-spin-slow {
-  animation: spin-slow 12s linear infinite;
-}
-
-.animate-shimmer {
-  background-size: 200% auto;
-  animation: shimmer 3s linear infinite;
 }
 
 /* =======================
@@ -130,20 +88,13 @@ body {
   -webkit-backdrop-filter: blur(16px);
 }
 
-.glow-violet {
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.45), 0 0 60px rgba(59, 130, 246, 0.2);
-}
-
 /* =======================
    HEADER FIX (IMPORTANT)
-   -> empêche le “blanc au scroll”
 ======================= */
 header {
-  background-color: #09090b; /* zinc-950 */
+  background-color: #09090b;
   opacity: 1;
 }
-
-/* sécurité anti effet glass/global */
 
 /* =======================
    RESULTS PAGE

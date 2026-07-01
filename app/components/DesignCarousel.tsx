@@ -266,12 +266,12 @@ export default function DesignCarousel({ slides, accentGradient, projectKey }: D
               className="absolute inset-0"
             >
               {slide.type === "photo" && slide.src && (
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full overflow-hidden rounded-3xl bg-zinc-950/70">
                   <Image
                     src={slide.src}
                     alt={slide.alt ?? slide.caption}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
                     onError={(e) => {
@@ -293,7 +293,7 @@ export default function DesignCarousel({ slides, accentGradient, projectKey }: D
                     muted
                     loop
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain scale-90"
                     onError={(e) => {
                       const video = e.currentTarget;
                       video.style.display = "none";
@@ -311,7 +311,10 @@ export default function DesignCarousel({ slides, accentGradient, projectKey }: D
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/20 to-transparent" />
                   <div className={`absolute inset-0 bg-gradient-to-br ${accentGradient} opacity-20 mix-blend-overlay`} />
                   <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <p className="text-sm sm:text-base text-white/90 max-w-xs leading-relaxed">{slide.caption}</p>
+                    <p className="text-sm sm:text-base text-white/90 max-w-xs leading-relaxed">
+  Un site pensé pour générer des clients,{" "}
+  <span className="text-white font-medium">pas juste des visites</span>
+</p>
                   </div>
                 </div>
               )}
