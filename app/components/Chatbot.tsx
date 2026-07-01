@@ -88,7 +88,7 @@ export default function Chatbot() {
     <>
       {/* Panel */}
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-[380px] transition-all duration-300 origin-bottom-right ${
+        className={`fixed bottom-24 right-6 z-50 w-full max-w-[380px] transition-all duration-300 origin-bottom-right ${
           open
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
             : "opacity-0 scale-95 translate-y-4 pointer-events-none"
