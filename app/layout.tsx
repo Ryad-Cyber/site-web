@@ -29,6 +29,10 @@ export const metadata = {
     images: [{ url: "/Ryad_Studio.png", width: 512, height: 512, alt: "Ryad Web Studio" }],
   },
 };
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 export default function RootLayout({
   children,
 }: Readonly<{

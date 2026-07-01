@@ -32,7 +32,7 @@ export default function DesignsPage() {
     },
     {
       id: 3,
-      name: "Fit Studio",
+      name: "Fitness & Coaching",
       category: "Coaching Fitness",
       description: "Plateforme de coaching moderne avec programmes d'entraînement et espace membre",
       gradient: "from-lime-500/20 via-green-500/10 to-emerald-500/5",

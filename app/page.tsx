@@ -453,12 +453,12 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-6 sm:mt-7 text-lg sm:text-xl text-zinc-300 max-w-xl leading-relaxed">
-                  Vous êtes <strong className="text-white">barbier, restaurateur, coach sportif, artisan, loueur de voitures, entreprise de nettoyage ou tout autre professionnel</strong> ?
-                  Je crée un site web élégant ou une application web pensée pour attirer des clients, simplifier les réservations et renforcer votre image, sur mobile comme sur desktop.
-                </p>
+  Vous êtes <strong className="text-white">coiffeur, restaurateur, coach sportif, entrepreneur ou dirigeant d’une entreprise</strong> ?<br />
+  Je conçois des sites web et applications web modernes, pensés pour développer votre activité, attirer de nouveaux clients et simplifier votre quotidien.
+</p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {["Barbier", "Restaurant", "Coach fitness", "Artisan", "Entrepreneur"].map((tag) => (
+                  {["Coiffeur", "Restaurant", "Coach sportif", "Entrepreneur", "Autres activités"].map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1.5 rounded-full text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
