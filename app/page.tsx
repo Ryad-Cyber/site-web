@@ -81,107 +81,95 @@ const DESIGNS: Design[] = [
     id: 1,
     name: "Location Premium",
     category: "Location de véhicules",
-    description: "Site élégant et expérience mobile pour réserver un véhicule en quelques minutes.",
+    description: "Création de site internet professionnel de location de voitures et réservation de véhicules de prestige.",
     gradient: "from-sky-500/20 via-cyan-500/10 to-slate-500/5",
     mockup: "🚗",
-    features: ["Réservation en ligne", "Tarifs clairs", "Documents", "Mobile-first"],
+    features: ["Réservation en ligne", "Tarifs transparents", "Gestion des documents", "Optimisé mobile"],
     slides: [
       {
         label: "L'univers",
-        caption: "Un salon moderne où l'ambiance premium attire une clientèle exigeante.",
+        caption: "Une interface claire et engageante pour valoriser votre flotte de véhicules à louer.",
         type: "photo",
-        src: "/site_fit.png",
-        alt: "Interface web de salle de sport",
+        src: "/clean_car.jpeg",
+        alt: "Voiture haut de gamme prête pour la location",
       },
       {
         label: "Réserver",
-        caption: "Découvrez le site en action.",
+        caption: "Parcours de réservation de voiture fluide et simplifié en quelques clics.",
         type: "photo",
-        src: "/site_fit.png",
-        alt: "Interface web de salle de sport",
+        src: "/site_car.jpeg",
+        alt: "Interface web de réservation de voiture de location",
       },
       {
         label: "Nos clients",
-        caption: "Des clients satisfaits qui reviennent.",
+        caption: "Des clients de l'agence de location satisfaits qui réservent à nouveau.",
         type: "photo",
-        src: "/site_fit.png",
-        alt: "Interface web de salle de sport",
+        src: "/site_location.png",
+        alt: "Capture d'écran du site web de location de véhicules",
       },
     ],
   },
   {
     id: 2,
     name: "Nettoyage Pro",
-    category: "Nettoyage / entretien",
-    description: "Une présence professionnelle pour proposer des prestations, des réservations et un service premium.",
+    category: "Nettoyage & Entretien",
+    description: "Création de site internet pour entreprise de nettoyage professionnel, services d'entretien et désinfection de locaux.",
     gradient: "from-emerald-500/20 via-teal-500/10 to-cyan-500/5",
     mockup: "🧽",
-    features: ["Réservations", "Prestations", "Avis clients", "Localisation"],
+    features: ["Réservations", "Prestations de nettoyage", "Avis clients", "Zone d'intervention"],
     slides: [
       {
         label: "L'univers",
-        caption: "Une salle élégante qui mérite d'être découverte avant même la première bouchée.",
+        caption: "Présentation claire et impeccable de vos services de nettoyage et d'entretien pour professionnels et particuliers.",
         type: "photo",
-        src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80&auto=format&fit=crop",
-        alt: "Intérieur de restaurant gastronomique",
+        src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80&auto=format&fit=crop",
+        alt: "Professionnel du nettoyage effectuant un entretien de locaux",
       },
       {
         label: "Réserver",
-        caption: "Menu digital, réservations et photos HD pour séduire avant la visite.",
-        type: "mockup",
-        variant: "restaurant",
+        caption: "Formulaire de demande de devis express et prise de rendez-vous de nettoyage en ligne.",
+        type: "photo",
+        src: "/site_fit.png",
+        alt: "Interface web d'une entreprise de nettoyage de locaux",
       },
       {
         label: "Le résultat",
-        caption: "Tables réservées en avance, file d'attente en ligne, réputation renforcée.",
-        type: "outcome",
-        variant: "restaurant",
-        src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop",
-        alt: "Clients dînant dans un restaurant",
-        metrics: [
-          { value: "+120%", label: "Réservations web" },
-          { value: "3×", label: "Visibilité locale" },
-          { value: "85%", label: "Taux de remplissage" },
-          { value: "+45%", label: "Avis en ligne" },
-        ],
+        caption: "Des locaux propres, des réservations régulières et une réputation en ligne renforcée.",
+        type: "photo",
+        src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
+        alt: "Chantier d'entretien de locaux propres et nets",
       },
     ],
   },
   {
     id: 3,
     name: "Immobilier Plus",
-    category: "Immobilier / agence",
-    description: "Présentation de biens, prise de contact et expérience mobile fluide pour générer des leads qualifiés.",
+    category: "Immobilier / Agence",
+    description: "Création de site internet d'agence immobilière, avec catalogue de biens et demandes d'estimation.",
     gradient: "from-indigo-500/20 via-violet-500/10 to-purple-500/5",
     mockup: "🏡",
-    features: ["Biens en avant", "Contact rapide", "Visites", "Conversion"],
+    features: ["Biens immobiliers", "Estimation gratuite", "Contact agents", "SEO local"],
     slides: [
       {
         label: "L'univers",
-        caption: "Un coaching moderne, une énergie qui donne envie de s'engager dès la première seconde.",
+        caption: "Vitrine immobilière premium pour présenter de magnifiques biens à la vente et à la location.",
         type: "photo",
-        src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop",
-        alt: "Coach fitness en séance d'entraînement",
+        src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
+        alt: "Magnifique villa immobilière d'architecte contemporaine",
       },
       {
         label: "Réserver",
-        caption: "Programmes, tarifs et prise de contact — une plateforme qui vend votre méthode.",
-        type: "mockup",
-        variant: "fitness",
+        caption: "Prise de contact rapide avec les négociateurs ou demande d'évaluation immobilière.",
+        type: "photo",
+        src: "/site_immobilier.jpeg",
+        alt: "Maquette du site web d'une agence immobilière contemporaine",
       },
       {
         label: "Le résultat",
-        caption: "Plus de membres, plus d'engagement, une présence en ligne qui inspire confiance.",
-        type: "outcome",
-        variant: "fitness",
-        src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
-        alt: "Salle de sport moderne",
-        metrics: [
-          { value: "+90%", label: "Demandes coaching" },
-          { value: "2×", label: "Engagement en ligne" },
-          { value: "+150", label: "Membres actifs" },
-          { value: "Top 3", label: "Recherche locale" },
-        ],
+        caption: "Davantage de mandats exclusifs, de leads acheteurs qualifiés et d'estimations obtenues.",
+        type: "photo",
+        src: "/site_immobilier.jpeg",
+        alt: "Vue de l'interface d'estimation de biens en ligne",
       },
     ],
   },
@@ -308,32 +296,32 @@ function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {FAQ_ITEMS.map((item, index) => {
         const isOpen = openIndex === index;
 
         return (
           <motion.div
             key={item.q}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.04 }}
-            className={`rounded-2xl border transition-colors duration-300 ${
+            transition={{ duration: 0.35, delay: index * 0.03 }}
+            className={`rounded-xl border transition-colors duration-300 ${
               isOpen
-                ? "border-zinc-200 bg-white shadow-lg shadow-zinc-900/5"
-                : "border-zinc-200/80 bg-white/80 hover:border-zinc-300 hover:bg-white"
+                ? "border-zinc-200 bg-white shadow-md shadow-zinc-900/5"
+                : "border-zinc-200/60 bg-white/70 hover:border-zinc-300 hover:bg-white"
             }`}
           >
             <button
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
-              className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left cursor-pointer group"
+              className="w-full flex items-center justify-between gap-3 px-4 py-3.5 sm:px-5 sm:py-4 text-left cursor-pointer group"
             >
-              <span className="flex items-start gap-4 min-w-0">
+              <span className="flex items-center gap-3 min-w-0">
                 <span
-                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold transition-colors duration-300 ${
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px] font-semibold transition-colors duration-300 ${
                     isOpen
                       ? "bg-zinc-950 text-white"
                       : "bg-zinc-100 text-zinc-500 group-hover:bg-zinc-200"
@@ -342,7 +330,7 @@ function FaqAccordion() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span
-                  className={`font-semibold text-[15px] sm:text-base leading-snug transition-colors duration-300 ${
+                  className={`font-semibold text-sm sm:text-base leading-tight transition-colors duration-300 ${
                     isOpen ? "text-zinc-950" : "text-zinc-800 group-hover:text-zinc-950"
                   }`}
                 >
@@ -351,8 +339,8 @@ function FaqAccordion() {
               </span>
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0 }}
-                transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-lg leading-none transition-colors duration-300 ${
+                transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-base leading-none transition-colors duration-300 ${
                   isOpen
                     ? "bg-zinc-950 text-white"
                     : "bg-zinc-100 text-zinc-500 group-hover:bg-zinc-200 group-hover:text-zinc-950"
@@ -369,12 +357,12 @@ function FaqAccordion() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
-                    <div className="ml-11 border-t border-zinc-100 pt-4">
-                      <p className="text-[15px] sm:text-base text-zinc-600 leading-relaxed">{item.a}</p>
+                  <div className="px-4 pb-3.5 sm:px-5 sm:pb-4 pt-0">
+                    <div className="ml-9 border-t border-zinc-100 pt-3">
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">{item.a}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -429,22 +417,22 @@ export default function Home() {
         {/* HERO */}
         <motion.section
           id="home"
-          className="relative overflow-hidden bg-[#0a0a0b] text-white pt-24 pb-16 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 lg:pt-44 lg:pb-36"
+          className="relative overflow-hidden bg-[#0a0a0b] text-white pt-20 pb-10 sm:pt-24 sm:pb-14 md:pt-32 md:pb-24 lg:pt-44 lg:pb-36"
           style={{}}
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_55%)]" />
 
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-20 items-center">
               {/* LEFT */}
               <ScrollReveal>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-sm text-zinc-300 mb-6 sm:mb-8">
-                  <span className="w-2 h-2 rounded-full bg-white/70" />
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border border-white/10 bg-white/[0.04] text-xs sm:text-sm text-zinc-300 mb-4 sm:mb-6 lg:mb-8">
+                  <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-white/70" />
                   Ryad Web Studio — Sites web et apps web premium
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.1] sm:leading-[1.05] tracking-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.15] sm:leading-[1.05] tracking-tight">
                   Je construis des sites web
                   <br />
                   <span className="text-zinc-200">
@@ -452,33 +440,33 @@ export default function Home() {
                   </span>
                 </h1>
 
-                <p className="mt-6 sm:mt-7 text-lg sm:text-xl text-zinc-300 max-w-xl leading-relaxed">
+                <p className="mt-4 sm:mt-5 lg:mt-7 text-sm sm:text-base md:text-xl text-zinc-300 max-w-xl leading-relaxed">
   Vous êtes <strong className="text-white">coiffeur, restaurateur, coach sportif, entrepreneur ou dirigeant d’une entreprise</strong> ?<br />
   Je conçois des sites web et applications web modernes, pensés pour développer votre activité, attirer de nouveaux clients et simplifier votre quotidien.
 </p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="mt-4 sm:mt-5 lg:mt-6 flex flex-wrap gap-1.5 sm:gap-2">
                   {["Coiffeur", "Restaurant", "Coach sportif", "Entrepreneur", "Autres activités"].map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 rounded-full text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
+                      className="px-2.5 py-1 rounded-full text-xs lg:text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="mt-6 lg:mt-8 flex flex-col sm:flex-row gap-2.5 sm:gap-4">
                   <a
                     href="#contact"
-                    className="group px-6 sm:px-8 py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all shadow-[0_12px_40px_rgba(255,255,255,0.12)] text-center text-base sm:text-lg"
+                    className="group px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all shadow-[0_12px_40px_rgba(255,255,255,0.12)] text-center text-sm sm:text-base lg:text-lg"
                   >
                     Demander un devis gratuit
                     <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                   </a>
                   <a
                     href="#tarifs"
-                    className="px-6 sm:px-8 py-4 rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] hover:border-white/25 transition-all text-center text-base sm:text-lg"
+                    className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] hover:border-white/25 transition-all text-center text-sm sm:text-base lg:text-lg"
                   >
                     Voir les tarifs
                   </a>
@@ -495,7 +483,7 @@ export default function Home() {
 
             {/* Stats bar */}
             <ScrollReveal delay={0.3}>
-              <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+              <div className="mt-8 sm:mt-12 lg:mt-20 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
                 {[
                   { value: "15+", label: "Sites livrés" },
                   { value: "48h", label: "Premier aperçu" },

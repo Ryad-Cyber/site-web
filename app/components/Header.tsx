@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 function MenuIcon() {
   return (
@@ -41,10 +42,13 @@ export default function Header() {
       <nav className="max-w-6xl mx-auto h-16 sm:h-[4.25rem] px-3 sm:px-5 rounded-full border border-white/10 bg-zinc-950/80 backdrop-blur-xl shadow-[0_20px_70px_-28px_rgba(0,0,0,0.8)] ring-1 ring-white/5 flex items-center justify-between gap-4">
         {/* Logo */}
         <a href="/" className="inline-flex items-center gap-3 transition-all hover:opacity-90">
-          <img
+          <Image
             src="/Ryad_Studio.png"
             alt="Ryad Web Studio"
+            width={44}
+            height={44}
             className="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl object-cover ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
+            priority
           />
           <div className="flex flex-col leading-tight">
             <span className="bg-gradient-to-r from-white via-zinc-100 to-zinc-300 bg-clip-text font-semibold tracking-tight text-base sm:text-lg text-transparent">Ryad Web Studio</span>
@@ -109,10 +113,13 @@ export default function Header() {
               {/* Menu Header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
                 <div className="inline-flex items-center gap-3">
-                  <img
+                  <Image
                     src="/Ryad_Studio.png"
                     alt="Ryad Web Studio"
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-2xl object-cover ring-1 ring-white/10 shadow-lg shadow-violet-500/20"
+                    priority
                   />
                   <div className="flex flex-col leading-tight">
                     <p className="text-sm font-bold text-white">Menu</p>
