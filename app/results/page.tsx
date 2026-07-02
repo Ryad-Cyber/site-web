@@ -274,7 +274,7 @@ useEffect(() => {
   animate={{ y: [0, 6, 0] }}
   transition={{
     repeat: Infinity,
-    duration: isMobile ? 0.9 : 1.8,
+    duration: isMobile ? 0.45 : 1.8,
     ease: "easeInOut",
   }}
   className="block w-px h-10 bg-zinc-300"
