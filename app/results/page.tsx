@@ -216,6 +216,15 @@ export default function ResultsPage() {
   const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
   const [compareTab, setCompareTab] = useState<"before" | "after">("before");
 
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const check = () => setIsMobile(window.innerWidth < 768);
+  check();
+  window.addEventListener("resize", check);
+  return () => window.removeEventListener("resize", check);
+}, []);
+
   return (
     <main className="min-h-screen bg-[#fbfbfd] text-zinc-950 selection:bg-zinc-900 selection:text-white">
       <Header />
@@ -262,10 +271,14 @@ export default function ResultsPage() {
             className="mt-16 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-zinc-400"
           >
             <motion.span
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="block w-px h-10 bg-zinc-300"
-            />
+  animate={{ y: [0, 6, 0] }}
+  transition={{
+    repeat: Infinity,
+    duration: isMobile ? 0.9 : 1.8,
+    ease: "easeInOut",
+  }}
+  className="block w-px h-10 bg-zinc-300"
+/>
             Défiler
           </motion.div>
         </motion.div>
