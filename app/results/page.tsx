@@ -6,6 +6,7 @@ import {
   useInView,
   useScroll,
   useTransform,
+  useReducedMotion,
   AnimatePresence,
 } from "framer-motion";
 import Header from "../components/Header";
@@ -206,24 +207,51 @@ function SerifHeading({
   );
 }
 
+  function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia(query);
+
+    const update = () => setMatches(media.matches);
+
+    update();
+
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
+
 export default function ResultsPage() {
+  const shouldReduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  
+  const heroOpacityRaw = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+const heroOpacity = useTransform(
+  scrollYProgress,
+  [0, isMobile ? 0 : 0.5],
+  [1, isMobile ? 1 : 0]
+);
+
+const heroY = useTransform(
+  scrollYProgress,
+  [0, 0.5],
+  [0, shouldReduceMotion ? 0 : 100]
+);
+
   const [compareTab, setCompareTab] = useState<"before" | "after">("before");
-
-  const [isMobile, setIsMobile] = useState(false);
-
-useEffect(() => {
-  const check = () => setIsMobile(window.innerWidth < 768);
-  check();
-  window.addEventListener("resize", check);
-  return () => window.removeEventListener("resize", check);
-}, []);
 
   return (
     <main className="min-h-screen bg-[#fbfbfd] text-zinc-950 selection:bg-zinc-900 selection:text-white">
@@ -235,9 +263,9 @@ useEffect(() => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.025)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
 
         <motion.div
-          style={{ opacity: heroOpacity, y: heroY }}
-          className="relative max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 pb-16 sm:pb-24 w-full"
-        >
+  className="relative max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 pb-16 sm:pb-24 w-full"
+  style={{ opacity: heroOpacity, y: heroY }}
+>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
