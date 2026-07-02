@@ -3,67 +3,12 @@
 import Header from "../components/Header";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { PROJECTS, type Project } from "../../lib/projects-data";
 
 export default function DesignsPage() {
   const [selectedProject, setSelectedProject] = useState(0);
 
-  const designs = [
-    {
-      id: 1,
-      name: "Barbershop Studio",
-      category: "Beauté & Coiffure",
-      description: "Salon de coiffure premium avec système de réservation et portfolio",
-      gradient: "from-amber-500/20 via-orange-500/10 to-red-500/5",
-      accentColor: "amber",
-      mockup: "🪑",
-      features: ["Réservation en ligne", "Portfolio", "Avis clients", "Tarifs"],
-      testimonial: "Nous avons augmenté nos rendez-vous de 180% en 3 mois.",
-    },
-    {
-      id: 2,
-      name: "Restauration",
-      category: "Restaurant Gastronomique",
-      description: "Restaurant de luxe avec menu, réservations et photographie exceptionnelle",
-      gradient: "from-red-500/20 via-pink-500/10 to-rose-500/5",
-      accentColor: "red",
-      mockup: "🍽️",
-      features: ["Menu digital", "Réservations", "Photos HD", "Localisation"],
-      testimonial: "Le design élégant de notre site a changé la perception de notre restaurant.",
-    },
-    {
-      id: 3,
-      name: "Fitness & Coaching",
-      category: "Coaching Fitness",
-      description: "Plateforme de coaching moderne avec programmes d'entraînement et espace membre",
-      gradient: "from-lime-500/20 via-green-500/10 to-emerald-500/5",
-      accentColor: "lime",
-      mockup: "💪",
-      features: ["Programmes", "Tableau de bord", "Coaching en direct", "Communauté"],
-      testimonial: "Le design moderne et les animations ont rendu mon plateforme irrésistible.",
-    },
-    {
-      id: 4,
-      name: "Web Studio",
-      category: "Plateforme SaaS",
-      description: "Outil de gestion de projet nouvelle génération avec collaboration en temps réel",
-      gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/5",
-      accentColor: "blue",
-      mockup: "📊",
-      features: ["Temps réel", "Analytiques", "API", "Intégrations"],
-      testimonial: "Ryad a créé une expérience utilisateur qui dépasse nos attentes.",
-    },
-    {
-      id: 5,
-      name: "Services Pro",
-      category: "Entreprise Locale",
-      description: "Site web de prestataire premium avec système de devis instantané",
-      gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/5",
-      accentColor: "purple",
-      mockup: "🔧",
-      features: ["Devis instantanés", "Portfolio", "Avis clients", "Contact"],
-      testimonial: "Notre présence en ligne a complètement transformé notre business.",
-    },
-  ];
+  const designs: Project[] = PROJECTS;
 
   const containerVariants = {
     hidden: { opacity: 0 },

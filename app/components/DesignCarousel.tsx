@@ -144,6 +144,7 @@ function OutcomeOverlay({
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
           priority={false}
+          unoptimized={slide.src.startsWith('http')}
           onError={() => setImageError(true)}
         />
       )}
@@ -274,6 +275,7 @@ export default function DesignCarousel({ slides, accentGradient, projectKey }: D
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
+                    unoptimized={slide.src.startsWith('http')}
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
