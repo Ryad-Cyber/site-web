@@ -16,8 +16,8 @@ const TARIFS_PLANS = [
   {
     name: "Pack Essentiel",
     price: "À partir de 399€",
-    desc: "Site vitrine premium pour capter des contacts et transmettre confiance.",
-    features: ["Analyse & proposition gratuite", "Design conversion orientée client", "Formulaire de contact + WhatsApp", "Responsive mobile"],
+    desc: "Site pour obtenir des clients et être trouvé sur Google",
+    features: ["Être visible sur Google", "Recevoir des demandes de clients", "Site rapide et mobile",],
     popular: false,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
@@ -30,8 +30,8 @@ const TARIFS_PLANS = [
   {
     name: "Pack Business",
     price: "À partir de 599€",
-    desc: "Site professionnel avec prise de rendez-vous, réservation et optimisation de leads.",
-    features: ["Maquette incluse avant paiement", "Pages stratégiques axées conversion", "Intégration réservations / WhatsApp", "Référencement local amélioré"],
+    desc: "Site optimisé pour générer des appels, réservations et clients",
+    features: ["Générer des appels clients", "Réservations en ligne", "Plus de visibilité locale",],
     popular: true,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-zinc-950 text-white border-zinc-950 shadow-2xl shadow-zinc-950/25 scale-[1.02]",
@@ -44,8 +44,8 @@ const TARIFS_PLANS = [
   {
     name: "Pack Premium",
     price: "À partir de 899€",
-    desc: "Solution haut de gamme pour booster votre présence, vos conversions et votre visibilité locale.",
-    features: ["Stratégie de conversion incluse", "SEO local & performance", "Intégrations avancées", "Support prioritaire"],
+    desc: "Solution complète pour augmenter votre visibilité et vos clients",
+    features: ["Plus de clients chaque mois", "Meilleure conversion visiteurs", "Positionnement Google local"],
     popular: false,
     cardClass:
       "relative flex flex-col p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-300 bg-white border-zinc-200 hover:shadow-xl hover:shadow-zinc-200/50 hover:border-zinc-300",
@@ -433,16 +433,19 @@ export default function Home() {
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.15] sm:leading-[1.05] tracking-tight">
-                  Je construis des sites web
-                  <br />
-                  <span className="text-zinc-200">
-                    et des applications web
-                  </span>
-                </h1>
+  Je crée des sites web qui attirent des clients
+  <br />
+  <span className="text-zinc-200">
+    pour les entreprises locales
+  </span>
+</h1>
 
                 <p className="mt-4 sm:mt-5 lg:mt-7 text-sm sm:text-base md:text-xl text-zinc-300 max-w-xl leading-relaxed">
-  Vous êtes <strong className="text-white">coiffeur, restaurateur, coach sportif, entrepreneur ou dirigeant d’une entreprise</strong> ?<br />
-  Je conçois des sites web et applications web modernes, pensés pour développer votre activité, attirer de nouveaux clients et simplifier votre quotidien.
+  Vous êtes <strong className="text-white">coiffeur, restaurateur, coach sportif ou entrepreneur</strong> ?<br />
+  Je crée des sites web conçus pour vous apporter plus d’appels, plus de clients et plus de réservations grâce à Google et une meilleure visibilité locale.
+</p>
+<p className="mt-3 text-sm text-zinc-400">
+  Basé en France — spécialisé dans les entreprises locales
 </p>
 
                 <div className="mt-4 sm:mt-5 lg:mt-6 flex flex-wrap gap-1.5 sm:gap-2">
@@ -457,20 +460,29 @@ export default function Home() {
                 </div>
 
                 <div className="mt-6 lg:mt-8 flex flex-col sm:flex-row gap-2.5 sm:gap-4">
-                  <a
-                    href="#contact"
-                    className="group px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all shadow-[0_12px_40px_rgba(255,255,255,0.12)] text-center text-sm sm:text-base lg:text-lg"
-                  >
-                    Demander un devis gratuit
-                    <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
-                  </a>
-                  <a
-                    href="#tarifs"
-                    className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] hover:border-white/25 transition-all text-center text-sm sm:text-base lg:text-lg"
-                  >
-                    Voir les tarifs
-                  </a>
-                </div>
+  <div className="flex flex-col gap-3">
+    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4">
+      <a
+        href="#contact"
+        className="group px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all shadow-[0_12px_40px_rgba(255,255,255,0.12)] text-center text-sm sm:text-base lg:text-lg"
+      >
+        Demander un devis gratuit
+        <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+
+      <a
+        href="#tarifs"
+        className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] hover:border-white/25 transition-all text-center text-sm sm:text-base lg:text-lg"
+      >
+        Voir les tarifs
+      </a>
+    </div>
+
+    <p className="text-xs text-zinc-500 text-center sm:text-left">
+      Réponse sous 24h • Devis gratuit • Sans engagement
+    </p>
+  </div>
+</div>
               </ScrollReveal>
 
               {/* RIGHT — Dynamic visual */}

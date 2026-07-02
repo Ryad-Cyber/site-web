@@ -61,44 +61,46 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Ryad Web Studio",
-    "image": "https://ryadwebstudio.fr/Ryad_Studio.png",
-    "@id": "https://ryadwebstudio.fr/#website",
-    "url": "https://ryadwebstudio.fr",
-    "telephone": "+33749635085",
-    "priceRange": "€€",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "",
-      "addressLocality": "Paris",
-      "postalCode": "75000",
-      "addressCountry": "FR"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.8566,
-      "longitude": 2.3522
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
-      "opens": "09:00",
-      "closes": "19:00"
-    },
-    "sameAs": [
-      "https://wa.me/33749635085"
-    ]
-  };
-
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Ryad Web Studio",
+  "image": "https://ryadwebstudio.fr/Ryad_Studio.png",
+  "@id": "https://ryadwebstudio.fr/#website",
+  "url": "https://ryadwebstudio.fr",
+  "telephone": "+33749635085",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Orléans",
+    "postalCode": "45000",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.9029,
+    "longitude": 1.9093
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Orléans"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "opens": "09:00",
+    "closes": "19:00"
+  },
+  "sameAs": [
+    "https://wa.me/33749635085"
+  ]
+};
   return (
     <html
       lang="fr"
