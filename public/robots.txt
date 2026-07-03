@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ryadwebstudio.fr/sitemap.xml
+Sitemap: https://ryadstudio.com/sitemap.xml
