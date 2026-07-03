@@ -1,13 +1,26 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ryadstudio.com";
-  const routes = ["", "/designs", "/projects", "/results", "/why-us"];
-
-  return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split("T")[0],
-    changeFrequency: "weekly",
-    priority: route === "" ? 1.0 : 0.8,
-  }));
+  return [
+    {
+      url: "https://ryadstudio.com",
+      lastModified: new Date(),
+    },
+    {
+      url: "https://ryadstudio.com/designs",
+      lastModified: new Date(),
+    },
+    {
+      url: "https://ryadstudio.com/projects",
+      lastModified: new Date(),
+    },
+    {
+      url: "https://ryadstudio.com/results",
+      lastModified: new Date(),
+    },
+    {
+      url: "https://ryadstudio.com/why-us",
+      lastModified: new Date(),
+    },
+  ];
 }
