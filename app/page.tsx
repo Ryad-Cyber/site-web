@@ -1,5 +1,6 @@
 "use client";
 
+import { QRCodeCanvas } from "qrcode.react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
 import Header from "./components/Header";
@@ -722,7 +723,6 @@ export default function Home() {
             </a>
           </motion.div>
         </section>
-
         {/* CONTACT */}
         <section id="contact" className="bg-zinc-950 text-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
