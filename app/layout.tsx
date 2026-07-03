@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://ryadwebstudio.fr"),
+  metadataBase: new URL("https://ryadstudio.com"),
   title: "Ryad Web Studio | Création de site internet professionnel pour entreprise locale",
   description:
     "Création de sites web professionnels pour entreprises locales en France : restaurants, coiffeurs, coachs sportifs, agences immobilières, boutiques de mode (e-commerce), services de nettoyage et agences de location de voiture.",
@@ -29,7 +29,7 @@ export const metadata = {
   openGraph: {
     title: "Ryad Web Studio | Sites internet & applications web premium",
     description: "Conception de sites internet et applications web modernes pensés pour développer votre activité locale et attirer des clients.",
-    url: "https://ryadwebstudio.fr",
+    url: "https://ryadstudio.com",
     siteName: "Ryad Web Studio",
     locale: "fr_FR",
     type: "website",
@@ -64,9 +64,9 @@ export default function RootLayout({
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Ryad Web Studio",
-  "image": "https://ryadwebstudio.fr/Ryad_Studio.png",
-  "@id": "https://ryadwebstudio.fr/#website",
-  "url": "https://ryadwebstudio.fr",
+  image: "https://ryadstudio.com/Ryad_Studio.png",
+  "@id": "https://ryadstudio.com/#website",
+  "url": "https://ryadstudio.com",
   "telephone": "+33749635085",
   "priceRange": "€€",
   "address": {
