@@ -39,7 +39,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://ryadstudio.com/Ryad_Studio.png",
+        url: "https://ryadstudio.com/RyadStudio.png",
         width: 512,
         height: 512,
         alt: "Ryad Web Studio - Agence Digitale Premium",
@@ -50,7 +50,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Ryad Web Studio | Création de sites internet premium",
     description: "Sites web modernes et performants pour booster la visibilité locale de votre entreprise.",
-    images: ["https://ryadstudio.com/Ryad_Studio.png"],
+    images: ["https://ryadstudio.com/RyadStudio.png"],
   },
 };
 
@@ -68,11 +68,6 @@ export default function RootLayout({
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Ryad Web Studio",
-<<<<<<< HEAD
-  image: "https://ryadstudio.com/Ryad_Studio.png",
-=======
-  "image": "https://ryadstudio.com/Ryad_Studio.png",
->>>>>>> c152ef1 (Update site + favicon system)
   "@id": "https://ryadstudio.com/#website",
   "url": "https://ryadstudio.com",
   "telephone": "+33749635085",

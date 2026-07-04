@@ -1,185 +1,279 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "../components/Header";
-import DesignCarousel from "../components/DesignCarousel";
-import { PROJECTS, type Project } from "../../lib/projects-data";
+import Footer from "../components/Footer";
+import { PROJECTS } from "../../lib/projects-data";
+import Image from "next/image";
+
+const CATEGORY_COLORS = {
+  "Beauté & Coiffure": "from-amber-400 to-orange-400",
+  "Restaurant Gastronomique": "from-red-400 to-rose-400",
+  "Salle de sport & Coach sportif": "from-lime-400 to-green-400",
+  "Mobilité": "from-sky-400 to-cyan-400",
+  "Service / entretien": "from-cyan-400 to-blue-400",
+  "Vêtements / e-commerce": "from-rose-400 to-pink-400",
+  "Entreprise locale": "from-violet-400 to-purple-400",
+  "Immobilier": "from-indigo-400 to-violet-400",
+  "Beauté & spa": "from-pink-400 to-fuchsia-400",
+  "Projet personnalisé": "from-zinc-400 to-slate-400",
+};
 
 export default function ProjectsPage() {
-  const [selectedProject, setSelectedProject] = useState(0);
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const selectedProject = PROJECTS[selectedIdx];
+  const colorGradient = CATEGORY_COLORS[selectedProject.category as keyof typeof CATEGORY_COLORS] || "from-blue-400 to-violet-400";
 
-  const projects: Project[] = PROJECTS;
+  // Auto-slide functionality
+  useEffect(() => {
+    if (isPaused || selectedProject.slides.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length);
+    }, 4000);
 
-  const selected = projects[selectedProject];
+    return () => clearInterval(interval);
+  }, [selectedProject.slides.length, isPaused]);
 
-  const handleProjectAdvance = () => {
-    setSelectedProject((prev) => (prev + 1) % projects.length);
-  };
+  // Reset slide when project changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [selectedIdx]);
+
+  const currentSlideData = selectedProject.slides[currentSlide];
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white overflow-hidden">
+    <main className="relative min-h-screen bg-zinc-950 text-white overflow-hidden">
       <Header />
+      
+      {/* Background gradient */}
+      <div className="fixed inset-0 opacity-30 pointer-events-none">
+        <div className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-br ${colorGradient} blur-[150px] rounded-full transition-colors duration-700`} />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-[120px] rounded-full" />
+      </div>
 
-      <section className="relative min-h-[74vh] flex items-center justify-center pt-24 pb-10 overflow-hidden">
-        <div className="absolute inset-0 opacity-35">
-          <div className="absolute top-0 left-1/4 w-[480px] h-[480px] bg-blue-500/20 blur-[140px] rounded-full" />
-          <div className="absolute top-1/2 right-0 w-[360px] h-[360px] bg-violet-500/15 blur-[120px] rounded-full" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[620px] h-[280px] bg-pink-500/10 blur-[100px] rounded-full" />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-4">
-              Nos projets
+      <div className="flex min-h-[calc(100vh-6rem)]">
+        {/* Left side - Category selector */}
+        <div className="w-80 lg:w-96 border-r border-white/10 flex flex-col">
+          <div className="p-8 border-b border-white/10">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-2">
+              Catégories
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Des projets pensés pour
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
-                des sites web et des apps mobiles premium
-              </span>
+            <h1 className="text-2xl font-bold text-white">
+              Ce que nous construisons
             </h1>
-            <p className="text-lg sm:text-xl text-zinc-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Nous créons des interfaces élégantes, des expériences mobiles et des parcours de conversion pour des commerces, services, entreprises locales ou projets plus spécifiques.
-            </p>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-zinc-300">
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Site web</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Application mobile</span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Expérience sur mesure</span>
           </div>
-        </div>
-      </section>
-
-      <section className="relative px-4 sm:px-6 pb-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex gap-3 overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none" }}>
-            {projects.map((project, index) => {
-              const isActive = selectedProject === index;
-              return (
-                <button
-                  key={project.id}
-                  type="button"
-                  onClick={() => setSelectedProject(index)}
-                  className={`min-w-[180px] flex-1 rounded-2xl border px-4 py-4 text-left transition-all duration-300 ${
-                    isActive
-                      ? "border-white/25 bg-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
-                      : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-xl">{project.mockup}</span>
-                    <span className="text-sm font-semibold text-white">{project.name}</span>
+          
+          <nav className="flex-1 overflow-y-auto p-4">
+            {PROJECTS.map((project, idx) => (
+              <button
+                key={project.id}
+                onClick={() => setSelectedIdx(idx)}
+                className={`w-full text-left p-4 rounded-xl transition-all duration-300 mb-2 group ${
+                  idx === selectedIdx
+                    ? "bg-white/10 border border-white/20"
+                    : "hover:bg-white/5 border border-transparent"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={`text-3xl transition-transform duration-300 ${
+                    idx === selectedIdx ? "scale-110" : "group-hover:scale-105"
+                  }`}>
+                    {project.mockup}
+                  </span>
+                  <div className="flex-1">
+                    <p className={`font-semibold transition-colors ${
+                      idx === selectedIdx ? "text-white" : "text-zinc-400 group-hover:text-white"
+                    }`}>
+                      {project.name}
+                    </p>
+                    <p className="text-xs text-zinc-500 mt-0.5">
+                      {project.category}
+                    </p>
                   </div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">{project.category}</p>
-                </button>
-              );
-            })}
+                  {idx === selectedIdx && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-400 to-violet-400"
+                    />
+                  )}
+                </div>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Right side - Feature display */}
+        <div className="flex-1 flex items-center justify-center p-8 lg:p-16">
+          <div className="max-w-4xl w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedProject.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+                className="grid lg:grid-cols-2 gap-12 items-center"
+              >
+                {/* Media Carousel */}
+                <div className="relative">
+                  <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.4 }}
+                    className="relative"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                  >
+                    <div 
+                      className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-square cursor-pointer"
+                      onClick={() => setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length)}
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.gradient} opacity-20`} />
+                      
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={`${selectedProject.id}-${currentSlide}`}
+                          initial={{ opacity: 0, scale: 1.05 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                          className="relative w-full h-full"
+                        >
+                          {currentSlideData.type === "video" && currentSlideData.src ? (
+                            <video
+                              src={currentSlideData.src}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="w-full h-full object-cover"
+                            />
+                          ) : currentSlideData.src ? (
+                            <Image
+                              src={currentSlideData.src as string}
+                              alt={currentSlideData.alt || selectedProject.name}
+                              fill
+                              className="object-cover"
+                              unoptimized={typeof currentSlideData.src === "string" && currentSlideData.src.startsWith("http")}
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <span className="text-6xl">{selectedProject.mockup}</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      </AnimatePresence>
+
+                      {/* Slide indicators */}
+                      {selectedProject.slides.length > 1 && (
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                          {selectedProject.slides.map((_, idx) => (
+                            <motion.button
+                              key={idx}
+                              onClick={() => setCurrentSlide(idx)}
+                              className={`w-2 h-2 rounded-full transition-all ${
+                                idx === currentSlide
+                                  ? "w-6 bg-white"
+                                  : "bg-white/40 hover:bg-white/60"
+                              }`}
+                              whileHover={{ scale: 1.2 }}
+                              whileTap={{ scale: 0.9 }}
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Caption overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <motion.p
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.3 }}
+                          className="text-sm font-medium text-white"
+                        >
+                          {currentSlideData.label}
+                        </motion.p>
+                        <motion.p
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.35 }}
+                          className="text-xs text-zinc-300 mt-1"
+                        >
+                          {currentSlideData.caption}
+                        </motion.p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Features */}
+                <div>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-3"
+                  >
+                    {selectedProject.category}
+                  </motion.p>
+                  
+                  <motion.h2
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.4 }}
+                    className="text-3xl lg:text-4xl font-bold text-white mb-6"
+                  >
+                    {selectedProject.name}
+                  </motion.h2>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="space-y-4"
+                  >
+                    {selectedProject.features.map((feature, idx) => (
+                      <motion.div
+                        key={feature}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.35 + idx * 0.05, duration: 0.3 }}
+                        className="flex items-center gap-3 group"
+                      >
+                        <motion.div
+                          className={`w-2 h-2 rounded-full bg-gradient-to-r ${colorGradient}`}
+                          whileHover={{ scale: 1.5 }}
+                          transition={{ duration: 0.2 }}
+                        />
+                        <span className="text-lg text-zinc-300 group-hover:text-white transition-colors">
+                          {feature}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.4 }}
+                    className="mt-8 pt-6 border-t border-white/10"
+                  >
+                    <p className="text-sm text-zinc-500 italic">
+                      "{selectedProject.testimonial}"
+                    </p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative py-8 md:py-12 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
-            <motion.div
-              key={selected.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 sm:p-8 lg:p-10"
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-3">
-                {selected.category}
-              </p>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">
-                {selected.name}
-              </h2>
-              <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-6">
-                {selected.description}
-              </p>
-              <p className="text-sm text-zinc-300 leading-relaxed mb-8 border-l border-white/10 pl-4 italic">
-                “{selected.testimonial}”
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                {selected.features.map((feature) => (
-                  <div key={feature} className="rounded-2xl border border-white/10 bg-zinc-950/70 px-4 py-3 text-sm text-zinc-300">
-                    {feature}
-                  </div>
-                ))}
-              </div>
-
-              <div className="rounded-[1.5rem] border border-white/10 bg-zinc-950/70 p-5 sm:p-6">
-                <p className="text-xs uppercase tracking-[0.25em] text-zinc-500 mb-2">Ce que nous livrons</p>
-                <p className="text-base text-white leading-relaxed">
-                  Une présence digitale premium, pensée pour votre activité, avec un site web, une application mobile ou une expérience hybride si besoin.
-                </p>
-              </div>
-            </motion.div>
-
-            <DesignCarousel slides={selected.slides} accentGradient={selected.gradient} projectKey={selected.id} />
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 sm:p-10 lg:p-12">
-          <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-3">
-                Au-delà des exemples
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
-                Sites web, apps mobiles et expériences sur mesure pour toute activité
-              </h2>
-              <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
-                Que vous soyez une entreprise locale, un commerce, un cabinet, une boutique ou un service plus spécifique, nous adaptons la solution à votre réalité et à vos objectifs.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={handleProjectAdvance}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-white/20"
-            >
-              Voir un autre projet
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">Votre prochain projet commence ici</h2>
-            <p className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto">
-              Une analyse et une proposition gratuites pour voir si nous sommes le bon partenaire pour votre visibilité digitale.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/#contact" className="rounded-2xl bg-white px-8 py-4 font-semibold text-zinc-950 transition-all hover:bg-zinc-100">
-                Demander un devis
-              </a>
-              <a href="tel:+33749635085" className="rounded-2xl border border-white/20 bg-white/5 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10">
-                Appeler directement
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <Footer />
     </main>
   );
 }

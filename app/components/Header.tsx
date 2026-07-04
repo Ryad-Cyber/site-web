@@ -39,33 +39,29 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-4 pt-3 sm:pt-4">
-      <nav className="max-w-6xl mx-auto h-16 sm:h-[4.25rem] px-3 sm:px-5 rounded-full border border-white/10 bg-zinc-950/80 backdrop-blur-xl shadow-[0_20px_70px_-28px_rgba(0,0,0,0.8)] ring-1 ring-white/5 flex items-center justify-between gap-4">
+      <nav className="max-w-6xl mx-auto h-16 sm:h-[4.25rem] px-3 sm:px-5 rounded-full border border-sky-400/20 bg-[#03040a]/90 backdrop-blur-xl shadow-[0_20px_70px_-28px_rgba(37,99,235,0.75)] ring-1 ring-violet-400/10 flex items-center justify-between gap-4">
         {/* Logo */}
-        <a href="/" className="inline-flex items-center gap-3 transition-all hover:opacity-90">
+        <a href="/" className="inline-flex items-center transition-all hover:opacity-90">
           <Image
-            src="/Ryad_Studio.png"
-            alt="Ryad Web Studio"
-            width={44}
-            height={44}
-            className="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl object-cover ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
-            priority
-          />
-          <div className="flex flex-col leading-tight">
-            <span className="bg-gradient-to-r from-white via-zinc-100 to-zinc-300 bg-clip-text font-semibold tracking-tight text-base sm:text-lg text-transparent">Ryad Web Studio</span>
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-zinc-400">Agence digitale premium</span>
-          </div>
+  src="/RyadStudio.png"
+  alt="Ryad Web Studio"
+  width={176}
+  height={70}
+  className="h-10 sm:h-12 w-auto object-contain"
+  priority
+/>
         </a>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-7 text-sm h-full">
+        <div className="hidden md:flex items-center gap-7 text-base h-full">
           {DESKTOP_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="group relative inline-flex h-full items-center text-zinc-300 transition-all duration-300 hover:text-white"
+              className="group relative inline-flex h-full items-center text-zinc-300 transition-all duration-300 hover:text-sky-100"
             >
               <span>{link.label}</span>
-              <span className="absolute left-0 right-0 bottom-[-1px] h-[2px] origin-left scale-x-0 rounded-full bg-gradient-to-r from-white/70 via-zinc-200 to-white/70 transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="absolute left-0 right-0 bottom-[-1px] h-[2px] origin-left scale-x-0 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-violet-400 transition-transform duration-300 group-hover:scale-x-100" />
             </a>
           ))}
         </div>
@@ -74,7 +70,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <a
             href="/#contact"
-            className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold px-4 py-2 rounded-full bg-white text-zinc-950 shadow-[0_10px_30px_rgba(255,255,255,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(255,255,255,0.18)]"
+            className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold px-4 py-2 rounded-full bg-gradient-to-r from-sky-400 via-blue-500 to-violet-500 text-white shadow-[0_10px_30px_rgba(59,130,246,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgba(124,58,237,0.32)]"
           >
             <span className="hidden sm:inline">Obtenir un devis gratuit</span>
             <span className="sm:hidden">Devis gratuit</span>
@@ -83,7 +79,7 @@ export default function Header() {
           {/* Hamburger Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-white p-2 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-sm transition-all duration-300 hover:bg-white/10 hover:border-white/20"
+            className="text-white p-2 rounded-xl bg-sky-400/10 backdrop-blur-xl border border-sky-300/15 shadow-sm transition-all duration-300 hover:bg-sky-400/15 hover:border-violet-300/30"
             aria-label="Menu"
           >
             {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -107,18 +103,18 @@ export default function Header() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 320, opacity: 0 }}
               transition={{ type: "spring", stiffness: 280, damping: 30, mass: 0.8 }}
-              className="absolute right-0 top-18 w-full max-w-sm max-h-[calc(100vh-4.5rem)] bg-zinc-950/98 border-l border-white/15 shadow-2xl shadow-black/30 backdrop-blur-xl flex flex-col overflow-hidden rounded-tl-3xl rounded-bl-3xl"
+              className="absolute right-0 top-18 w-full max-w-sm max-h-[calc(100vh-4.5rem)] bg-[#03040a]/98 border-l border-sky-300/20 shadow-2xl shadow-blue-950/30 backdrop-blur-xl flex flex-col overflow-hidden rounded-tl-3xl rounded-bl-3xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Menu Header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
                 <div className="inline-flex items-center gap-3">
                   <Image
-                    src="/Ryad_Studio.png"
+                    src="/RyadStudio.png"
                     alt="Ryad Web Studio"
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-2xl object-cover ring-1 ring-white/10 shadow-lg shadow-violet-500/20"
+                    width={156}
+                    height={62}
+                    className="h-10 w-auto object-contain drop-shadow-[0_0_16px_rgba(96,165,250,0.35)]"
                     priority
                   />
                   <div className="flex flex-col leading-tight">
@@ -147,13 +143,13 @@ export default function Header() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.06 }}
                     whileTap={{ scale: 0.98 }}
-                    className="group relative block rounded-2xl border border-white/10 bg-gradient-to-r from-white/8 to-white/3 px-5 py-4 transition-all duration-300 hover:border-white/25 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8"
+                    className="group relative block rounded-2xl border border-sky-300/10 bg-gradient-to-r from-sky-400/10 to-violet-500/5 px-5 py-4 transition-all duration-300 hover:border-sky-300/25 hover:bg-gradient-to-r hover:from-sky-400/15 hover:to-violet-500/10"
                   >
                     <div className="flex items-center justify-between">
-                      <p className="text-base font-semibold text-white group-hover:text-blue-200 transition-colors">
+                      <p className="text-base font-semibold text-white group-hover:text-sky-200 transition-colors">
                         {link.label}
                       </p>
-                      <svg className="w-4 h-4 text-zinc-600 group-hover:text-blue-300 transition-all group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <svg className="w-4 h-4 text-zinc-600 group-hover:text-sky-300 transition-all group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </div>
@@ -171,7 +167,7 @@ export default function Header() {
                 <a
                   href="/#contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full px-3 py-3 text-center rounded-lg bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all hover:scale-[1.01] shadow-md shadow-white/10 text-sm"
+                  className="block w-full px-3 py-3 text-center rounded-lg bg-gradient-to-r from-sky-400 via-blue-500 to-violet-500 text-white font-semibold transition-all hover:scale-[1.01] shadow-md shadow-blue-500/20 text-sm"
                 >
                   Obtenir un devis gratuit
                 </a>
