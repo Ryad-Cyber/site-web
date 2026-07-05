@@ -715,7 +715,7 @@ const heroY = useTransform(
                   Obtenir un devis gratuit
                 </a>
                 <a
-                  href="/projects"
+                  href="/realisations"
                   className="inline-flex items-center justify-center px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/10 transition-all text-sm sm:text-base"
                 >
                   Voir des projets réels

@@ -66,192 +66,6 @@ function CheckIcon() {
   );
 }
 
-interface Design {
-  id: number;
-  name: string;
-  category: string;
-  description: string;
-  gradient: string;
-  mockup: string;
-  features: string[];
-  slides: CarouselSlide[];
-}
-
-const DESIGNS: Design[] = [
-  {
-    id: 1,
-    name: "Location Premium",
-    category: "Location de véhicules",
-    description: "Création de site internet professionnel de location de voitures et réservation de véhicules de prestige.",
-    gradient: "from-sky-500/20 via-cyan-500/10 to-slate-500/5",
-    mockup: "🚗",
-    features: ["Réservation en ligne", "Tarifs transparents", "Gestion des documents", "Optimisé mobile"],
-    slides: [
-      {
-        label: "L'univers",
-        caption: "Une interface claire et engageante pour valoriser votre flotte de véhicules à louer.",
-        type: "photo",
-        src: "/clean_car.jpeg",
-        alt: "Voiture haut de gamme prête pour la location",
-      },
-      {
-        label: "Réserver",
-        caption: "Parcours de réservation de voiture fluide et simplifié en quelques clics.",
-        type: "photo",
-        src: "/site_car.jpeg",
-        alt: "Interface web de réservation de voiture de location",
-      },
-      {
-        label: "Nos clients",
-        caption: "Des clients de l'agence de location satisfaits qui réservent à nouveau.",
-        type: "photo",
-        src: "/site_location.png",
-        alt: "Capture d'écran du site web de location de véhicules",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Nettoyage Pro",
-    category: "Nettoyage & Entretien",
-    description: "Création de site internet pour entreprise de nettoyage professionnel, services d'entretien et désinfection de locaux.",
-    gradient: "from-emerald-500/20 via-teal-500/10 to-cyan-500/5",
-    mockup: "🧽",
-    features: ["Réservations", "Prestations de nettoyage", "Avis clients", "Zone d'intervention"],
-    slides: [
-      {
-        label: "L'univers",
-        caption: "Présentation claire et impeccable de vos services de nettoyage et d'entretien pour professionnels et particuliers.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80&auto=format&fit=crop",
-        alt: "Professionnel du nettoyage effectuant un entretien de locaux",
-      },
-      {
-        label: "Réserver",
-        caption: "Formulaire de demande de devis express et prise de rendez-vous de nettoyage en ligne.",
-        type: "photo",
-        src: "/site_fit.png",
-        alt: "Interface web d'une entreprise de nettoyage de locaux",
-      },
-      {
-        label: "Le résultat",
-        caption: "Des locaux propres, des réservations régulières et une réputation en ligne renforcée.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
-        alt: "Chantier d'entretien de locaux propres et nets",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Immobilier Plus",
-    category: "Immobilier / Agence",
-    description: "Création de site internet d'agence immobilière, avec catalogue de biens et demandes d'estimation.",
-    gradient: "from-indigo-500/20 via-violet-500/10 to-purple-500/5",
-    mockup: "🏡",
-    features: ["Biens immobiliers", "Estimation gratuite", "Contact agents", "SEO local"],
-    slides: [
-      {
-        label: "L'univers",
-        caption: "Vitrine immobilière premium pour présenter de magnifiques biens à la vente et à la location.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
-        alt: "Magnifique villa immobilière d'architecte contemporaine",
-      },
-      {
-        label: "Réserver",
-        caption: "Prise de contact rapide avec les négociateurs ou demande d'évaluation immobilière.",
-        type: "photo",
-        src: "/site_immobilier.jpeg",
-        alt: "Maquette du site web d'une agence immobilière contemporaine",
-      },
-      {
-        label: "Le résultat",
-        caption: "Davantage de mandats exclusifs, de leads acheteurs qualifiés et d'estimations obtenues.",
-        type: "photo",
-        src: "/site_immobilier.jpeg",
-        alt: "Vue de l'interface d'estimation de biens en ligne",
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "Produit Mobile",
-    category: "Produit digital / startup",
-    description: "Site web et application mobile pour présenter votre offre, convertir et fidéliser vos utilisateurs.",
-    gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/5",
-    mockup: "📱",
-    features: ["Web & mobile", "Inscription", "Analytics", "Expérience fluide"],
-    slides: [
-      {
-        label: "L'univers",
-        caption: "Une équipe produit qui a besoin d'une vitrine aussi performante que son outil.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
-        alt: "Équipe travaillant sur un produit SaaS",
-      },
-      {
-        label: "Réserver",
-        caption: "Landing page claire, démo produit et conversion vers l'inscription.",
-        type: "mockup",
-        variant: "saas",
-      },
-      {
-        label: "Le résultat",
-        caption: "Plus de trials, meilleur taux de conversion, crédibilité startup → scale-up.",
-        type: "outcome",
-        variant: "saas",
-        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop",
-        alt: "Tableau de bord analytics",
-        metrics: [
-          { value: "+65%", label: "Inscriptions trial" },
-          { value: "3.2×", label: "Taux conversion" },
-          { value: "−40%", label: "Coût d'acquisition" },
-          { value: "+200", label: "Leads qualifiés/mois" },
-        ],
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "Services Pro",
-    category: "Entreprise Locale / Artisan",
-    description: "Site web de prestataire premium avec système de devis instantané",
-    gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/5",
-    mockup: "🔧",
-    features: ["Devis instantanés", "Portfolio", "Avis clients", "Contact"],
-    slides: [
-      {
-        label: "L'univers",
-        caption: "Un artisan ou prestataire local dont le savoir-faire mérite d'être visible en ligne.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80&auto=format&fit=crop",
-        alt: "Professionnel au travail",
-      },
-      {
-        label: "Réserver",
-        caption: "Devis instantané, portfolio de réalisations et avis clients — tout pour rassurer.",
-        type: "mockup",
-        variant: "services",
-      },
-      {
-        label: "Le résultat",
-        caption: "Demandes de devis qualifiées, moins de prospects perdus, réputation locale solide.",
-        type: "outcome",
-        variant: "services",
-        src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
-        alt: "Professionnels sur un chantier",
-        metrics: [
-          { value: "+140%", label: "Demandes de devis" },
-          { value: "4.8★", label: "Satisfaction client" },
-          { value: "−50%", label: "Appels non qualifiés" },
-          { value: "+75%", label: "Visibilité locale" },
-        ],
-      },
-    ],
-  },
-];
-
 
 const FAQ_ITEMS = [
   {
@@ -434,7 +248,7 @@ export default function Home() {
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.15] sm:leading-[1.05] tracking-tight">
-  Je crée des sites web qui attirent des clients
+  Sites web premium
   <br />
   <span className="text-zinc-200">
     pour les entreprises locales
@@ -442,8 +256,8 @@ export default function Home() {
 </h1>
 
                 <p className="mt-4 sm:mt-5 lg:mt-7 text-sm sm:text-base md:text-xl text-zinc-300 max-w-xl leading-relaxed">
-  Vous êtes <strong className="text-white">coiffeur, restaurateur, coach sportif ou entrepreneur</strong> ?<br />
-  Je crée des sites web conçus pour vous apporter plus d’appels, plus de clients et plus de réservations grâce à Google et une meilleure visibilité locale.
+  Plus <strong className="text-white">coiffeur, restaurateur, coach sportif ou entrepreneur</strong> ?<br />
+  Plus d'appels, plus de clients, plus de visibilité locale plus d’appels, plus de clients et plus de réservations grâce à Google et une meilleure visibilité locale.
 </p>
 <p className="mt-3 text-sm text-zinc-400">
   Basé en France — spécialisé dans les entreprises locales
@@ -560,12 +374,12 @@ export default function Home() {
             <div className="text-center max-w-xl mx-auto mb-14">
               <p className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">Services</p>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
-                Un site web ou une app web qui vous ressemble
+                Sites web premium
               </h2>
             </div>
           </ScrollReveal>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
             {[
               {
                 icon: (
@@ -577,8 +391,7 @@ export default function Home() {
                   </svg>
                 ),
                 title: "Design sur mesure",
-                desc: "Un site pensé pour votre activité, pas un template générique.",
-                highlight: "Mobile-first, UI soignée, maquette avant développement.",
+                desc: "Mobile-first, UI soignée, maquette avant développement.",
               },
               {
                 icon: (
@@ -589,8 +402,7 @@ export default function Home() {
                   </svg>
                 ),
                 title: "Contact & réservation",
-                desc: "Vos clients vous contactent facilement.",
-                highlight: "WhatsApp, formulaire, réservation en ligne intégrés.",
+                desc: "WhatsApp, formulaire, réservation en ligne intégrés.",
               },
               {
                 icon: (
@@ -601,15 +413,14 @@ export default function Home() {
                   </svg>
                 ),
                 title: "Visibilité Google",
-                desc: "Vous êtes trouvé par les clients près de chez vous.",
-                highlight: "SEO local, vitesse, structure optimisée.",
+                desc: "SEO local, vitesse, structure optimisée.",
               },
             ].map((service, index) => (
               <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.2 } }}
+                whileHover={{ y: -2, scale: 1.01, transition: { duration: 0.2 } }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative flex items-center gap-5 sm:gap-6 p-5 sm:p-6 rounded-[1.35rem] bg-gradient-to-br from-white via-zinc-50/80 to-white border border-zinc-200/80 shadow-[0_18px_45px_-24px_rgba(15,23,42,0.28)] transition-all duration-300 hover:border-zinc-300 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.34)]"
@@ -619,12 +430,8 @@ export default function Home() {
                   {service.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
-                    <h3 className="text-base font-semibold text-zinc-950">{service.title}</h3>
-                    <span className="hidden sm:inline text-zinc-300">—</span>
-                    <p className="text-sm text-zinc-500">{service.desc}</p>
-                  </div>
-                  <p className="text-sm text-zinc-400 mt-1">{service.highlight}</p>
+                  <h3 className="text-base font-semibold text-zinc-950 mb-1">{service.title}</h3>
+                  <p className="text-sm text-zinc-500">{service.desc}</p>
                 </div>
               </motion.div>
             ))}

@@ -7,11 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: "https://ryadstudio.com/designs",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://ryadstudio.com/projects",
+      url: "https://ryadstudio.com/realisations",
       lastModified: new Date(),
     },
     {

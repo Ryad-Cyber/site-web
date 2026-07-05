@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import DesignCarousel from "./DesignCarousel";
-import { Project } from "../../lib/projects-data";
+import { Realisation } from "../../lib/projects-data";
 
-export default function FullScreenProject({ project, index }: { project: Project; index: number }) {
+export default function FullScreenRealisation({ project, index }: { project: Realisation; index: number }) {
   const isEven = index % 2 === 0;
   return (
     <section
@@ -48,7 +48,7 @@ export default function FullScreenProject({ project, index }: { project: Project
           “{project.testimonial}”
         </blockquote>
         <div className="flex flex-wrap justify-center gap-2 mb-2">
-          {project.features.map((f) => (
+          {project.features.map((f: string) => (
             <span key={f} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white">
               {f}
             </span>

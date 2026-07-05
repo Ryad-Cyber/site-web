@@ -28,8 +28,7 @@ const DESKTOP_LINKS = [
 ];
 
 const MOBILE_LINKS = [
-  { href: "/designs", label: "Réalisations" },
-  { href: "/projects", label: "Projets" },
+  { href: "/realisations", label: "Réalisations" },
   { href: "/results", label: "Résultats" },
   { href: "/why-us", label: "Why us / Pourquoi nous" },
 ];

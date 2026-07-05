@@ -13,6 +13,9 @@ export type Project = {
   slides: CarouselSlide[];
 };
 
+// Type alias for consistency with new naming convention
+export type Realisation = Project;
+
 export const PROJECTS: Project[] = [
   {
     id: 1,
@@ -27,7 +30,7 @@ export const PROJECTS: Project[] = [
     slides: [
       {
         label: "L'univers",
-        caption: "Découvrez l'ambiance premium de votre futur salon et l'expérience proposée Ã  vos clients.",
+        caption: "Découvrez l'ambiance premium de votre futur salon et l'expérience proposée à vos clients.",
         type: "video",
         src: "/video_barber.mp4",
       },
@@ -91,10 +94,10 @@ export const PROJECTS: Project[] = [
         type: "outcome",
         variant: "restaurant",
         src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop",
-        alt: "Clients dÃ®nant dans un restaurant animé",
+        alt: "Clients dînant dans un restaurant animé",
         metrics: [
           { value: "+120%", label: "Réservations web" },
-          { value: "3Ã—", label: "Visibilité locale" },
+          { value: "3×", label: "Visibilité locale" },
           { value: "85%", label: "Taux de remplissage" },
           { value: "+45%", label: "Avis en ligne" },
         ],
@@ -114,24 +117,23 @@ export const PROJECTS: Project[] = [
     slides: [
       {
         label: "L'univers",
-        caption: "Une identité forte qui inspire confiance et donne envie de commencer sa transformation.",
-        type: "photo",
-        src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&auto=format&fit=crop",
-        alt: "Salle de sport moderne et coaching sportif",
+        caption: "Une salle de sport moderne et motivante, pensée pour inspirer l'énergie et donner envie de s'entraîner.",
+        type: "video",
+        src: "/video_gym.mp4",
       },
       {
-        label: "Votre site",
-        caption: "Une page d'accueil moderne conÃ§ue pour convertir vos visiteurs en nouveaux clients.",
-        type: "photo",
-        src: "/site_gym.jpeg",
-        alt: "Interface du site web d'une salle de sport",
-      },
-      {
-        label: "Prendre rendez-vous",
+        label: "Réservation",
         caption: "Réservation de séances, présentation des programmes et prise de contact en quelques clics.",
         type: "photo",
-        src: "/site_fit.png",
+        src: "/site_gym.jpeg",
         alt: "Page de réservation d'un coach sportif",
+      },
+      {
+        label: "Transformation",
+        caption: "Une identité forte qui inspire confiance et donne envie de commencer sa transformation.",
+        type: "photo",
+        src: "/gym.jpg",
+        alt: "Salle de sport moderne et coaching sportif",
       },
     ],
   },
@@ -191,7 +193,7 @@ export const PROJECTS: Project[] = [
     accentColor: "cyan",
     mockup: "🧽",
     features: ["Réservation", "Prestations", "Avis", "Localisation"],
-    testimonial: "Nous avons rendu le service plus crédible et plus simple Ã  réserver.",
+    testimonial: "Nous avons rendu le service plus crédible et plus simple à réserver.",
     slides: [
       {
         label: "L'univers",
@@ -202,7 +204,7 @@ export const PROJECTS: Project[] = [
       },
       {
         label: "Réserver",
-        caption: "Un formulaire rapide pour choisir votre prestation de nettoyage en un clin d'Å“il.",
+        caption: "Un formulaire rapide pour choisir votre prestation de nettoyage en un clin d'œil.",
         type: "photo",
         src: "/clean_car.png",
         alt: "Réservation de nettoyage automobile",
@@ -212,7 +214,7 @@ export const PROJECTS: Project[] = [
         caption: "Des clients rassurés par une interface professionnelle et une prise de rendez-vous rapide.",
         type: "photo",
         src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80&auto=format&fit=crop",
-        alt: "Client satisfait aprÃ¨s nettoyage auto",
+        alt: "Client satisfait après nettoyage auto",
       },
     ],
   },
@@ -232,14 +234,14 @@ export const PROJECTS: Project[] = [
         caption: "Un univers visuel premium, pensé pour faire rayonner les produits.",
         type: "photo",
         src: "/vetment.jpeg",
-        alt: "Interface web de site de vÃªtements",
+        alt: "Interface web de site de vêtements",
       },
       {
         label: "Réserver",
         caption: "Une page boutique élégante pour ajouter rapidement au panier et finaliser l'achat.",
         type: "photo",
         src: "/site_vetment.png",
-        alt: "Parcours d'achat en ligne pour vÃªtements",
+        alt: "Parcours d'achat en ligne pour vêtements",
       },
       {
         label: "Nos clients",
@@ -259,11 +261,11 @@ export const PROJECTS: Project[] = [
     accentColor: "violet",
     mockup: "🛠️",
     features: ["Devis", "Portfolio", "Avis", "Contact"],
-    testimonial: "Notre présence en ligne a complÃ¨tement transformé notre activité.",
+    testimonial: "Notre présence en ligne a complètement transformé notre activité.",
     slides: [
       {
         label: "L'univers",
-        caption: "Un site qui transmet confiance, clarté et sérieux dÃ¨s le premier regard.",
+        caption: "Un site qui transmet confiance, clarté et sérieux dès le premier regard.",
         type: "photo",
         src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
         alt: "Professionnel artisanat",
@@ -277,7 +279,7 @@ export const PROJECTS: Project[] = [
       },
       {
         label: "Nos clients",
-        caption: "Des artisans qui ont transformÃ© leur activitÃ© grÃ¢ce Ã  un site professionnel.",
+        caption: "Des artisans qui ont transformé leur activité grâce à un site professionnel.",
         type: "photo",
         src: "/client_artisan.jpeg",
         alt: "Client artisan satisfait",
@@ -297,7 +299,7 @@ export const PROJECTS: Project[] = [
     slides: [
       {
         label: "L'univers",
-        caption: "Un design sobre, premium et rassurant, pensé pour valoriser chaque bien immobilier et inspirer confiance dÃ¨s la premiÃ¨re visite.",
+        caption: "Un design sobre, premium et rassurant, pensé pour valoriser chaque bien immobilier et inspirer confiance dès la première visite.",
         type: "photo",
         src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80&auto=format&fit=crop",
         alt: "Bien immobilier premium",
@@ -311,7 +313,7 @@ export const PROJECTS: Project[] = [
       },
       {
         label: "Nos clients",
-        caption: "Des clients accompagnés dans leurs projets immobiliers grÃ¢ce Ã  une expérience digitale claire, fluide et professionnelle.",
+        caption: "Des clients accompagnés dans leurs projets immobiliers grâce à une expérience digitale claire, fluide et professionnelle.",
         type: "photo",
         src: "/client_maison.jpeg",
         alt: "Clients satisfaits dans le secteur immobilier",
@@ -349,12 +351,12 @@ export const PROJECTS: Project[] = [
     id: 10,
     name: "Autre",
     category: "Projet personnalisé",
-    description: "Un site sur mesure pour toute autre activité, Ã  partir de votre besoin précis.",
+    description: "Un site sur mesure pour toute autre activité, à partir de votre besoin précis.",
     gradient: "from-zinc-500/20 via-stone-500/10 to-slate-500/5",
     accentColor: "zinc",
     mockup: "✨",
     features: ["Sur mesure", "Besoin précis", "Contact", "Adaptation"],
-    testimonial: "Chaque projet peut Ãªtre pensé pour une réalité différente.",
+    testimonial: "Chaque projet peut être pensé pour une réalité différente.",
     slides: [
       {
         label: "L'univers",
@@ -365,14 +367,14 @@ export const PROJECTS: Project[] = [
       },
       {
         label: "Réserver",
-        caption: "Contactez-nous pour créer quelque chose d'adapté Ã  votre activité.",
+        caption: "Contactez-nous pour créer quelque chose d'adapté à votre activité.",
         type: "photo",
         src: "/site_autre.png",
         alt: "Interface de site web personnalisé",
       },
       {
         label: "Nos clients",
-        caption: "Des projets uniques réalisés sur mesure pour des entrepreneurs de tous secteurs, avec une approche flexible et adaptée Ã  chaque besoin.",
+        caption: "Des projets uniques réalisés sur mesure pour des entrepreneurs de tous secteurs.",
         type: "photo",
         src: "/autre_client.jpeg",
         alt: "Clients et projets personnalisés réalisés par l'agence",
@@ -381,3 +383,4 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+export const REALISATIONS: Realisation[] = PROJECTS;

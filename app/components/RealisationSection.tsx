@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import DesignCarousel from "./DesignCarousel";
-import { type Project } from "../../lib/projects-data";
+import { type Realisation } from "../../lib/projects-data";
 
-interface ProjectSectionProps {
-  project: Project;
+interface RealisationSectionProps {
+  project: Realisation;
   index: number;
 }
 
-export default function ProjectSection({ project, index }: ProjectSectionProps) {
+export default function RealisationSection({ project, index }: RealisationSectionProps) {
   const isEven = index % 2 === 0;
   const imageFirst = isEven; // alternating layout
 
@@ -41,7 +41,7 @@ export default function ProjectSection({ project, index }: ProjectSectionProps) 
             “{project.testimonial}”
           </p>
           <div className="flex flex-wrap gap-3 mb-6">
-            {project.features.map((feat) => (
+            {project.features.map((feat: string) => (
               <span
                 key={feat}
                 className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white"
@@ -62,7 +62,7 @@ export default function ProjectSection({ project, index }: ProjectSectionProps) 
   );
 }
 
-function StickyPreview({ project }: { project: Project }) {
+function StickyPreview({ project }: { project: Realisation }) {
   return (
     <div className="sticky top-24 flex justify-center items-center">
       <div className="text-9xl md:text-[10rem]" aria-label={project.name}>
