@@ -55,42 +55,42 @@ export default function ProjectsPage() {
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-[120px] rounded-full" />
       </div>
 
-      <div className="flex min-h-[calc(100vh-6rem)]">
+      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-6rem)]">
         {/* Left side - Category selector */}
-        <div className="w-80 lg:w-96 border-r border-white/10 flex flex-col">
-          <div className="p-8 border-b border-white/10">
+        <div className="w-full lg:w-80 lg:w-96 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col">
+          <div className="p-4 lg:p-8 border-b border-white/10">
             <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-2">
               Catégories
             </p>
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-xl lg:text-2xl font-bold text-white">
               Ce que nous construisons
             </h1>
           </div>
           
-          <nav className="flex-1 overflow-y-auto p-4">
+          <nav className="flex-1 overflow-x-auto lg:overflow-y-auto p-4 flex lg:flex-row lg:flex-col gap-2">
             {PROJECTS.map((project, idx) => (
               <button
                 key={project.id}
                 onClick={() => setSelectedIdx(idx)}
-                className={`w-full text-left p-4 rounded-xl transition-all duration-300 mb-2 group ${
+                className={`flex-shrink-0 lg:flex-shrink lg:w-full text-left p-3 lg:p-4 rounded-xl transition-all duration-300 group ${
                   idx === selectedIdx
                     ? "bg-white/10 border border-white/20"
                     : "hover:bg-white/5 border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`text-3xl transition-transform duration-300 ${
+                  <span className={`text-2xl lg:text-3xl transition-transform duration-300 ${
                     idx === selectedIdx ? "scale-110" : "group-hover:scale-105"
                   }`}>
                     {project.mockup}
                   </span>
                   <div className="flex-1">
-                    <p className={`font-semibold transition-colors ${
+                    <p className={`font-semibold transition-colors text-sm lg:text-base ${
                       idx === selectedIdx ? "text-white" : "text-zinc-400 group-hover:text-white"
                     }`}>
                       {project.name}
                     </p>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-xs text-zinc-500 mt-0.5 hidden lg:block">
                       {project.category}
                     </p>
                   </div>
@@ -107,7 +107,7 @@ export default function ProjectsPage() {
         </div>
 
         {/* Right side - Feature display */}
-        <div className="flex-1 flex items-center justify-center p-8 lg:p-16">
+        <div className="flex-1 flex items-center justify-center p-4 lg:p-8 lg:p-16">
           <div className="max-w-4xl w-full">
             <AnimatePresence mode="wait">
               <motion.div
@@ -116,7 +116,7 @@ export default function ProjectsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4 }}
-                className="grid lg:grid-cols-2 gap-12 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
               >
                 {/* Media Carousel */}
                 <div className="relative">
