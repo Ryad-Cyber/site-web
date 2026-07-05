@@ -318,6 +318,12 @@ export const PROJECTS: Project[] = [
         src: "/client_maison.jpeg",
         alt: "Clients satisfaits dans le secteur immobilier",
       },
+      {
+  label: "L'univers",
+  caption: "Un design sobre, premium et rassurant, pensé pour valoriser chaque bien immobilier et inspirer confiance dès la première visite.",
+  type: "video",
+  src: "/video_maison.mp4",
+},
     ],
   },
   {
