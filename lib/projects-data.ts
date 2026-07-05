@@ -267,7 +267,7 @@ export const PROJECTS: Project[] = [
         label: "L'univers",
         caption: "Un site qui transmet confiance, clarté et sérieux dès le premier regard.",
         type: "photo",
-        src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop",
+        src: "/artisan.png",
         alt: "Professionnel artisanat",
       },
       {
@@ -281,7 +281,7 @@ export const PROJECTS: Project[] = [
         label: "Nos clients",
         caption: "Des artisans qui ont transformé leur activité grâce à un site professionnel.",
         type: "photo",
-        src: "/client_artisan.jpeg",
+        src: "/client_artisan.png",
         alt: "Client artisan satisfait",
       },
     ],

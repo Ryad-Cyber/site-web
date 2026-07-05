@@ -46,7 +46,7 @@ export default function ProjectsPage() {
   const currentSlideData = selectedProject.slides[currentSlide];
 
   return (
-    <main className="relative min-h-screen bg-zinc-950 text-white overflow-hidden">
+    <main className="relative min-h-screen bg-zinc-950 text-white overflow-hidden pt-24 sm:pt-28">
       <Header />
       
       {/* Background gradient */}
@@ -121,7 +121,7 @@ export default function ProjectsPage() {
                 onMouseLeave={() => setIsPaused(false)}
               >
                 <div 
-                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-square cursor-pointer"
+                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[500px] cursor-pointer"
                   onClick={() => setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length)}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.gradient} opacity-20`} />
@@ -291,6 +291,28 @@ export default function ProjectsPage() {
               >
                 {selectedProject.description}
               </motion.p>
+
+              <div className="grid grid-cols-2 gap-3 mb-8">
+  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+    <p className="text-xs text-zinc-400">Impact</p>
+    <p className="text-lg font-bold text-white">+30%</p>
+  </div>
+
+  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+    <p className="text-xs text-zinc-400">Conversion</p>
+    <p className="text-lg font-bold text-white">x2</p>
+  </div>
+
+  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+    <p className="text-xs text-zinc-400">Visibilité</p>
+    <p className="text-lg font-bold text-white">+180%</p>
+  </div>
+
+  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+    <p className="text-xs text-zinc-400">Leads</p>
+    <p className="text-lg font-bold text-white">+75%</p>
+  </div>
+</div>
 
               <motion.div
                 initial={{ opacity: 0 }}
