@@ -230,107 +230,99 @@ export default function Home() {
       <main className="bg-zinc-50 text-zinc-900">
 
         {/* HERO */}
-        <motion.section
-          id="home"
-          className="relative overflow-hidden bg-[#0a0a0b] text-white pt-20 pb-10 sm:pt-24 sm:pb-14 md:pt-32 md:pb-24 lg:pt-44 lg:pb-36"
-          style={{}}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_55%)]" />
+<motion.section
+  id="home"
+  className="relative overflow-hidden bg-[#0a0a0b] text-white pt-20 pb-10 sm:pt-24 sm:pb-14 md:pt-32 md:pb-24 lg:pt-44 lg:pb-36"
+>
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
+  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_55%)]" />
 
-          <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-20 items-center">
-              {/* LEFT */}
-              <ScrollReveal>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border border-white/10 bg-white/[0.04] text-xs sm:text-sm text-zinc-300 mb-4 sm:mb-6 lg:mb-8">
-                  <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-white/70" />
-                  Ryad Web Studio — Sites web et apps web premium
-                </div>
+  <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+    
+    {/* GRID IMPORTANT */}
+    <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-                <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.8rem] font-bold leading-[1.15] sm:leading-[1.05] tracking-tight">
-  Sites web premium
+      {/* LEFT */}
+      <ScrollReveal>
+        <div>
+          {/* badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border border-white/10 bg-white/[0.04] text-xs sm:text-sm text-zinc-300 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+            Ryad Web Studio — Sites web & applications
+          </div>
+
+          {/* H1 */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-bold leading-[1.05] tracking-tight">
+  <span className="whitespace-nowrap">
+    Des sites web qui
+  </span>
   <br />
-  <span className="text-zinc-200">
-    pour les entreprises locales
+  <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 text-transparent bg-clip-text">
+    transforment vos visiteurs en clients
   </span>
 </h1>
 
-                <p className="mt-4 sm:mt-5 lg:mt-7 text-sm sm:text-base md:text-xl text-zinc-300 max-w-xl leading-relaxed">
-  Plus <strong className="text-white">coiffeur, restaurateur, coach sportif ou entrepreneur</strong> ?<br />
-  Plus d'appels, plus de clients, plus de visibilité locale plus d’appels, plus de clients et plus de réservations grâce à Google et une meilleure visibilité locale.
-</p>
-<p className="mt-3 text-sm text-zinc-400">
-  Basé en France — spécialisé dans les entreprises locales
-</p>
+          {/* TEXT */}
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-zinc-300 max-w-xl leading-relaxed">
+            Sites web modernes pour entreprises locales qui veulent plus d’appels, de réservations et de visibilité sur Google.
+          </p>
 
-                <div className="mt-4 sm:mt-5 lg:mt-6 flex flex-wrap gap-1.5 sm:gap-2">
-                  {["Coiffeur", "Restaurant", "Coach sportif", "Entrepreneur", "Autres activités"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-full text-xs lg:text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+          <p className="mt-3 text-sm text-zinc-500">
+            Coiffeurs, restaurants, coachs, artisans et autres activités locales.
+          </p>
 
-                <div className="mt-6 lg:mt-8 flex flex-col sm:flex-row gap-2.5 sm:gap-4">
-  <div className="flex flex-col gap-3">
-    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4">
-      <a
-        href="#contact"
-        className="group px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all shadow-[0_12px_40px_rgba(255,255,255,0.12)] text-center text-sm sm:text-base lg:text-lg"
-      >
-        Demander un devis gratuit
-        <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
-      </a>
-
-      <a
-        href="#tarifs"
-        className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl lg:rounded-2xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] hover:border-white/25 transition-all text-center text-sm sm:text-base lg:text-lg"
-      >
-        Voir les tarifs
-      </a>
-    </div>
-
-    <p className="text-xs text-zinc-500 text-center sm:text-left">
-      Réponse sous 24h • Devis gratuit • Sans engagement
-    </p>
-  </div>
-</div>
-              </ScrollReveal>
-
-              {/* RIGHT — Dynamic visual */}
-              <ScrollReveal delay={0.2}>
-                <motion.div style={{ scale: heroScale }}>
-                  <HeroVisual />
-                </motion.div>
-              </ScrollReveal>
-            </div>
-
-            {/* Stats bar */}
-            <ScrollReveal delay={0.3}>
-              <div className="mt-8 sm:mt-12 lg:mt-20 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
-                {[
-                  { value: "15+", label: "Sites livrés" },
-                  { value: "48h", label: "Premier aperçu" },
-                  { value: "100%", label: "Responsive" },
-                  { value: "5★", label: "Satisfaction client" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-2xl p-4 sm:p-6 border border-white/10 bg-white/[0.03] text-center md:text-left"
-                  >
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1.5 text-xs sm:text-sm text-zinc-500">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
+          {/* TAGS */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            {[
+              "Sites web",
+              "Applications mobiles",
+              "Réservations",
+              "Appels clients",
+              "Visibilité Google",
+              "Entreprises locales",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-1 rounded-full text-xs lg:text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
-        </motion.section>
+
+          {/* CTA */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <a
+              href="#contact"
+              className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all"
+            >
+              Demander un devis gratuit →
+            </a>
+
+            <a
+              href="#tarifs"
+              className="px-5 py-3 lg:px-8 lg:py-4 rounded-xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08]"
+            >
+              Voir les tarifs
+            </a>
+          </div>
+
+          <p className="mt-3 text-xs text-zinc-500">
+            Réponse sous 24h • Devis gratuit • Sans engagement
+          </p>
+        </div>
+      </ScrollReveal>
+
+      {/* RIGHT - IMAGE RESTORED */}
+      <ScrollReveal delay={0.2}>
+        <motion.div className="relative" style={{ scale: heroScale }}>
+          <HeroVisual />
+        </motion.div>
+      </ScrollReveal>
+
+    </div>
+  </div>
+</motion.section>
 
         {/* Scrolling ticker bar */}
         <section className="w-full px-4 sm:px-6 py-6">
@@ -369,74 +361,76 @@ export default function Home() {
         </section>
 
         {/* SERVICES */}
-        <section id="services" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-          <ScrollReveal>
-            <div className="text-center max-w-xl mx-auto mb-14">
-              <p className="text-sm font-medium text-zinc-500 uppercase tracking-wider mb-3">Services</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
-                Sites web premium
-              </h2>
-            </div>
-          </ScrollReveal>
+        <section id="services" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28">
 
-          <div className="space-y-5">
-            {[
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.5 6.5h13a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 9.5h10" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 13.5h4" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 11h7" />
-                  </svg>
-                ),
-                title: "Design sur mesure",
-                desc: "Mobile-first, UI soignée, maquette avant développement.",
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 5.5h9a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2.5l-2 2-2-2H7.5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9h6" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 11.5h4" />
-                  </svg>
-                ),
-                title: "Contact & réservation",
-                desc: "WhatsApp, formulaire, réservation en ligne intégrés.",
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 5.5a5.5 5.5 0 1 0 5.5 5.5" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 16l2.5 2.5" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 13.5c1.1-2.2 3.3-3.5 5.5-3.5" />
-                  </svg>
-                ),
-                title: "Visibilité Google",
-                desc: "SEO local, vitesse, structure optimisée.",
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -2, scale: 1.01, transition: { duration: 0.2 } }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative flex items-center gap-5 sm:gap-6 p-5 sm:p-6 rounded-[1.35rem] bg-gradient-to-br from-white via-zinc-50/80 to-white border border-zinc-200/80 shadow-[0_18px_45px_-24px_rgba(15,23,42,0.28)] transition-all duration-300 hover:border-zinc-300 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.34)]"
-              >
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300/70 to-transparent" />
-                <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-white shadow-[0_12px_35px_-12px_rgba(24,24,27,0.7)] shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_40px_-12px_rgba(24,24,27,0.8)]">
-                  {service.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-zinc-950 mb-1">{service.title}</h3>
-                  <p className="text-sm text-zinc-500">{service.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+  {/* LEFT TEXT */}
+  <div className="text-center max-w-2xl mx-auto mb-14">
+    <p className="text-xs tracking-[0.3em] uppercase text-zinc-500">
+      Systèmes digitaux
+    </p>
+
+    <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+      On crée des sites qui génèrent des clients
+    </h2>
+
+    <p className="mt-4 text-zinc-600 text-sm sm:text-base">
+      Sites web, mobile et Google optimisés pour transformer vos visiteurs en clients.
+    </p>
+  </div>
+
+  {/* SHOWCASE */}
+  <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT - SWITCH */}
+    <div className="space-y-4">
+
+      <div className="p-5 rounded-2xl border bg-white shadow-sm">
+        <h3 className="font-semibold">💻 Site Web</h3>
+        <p className="text-sm text-zinc-600">
+          Interface moderne qui donne confiance et convertit vos visiteurs.
+        </p>
+      </div>
+
+      <div className="p-5 rounded-2xl border bg-white shadow-sm">
+        <h3 className="font-semibold">📱 Mobile</h3>
+        <p className="text-sm text-zinc-600">
+          WhatsApp, appels et réservations en un clic.
+        </p>
+      </div>
+
+      <div className="p-5 rounded-2xl border bg-white shadow-sm">
+        <h3 className="font-semibold">📍 Google</h3>
+        <p className="text-sm text-zinc-600">
+          Apparaissez dans les recherches locales de votre ville.
+        </p>
+      </div>
+
+    </div>
+
+    {/* RIGHT - FAKE PREMIUM MOCKUP */}
+    <div className="relative flex justify-center">
+
+      {/* glow */}
+      <div className="absolute w-[400px] h-[400px] bg-zinc-300 blur-3xl opacity-30 rounded-full" />
+
+      {/* laptop */}
+      <div className="relative w-full max-w-md rounded-xl border shadow-2xl bg-black p-2">
+        <div className="bg-zinc-900 rounded-lg overflow-hidden h-[260px] flex items-center justify-center text-white text-sm">
+          Site Web Preview (scroll animation possible ici)
+        </div>
+      </div>
+
+      {/* phone */}
+      <div className="absolute -right-10 bottom-0 w-32 h-56 rounded-2xl border shadow-xl bg-black p-2">
+        <div className="bg-zinc-900 rounded-xl h-full flex items-center justify-center text-white text-[10px]">
+          WhatsApp / Booking
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
         {/* TARIFS */}
         <section id="tarifs" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
