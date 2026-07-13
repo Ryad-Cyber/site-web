@@ -13,23 +13,31 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL("https://ryadstudio.com"),
-  title: "Ryad Web Studio | Création de site internet professionnel pour entreprise locale",
+  title: "Ryad Web Studio | Création de sites web professionnels",
   description:
-    "Création de sites web professionnels pour entreprises locales en France : restaurants, coiffeurs, coachs sportifs, agences immobilières, boutiques de mode (e-commerce), services de nettoyage et agences de location de voiture.",
+    "Création de sites internet professionnels pour entreprises locales : restaurants, artisans, commerces et services. Sites modernes, rapides et optimisés SEO.",
   keywords:
     "création site internet entreprise, création site web restaurant, site vitrine coiffeur, développeur web freelance, site internet sur mesure, e-commerce mode, réservation location voiture, site nettoyage professionnel, agence immobilière site web, SEO local France, création site internet local, Ryad Web Studio",
+  category: "Web development",
+  creator: "Ryad Web Studio",
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   alternates: {
     canonical: "/",
   },
+
   icons: {
-  icon: [
-    { url: "/favicon.ico" },
-    { url: "/favicon.svg", type: "image/svg+xml" },
-    { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-  ],
-  shortcut: "/favicon.ico",
-  apple: "/apple-touch-icon.png",
-},
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Ryad Web Studio | Sites internet & applications web premium",
     description: "Conception de sites internet et applications web modernes pensés pour développer votre activité locale et attirer des clients.",
