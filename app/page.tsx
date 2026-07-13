@@ -218,7 +218,54 @@ function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; dela
   );
 }
 
+function ServiceCard({
+  icon,
+  title,
+  desc,
+}: {
+  icon: string;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div className="group relative p-5 rounded-2xl border bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-zinc-300">
+
+      {/* glow léger au hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-zinc-100 via-white to-transparent" />
+
+      <div className="relative">
+        <h3 className="font-semibold flex items-center gap-2 transition-transform group-hover:translate-x-1">
+          <span className="text-lg">{icon}</span>
+          {title}
+        </h3>
+
+        <p className="text-sm text-zinc-600 mt-1 leading-relaxed">
+          {desc}
+        </p>
+      </div>
+
+    </div>
+  );
+}
+
 export default function Home() {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMouse({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 50]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
@@ -234,10 +281,16 @@ export default function Home() {
   id="home"
   className="relative overflow-hidden bg-[#0a0a0b] text-white pt-20 pb-10 sm:pt-24 sm:pb-14 md:pt-32 md:pb-24 lg:pt-44 lg:pb-36"
 >
+<div
+  className="pointer-events-none absolute inset-0 z-0"
+  style={{
+    background: `radial-gradient(600px at ${mouse.x}px ${mouse.y}px, rgba(255,255,255,0.08), transparent 80%)`,
+  }}
+/>
   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
   <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_55%)]" />
 
-  <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+  <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
     
     {/* GRID IMPORTANT */}
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
@@ -384,28 +437,25 @@ export default function Home() {
     {/* LEFT - SWITCH */}
     <div className="space-y-4">
 
-      <div className="p-5 rounded-2xl border bg-white shadow-sm">
-        <h3 className="font-semibold">💻 Site Web</h3>
-        <p className="text-sm text-zinc-600">
-          Interface moderne qui donne confiance et convertit vos visiteurs.
-        </p>
-      </div>
+  <ServiceCard
+    icon="💻"
+    title="Site Web"
+    desc="Interface moderne qui donne confiance et convertit vos visiteurs."
+  />
 
-      <div className="p-5 rounded-2xl border bg-white shadow-sm">
-        <h3 className="font-semibold">📱 Mobile</h3>
-        <p className="text-sm text-zinc-600">
-          WhatsApp, appels et réservations en un clic.
-        </p>
-      </div>
+  <ServiceCard
+    icon="📱"
+    title="Mobile"
+    desc="WhatsApp, appels et réservations en un clic."
+  />
 
-      <div className="p-5 rounded-2xl border bg-white shadow-sm">
-        <h3 className="font-semibold">📍 Google</h3>
-        <p className="text-sm text-zinc-600">
-          Apparaissez dans les recherches locales de votre ville.
-        </p>
-      </div>
+  <ServiceCard
+    icon="📍"
+    title="Google"
+    desc="Apparaissez dans les recherches locales de votre ville."
+  />
 
-    </div>
+</div>
 
     {/* RIGHT - FAKE PREMIUM MOCKUP */}
     <div className="relative flex justify-center">

@@ -121,7 +121,7 @@ export default function ProjectsPage() {
                 onMouseLeave={() => setIsPaused(false)}
               >
                 <div 
-                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[500px] cursor-pointer"
+                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[650px] w-full mx-auto cursor-pointer"
                   onClick={() => setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length)}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.gradient} opacity-20`} />
