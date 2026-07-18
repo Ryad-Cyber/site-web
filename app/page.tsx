@@ -15,7 +15,7 @@ const WHATSAPP_URL =
 const TARIFS_PLANS = [
   {
     name: "Pack Essentiel",
-    price: "À partir de 399€",
+    price: "À partir de 499€",
     desc: "Site pour obtenir des clients et être trouvé sur Google",
     features: ["Être visible sur Google", "Recevoir des demandes de clients", "Site rapide et mobile",],
     popular: false,
@@ -29,7 +29,7 @@ const TARIFS_PLANS = [
   },
   {
     name: "Pack Business",
-    price: "À partir de 599€",
+    price: "À partir de 699€",
     desc: "Site optimisé pour générer des appels, réservations et clients",
     features: ["Générer des appels clients", "Réservations en ligne", "Plus de visibilité locale",],
     popular: true,
@@ -219,7 +219,7 @@ function ScrollReveal({ children, delay = 0 }: { children: React.ReactNode; dela
 
 // Vraies réalisations présentées dans le showcase Services
 const SERVICES_SHOWCASE = [
-  { src: "/restaurant-site.png", name: "Restaurant", url: "restaurant.fr" },
+  { src: "/site_vetment.png", name: "Boutique de mode", url: "boutique-mode.fr" },
   { src: "/site_gym.jpeg", name: "Coach sportif", url: "coach-sportif.fr" },
   { src: "/site_immobilier.jpeg", name: "Immobilier", url: "agence-immo.fr" },
   { src: "/site_salon.jpeg", name: "Salon de beauté", url: "salon-beaute.fr" },
@@ -263,7 +263,7 @@ function ServicesShowcase() {
     if (reduce) return;
     const t = setInterval(
       () => setIndex((v) => (v + 1) % SERVICES_SHOWCASE.length),
-      4200
+      2600
     );
     return () => clearInterval(t);
   }, [reduce]);
@@ -331,6 +331,46 @@ function ServicesShowcase() {
         ))}
       </div>
     </motion.div>
+  );
+}
+
+// Univers clients — ce que le client obtient au-delà du site : une identité complète
+const UNIVERS = [
+  { src: "/salon_beaute.jpeg", name: "Salon de beauté", tag: "Identité & branding" },
+  { src: "/univers_restau.jpg", name: "Restaurant", tag: "Ambiance & storytelling" },
+  { src: "/vetment.jpeg", name: "Boutique de mode", tag: "Direction artistique" },
+  { src: "/gym.jpg", name: "Coach sportif", tag: "Image de marque" },
+];
+
+function UniversStrip() {
+  return (
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      {UNIVERS.map((item, i) => (
+        <motion.figure
+          key={item.src}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="group relative overflow-hidden rounded-2xl bg-zinc-900"
+        >
+          <div className="relative aspect-[4/5]">
+            <Image
+              src={item.src}
+              alt={`Univers de marque — ${item.name}`}
+              fill
+              sizes="(max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+          </div>
+          <figcaption className="absolute inset-x-0 bottom-0 p-4">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-white/50">{item.tag}</p>
+            <p className="mt-1.5 text-sm font-medium text-white">{item.name}</p>
+          </figcaption>
+        </motion.figure>
+      ))}
+    </div>
   );
 }
 
@@ -482,6 +522,47 @@ export default function Home() {
                 <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">{service.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </section>
+
+        {/* UNIVERS — ce que le client obtient au-delà du site */}
+        <section className="bg-zinc-950 text-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+            <div className="mb-10 max-w-2xl">
+              <SectionHeading
+                tone="light"
+                label="Univers de marque"
+                title={
+                  <>
+                    Vous ne repartez pas avec un site, mais avec{" "}
+                    <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+                      un univers complet
+                    </span>
+                  </>
+                }
+                subtitle="Identité visuelle, direction artistique et ambiance : chaque détail est pensé pour que vos clients ressentent la qualité avant même de vous rencontrer."
+              />
+            </div>
+
+            <UniversStrip />
+
+            <div className="mt-10">
+              <a
+                href="/realisations"
+                className="group inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-zinc-400"
+              >
+                Voir les univers en détail
+                <svg
+                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
           </div>
         </section>
 

@@ -64,23 +64,24 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHome]);
 
-  // Verrou de défilement + fermeture au clavier quand le menu plein écran est ouvert
+  // Fermeture au clavier / au scroll — la page n'est jamais verrouillée
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     if (!mobileMenuOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileMenuOpen(false);
     };
+    const onScroll = () => setMobileMenuOpen(false);
     window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      window.removeEventListener("scroll", onScroll);
     };
   }, [mobileMenuOpen]);
 
   const close = () => setMobileMenuOpen(false);
-  const transparent = (isHome && !scrolled) || mobileMenuOpen;
-  const lightBars = isLightPage && !mobileMenuOpen;
+  const transparent = isHome && !scrolled;
+  const lightBars = isLightPage;
 
   return (
     <motion.header
@@ -160,105 +161,117 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* Menu plein écran */}
+      {/* Menu — panneau flottant ancré sous le header, le site reste visible */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            key="overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="fixed inset-0 z-40 bg-[#0a0a0b] text-white"
-          >
-            <div className="h-full max-w-6xl mx-auto flex flex-col px-6 sm:px-10 pt-24 pb-8">
-              <div className="flex-1 flex flex-col justify-center overflow-y-auto">
-                {/* Navigation principale */}
-                <div className="flex flex-col">
-                  {PRIMARY_LINKS.map((link, i) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      onClick={close}
-                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      transition={{ delay: 0.12 + i * 0.06, duration: 0.5, ease: EASE }}
-                      className="group flex items-center gap-4 border-b border-white/5 py-4"
-                    >
-                      <span className="w-6 text-xs tabular-nums text-zinc-600">
-                        0{i + 1}
-                      </span>
-                      <span className="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-zinc-400 transition-colors duration-300 group-hover:text-white">
-                        {link.label}
-                      </span>
-                    </motion.a>
-                  ))}
-                </div>
+          <>
+            {/* Voile très léger : ferme au clic, sans masquer la page */}
+            <motion.button
+              key="scrim"
+              type="button"
+              aria-label="Fermer le menu"
+              onClick={close}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="fixed inset-0 z-40 cursor-default bg-zinc-950/25 backdrop-blur-[2px]"
+            />
 
-                {/* Pages */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.12 + PRIMARY_LINKS.length * 0.06, duration: 0.4 }}
-                  className="mt-8 mb-2 text-xs uppercase tracking-[0.3em] text-zinc-600"
-                >
-                  Explorer
-                </motion.p>
-                <div className="flex flex-col">
-                  {PAGE_LINKS.map((link, i) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      onClick={close}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        delay: 0.12 + (PRIMARY_LINKS.length + i) * 0.06,
-                        duration: 0.45,
-                        ease: EASE,
-                      }}
-                      className="group flex items-center justify-between py-3"
-                    >
-                      <span className="text-lg text-zinc-400 transition-colors duration-300 group-hover:text-white">
-                        {link.label}
-                      </span>
-                      <svg
-                        className="w-4 h-4 text-zinc-600 transition-all duration-300 group-hover:text-white group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={1.5}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </motion.a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bas — CTA + contact direct */}
+            <div className="pointer-events-none absolute inset-x-0 top-full z-50 max-w-6xl mx-auto px-4 sm:px-6">
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5, ease: EASE }}
-                className="pt-6 border-t border-white/10"
+                key="panel"
+                initial={{ opacity: 0, y: -10, scale: 0.97, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -8, scale: 0.98, filter: "blur(6px)" }}
+                transition={{ duration: 0.45, ease: EASE }}
+                className="pointer-events-auto ml-auto w-full sm:w-[22rem] origin-top sm:origin-top-right overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0a0a0b]/90 text-white shadow-[0_40px_80px_-30px_rgba(0,0,0,0.65)] backdrop-blur-xl"
               >
-                <a
-                  href="/#contact"
-                  onClick={close}
-                  className="block w-full px-5 py-3.5 text-center rounded-full bg-white text-zinc-950 font-medium tracking-tight transition-transform hover:scale-[1.01]"
-                >
-                  Obtenir un devis gratuit
-                </a>
-                <a
-                  href="tel:+33749635085"
-                  className="mt-4 block text-center text-sm text-zinc-500 transition-colors hover:text-zinc-300"
-                >
-                  07 49 63 50 85
-                </a>
+                <div className="max-h-[calc(100svh-7rem)] overflow-y-auto p-6 sm:p-7">
+                  {/* Navigation principale */}
+                  <div className="flex flex-col">
+                    {PRIMARY_LINKS.map((link, i) => (
+                      <motion.a
+                        key={link.label}
+                        href={link.href}
+                        onClick={close}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.08 + i * 0.045, duration: 0.4, ease: EASE }}
+                        className="group -mx-2 rounded-xl px-2 py-2.5 transition-colors duration-300 hover:bg-white/[0.04]"
+                      >
+                        <span className="text-xl font-[family-name:var(--font-instrument-serif)] font-normal italic tracking-tight text-zinc-300 transition-colors duration-300 group-hover:text-white">
+                          {link.label}
+                        </span>
+                      </motion.a>
+                    ))}
+                  </div>
+
+                  {/* Pages */}
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.08 + PRIMARY_LINKS.length * 0.045, duration: 0.4 }}
+                    className="mt-7 mb-1 text-[10px] uppercase tracking-[0.3em] text-zinc-600"
+                  >
+                    Explorer
+                  </motion.p>
+                  <div className="flex flex-col">
+                    {PAGE_LINKS.map((link, i) => (
+                      <motion.a
+                        key={link.label}
+                        href={link.href}
+                        onClick={close}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          delay: 0.08 + (PRIMARY_LINKS.length + i) * 0.045,
+                          duration: 0.4,
+                          ease: EASE,
+                        }}
+                        className="group -mx-2 flex items-center justify-between rounded-xl px-2 py-2.5 transition-colors duration-300 hover:bg-white/[0.04]"
+                      >
+                        <span className="text-sm text-zinc-400 transition-colors duration-300 group-hover:text-white">
+                          {link.label}
+                        </span>
+                        <svg
+                          className="w-3.5 h-3.5 text-zinc-600 transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={1.5}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </motion.a>
+                    ))}
+                  </div>
+
+                  {/* Bas — CTA + contact direct */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.34, duration: 0.45, ease: EASE }}
+                    className="mt-7 pt-5 border-t border-white/10"
+                  >
+                    <a
+                      href="/#contact"
+                      onClick={close}
+                      className="block w-full px-5 py-3 text-center rounded-full bg-white text-zinc-950 text-sm font-medium tracking-tight transition-transform hover:scale-[1.02]"
+                    >
+                      Obtenir un devis gratuit
+                    </a>
+                    <a
+                      href="tel:+33749635085"
+                      className="mt-3 block text-center text-xs text-zinc-500 transition-colors hover:text-zinc-300"
+                    >
+                      07 49 63 50 85
+                    </a>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>
