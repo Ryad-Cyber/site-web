@@ -12,48 +12,44 @@ import HeroVisual from "./components/HeroVisual";
 const WHATSAPP_URL =
   "https://wa.me/33749635085?text=Bonjour, j'aimerais un site web pour mon activité";
 
+// Logique de paliers : chaque niveau reprend le précédent et affiche uniquement
+// ce qu'il ajoute — le visiteur lit l'écart, pas une liste à recouper.
 const TARIFS_PLANS = [
   {
     name: "Pack Essentiel",
-    price: "À partir de 499€",
-    desc: "Site pour obtenir des clients et être trouvé sur Google",
-    features: ["Être visible sur Google", "Recevoir des demandes de clients", "Site rapide et mobile",],
-    popular: false,
-    cardClass:
-      "relative flex flex-col p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white transition-colors duration-300 hover:border-zinc-300",
-    descClass: "mt-2 text-sm text-zinc-500",
-    priceTagClass: "text-sm font-normal ml-1 text-zinc-400",
-    featuresClass: "mt-6 space-y-3 text-sm flex-1 text-zinc-600",
-    buttonClass:
-      "mt-8 block text-center py-3 rounded-full font-medium tracking-tight transition-colors text-sm bg-zinc-950 text-white hover:bg-zinc-800",
+    price: "499€",
+    desc: "Une présence professionnelle solide.",
+    addsLabel: "Ce qui est inclus",
+    features: [
+      { t: "Un site rapide et soigné", n: "Impeccable sur téléphone comme sur ordinateur." },
+      { t: "Être trouvé dans votre ville", n: "Vous apparaissez quand on cherche votre métier près de chez vous." },
+      { t: "Vous faire contacter facilement", n: "Appel, WhatsApp et formulaire accessibles depuis chaque page." },
+    ],
+    featured: false,
   },
   {
     name: "Pack Business",
-    price: "À partir de 699€",
-    desc: "Site optimisé pour générer des appels, réservations et clients",
-    features: ["Générer des appels clients", "Réservations en ligne", "Plus de visibilité locale",],
-    popular: true,
-    cardClass:
-      "relative flex flex-col p-6 sm:p-8 rounded-2xl border border-zinc-950 bg-zinc-950 text-white transition-colors duration-300",
-    descClass: "mt-2 text-sm text-zinc-400",
-    priceTagClass: "text-sm font-normal ml-1 text-zinc-500",
-    featuresClass: "mt-6 space-y-3 text-sm flex-1 text-zinc-300",
-    buttonClass:
-      "mt-8 block text-center py-3 rounded-full font-medium tracking-tight transition-colors text-sm bg-white text-zinc-950 hover:bg-zinc-100",
+    price: "699€",
+    desc: "Pour recevoir plus de demandes.",
+    addsLabel: "En plus de l'Essentiel",
+    features: [
+      { t: "Présenter vos services en détail", n: "Chaque prestation expliquée, pour répondre aux questions avant qu'on les pose." },
+      { t: "Faciliter les demandes de contact", n: "Un chemin court et évident entre l'intérêt et la prise de contact." },
+      { t: "Mettre votre réputation en avant", n: "Ce qui inspire confiance placé là où le visiteur décide." },
+    ],
+    featured: true,
   },
   {
     name: "Pack Premium",
-    price: "À partir de 899€",
-    desc: "Solution complète pour augmenter votre visibilité et vos clients",
-    features: ["Plus de clients chaque mois", "Meilleure conversion visiteurs", "Positionnement Google local"],
-    popular: false,
-    cardClass:
-      "relative flex flex-col p-6 sm:p-8 rounded-2xl border border-zinc-200 bg-white transition-colors duration-300 hover:border-zinc-300",
-    descClass: "mt-2 text-sm text-zinc-500",
-    priceTagClass: "text-sm font-normal ml-1 text-zinc-400",
-    featuresClass: "mt-6 space-y-3 text-sm flex-1 text-zinc-600",
-    buttonClass:
-      "mt-8 block text-center py-3 rounded-full font-medium tracking-tight transition-colors text-sm bg-zinc-950 text-white hover:bg-zinc-800",
+    price: "899€",
+    desc: "Une image qui vous distingue.",
+    addsLabel: "En plus du Business",
+    features: [
+      { t: "Une direction artistique sur-mesure", n: "Couleurs, typographies et mise en page créées pour vous." },
+      { t: "Un univers de marque complet", n: "Une identité cohérente, du site jusqu'à vos réseaux." },
+      { t: "Une expérience soignée au détail", n: "Animations et transitions qui installent le haut de gamme." },
+    ],
+    featured: false,
   },
 ];
 
@@ -367,96 +363,123 @@ function UniversShowcase() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-center"
     >
-      {/* Scène */}
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-zinc-900 aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/9]">
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={active.src}
-            initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              opacity: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
-              scale: { duration: hold / 1000 + 1.1, ease: "linear" },
-            }}
-            className="absolute inset-0"
-          >
-            {active.type === "video" ? (
-              <video
-                src={active.src}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <Image
-                src={active.src}
-                alt={`Univers de marque — ${active.name}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 1100px"
-                className="object-cover"
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+      {/* Narration — 5/12 : la légende sort du média et vit ici */}
+      <div className="lg:col-span-5">
+        <SectionHeading
+          tone="light"
+          label="Univers de marque"
+          title={
+            <>
+              Vous ne repartez pas avec un site, mais avec{" "}
+              <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+                un univers complet
+              </span>
+            </>
+          }
+          subtitle="Identité visuelle, direction artistique et ambiance : chaque détail est pensé pour que vos clients ressentent la qualité avant même de vous rencontrer."
+        />
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+        {/* Index des univers — sommaire vertical avec barre de progression */}
+        <ul className="mt-10 flex flex-col">
+          {UNIVERS.map((item, i) => {
+            const isActive = i === index;
+            return (
+              <li key={item.src}>
+                <button
+                  onClick={() => setIndex(i)}
+                  className="group relative block w-full py-3 text-left"
+                  aria-label={`Voir l'univers ${item.name}`}
+                  aria-current={isActive}
+                >
+                  <span
+                    className={`text-sm tracking-tight transition-colors duration-500 ${
+                      isActive ? "text-white" : "text-zinc-600 group-hover:text-zinc-400"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                  <span
+                    className={`ml-3 text-[10px] uppercase tracking-[0.2em] transition-colors duration-500 ${
+                      isActive ? "text-zinc-500" : "text-transparent"
+                    }`}
+                  >
+                    {item.tag}
+                  </span>
+                  <span className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+                  {isActive && (
+                    <motion.span
+                      key={`${item.src}-progress`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: reduce ? 0 : hold / 1000, ease: "linear" }}
+                      className="absolute inset-x-0 bottom-0 h-px origin-left bg-white"
+                    />
+                  )}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
 
-        {/* Légende */}
-        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active.name}
-              initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        <a
+          href="/realisations"
+          className="group mt-10 inline-flex items-center gap-2.5 text-sm font-medium text-white transition-colors hover:text-zinc-400"
+        >
+          Voir les univers en détail
+          <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-colors duration-300 group-hover:border-white/60">
+            <svg
+              className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
             >
-              <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">{active.tag}</p>
-              <p className="mt-2 text-2xl sm:text-3xl font-[family-name:var(--font-instrument-serif)] font-normal italic text-white">
-                {active.name}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
       </div>
 
-      {/* Sélecteur — noms + barre de progression, pas de flèches ni de puces */}
-      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-8">
-        {UNIVERS.map((item, i) => {
-          const isActive = i === index;
-          return (
-            <button
-              key={item.src}
-              onClick={() => setIndex(i)}
-              className="group relative pb-2 text-left"
-              aria-label={`Voir l'univers ${item.name}`}
-              aria-current={isActive}
+      {/* Média — 7/12, ratio 4/3 : hauteur réduite, effet cinématique conservé */}
+      <div className="lg:col-span-7">
+        <div className="relative overflow-hidden rounded-[1.5rem] bg-zinc-900 aspect-[4/3]">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={active.src}
+              initial={{ opacity: 0, scale: 1.06 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                opacity: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
+                scale: { duration: hold / 1000 + 1.1, ease: "linear" },
+              }}
+              className="absolute inset-0"
             >
-              <span
-                className={`text-xs sm:text-sm tracking-tight transition-colors duration-500 ${
-                  isActive ? "text-white" : "text-zinc-600 group-hover:text-zinc-400"
-                }`}
-              >
-                {item.name}
-              </span>
-              <span className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
-              {isActive && (
-                <motion.span
-                  key={`${item.src}-progress`}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: reduce ? 0 : hold / 1000, ease: "linear" }}
-                  className="absolute inset-x-0 bottom-0 h-px origin-left bg-white"
+              {active.type === "video" ? (
+                <video
+                  src={active.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={active.src}
+                  alt={`Univers de marque — ${active.name}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 720px"
+                  className="object-cover"
                 />
               )}
-            </button>
-          );
-        })}
+            </motion.div>
+          </AnimatePresence>
+          <div className="pointer-events-none absolute inset-0 rounded-[1.5rem] ring-1 ring-inset ring-white/10" />
+        </div>
       </div>
     </motion.div>
   );
@@ -615,42 +638,8 @@ export default function Home() {
 
         {/* UNIVERS — ce que le client obtient au-delà du site */}
         <section className="bg-zinc-950 text-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-            <div className="mb-10 max-w-2xl">
-              <SectionHeading
-                tone="light"
-                label="Univers de marque"
-                title={
-                  <>
-                    Vous ne repartez pas avec un site, mais avec{" "}
-                    <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-                      un univers complet
-                    </span>
-                  </>
-                }
-                subtitle="Identité visuelle, direction artistique et ambiance : chaque détail est pensé pour que vos clients ressentent la qualité avant même de vous rencontrer."
-              />
-            </div>
-
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 md:py-36">
             <UniversShowcase />
-
-            <div className="mt-10">
-              <a
-                href="/realisations"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-zinc-400"
-              >
-                Voir les univers en détail
-                <svg
-                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
           </div>
         </section>
 
@@ -674,39 +663,78 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-              {TARIFS_PLANS.map((plan, index) => (
-                <motion.div
-                  key={plan.name}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className={plan.cardClass}
-                >
-                  {plan.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[11px] font-medium tracking-wide px-3.5 py-1 rounded-full bg-zinc-950 text-white border border-white/10">
-                      Le plus choisi
-                    </span>
-                  )}
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">{plan.name}</h3>
-                  <p className={plan.descClass}>{plan.desc}</p>
-                  <p className="mt-4 text-2xl sm:text-3xl font-semibold tracking-tight">
-                    {plan.price}
-                    <span className={plan.priceTagClass}>TTC</span>
-                  </p>
-                  <ul className={plan.featuresClass}>
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2.5">
-                        <CheckIcon />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="#contact" className={plan.buttonClass}>
-                    Demander un devis gratuit
-                  </a>
-                </motion.div>
-              ))}
+              {TARIFS_PLANS.map((plan, index) => {
+                const dark = plan.featured;
+                return (
+                  <motion.div
+                    key={plan.name}
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className={`relative flex flex-col rounded-2xl p-6 sm:p-8 transition-colors duration-300 ${
+                      dark
+                        ? "border border-zinc-950 bg-zinc-950 text-white"
+                        : "border border-zinc-200 bg-white hover:border-zinc-300"
+                    }`}
+                  >
+                    {plan.featured && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-zinc-950 px-3.5 py-1 text-[11px] font-medium tracking-wide text-white">
+                        Le plus choisi
+                      </span>
+                    )}
+
+                    <h3 className={`text-xs font-semibold uppercase tracking-[0.2em] ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+                      {plan.name}
+                    </h3>
+                    <p className={`mt-3 text-base font-medium tracking-tight ${dark ? "text-white" : "text-zinc-950"}`}>
+                      {plan.desc}
+                    </p>
+
+                    <p className="mt-6 text-3xl sm:text-4xl font-semibold tracking-[-0.03em]">
+                      <span className={`mr-1.5 align-middle text-xs font-normal ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+                        dès
+                      </span>
+                      {plan.price}
+                      <span className={`ml-1 text-sm font-normal ${dark ? "text-zinc-500" : "text-zinc-400"}`}>TTC</span>
+                    </p>
+
+                    {/* L'écart avec le palier précédent, énoncé avant la liste */}
+                    <p className={`mt-8 text-[10px] uppercase tracking-[0.25em] ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
+                      {plan.addsLabel}
+                    </p>
+
+                    <ul className="mt-5 flex-1 space-y-5">
+                      {plan.features.map((f) => (
+                        <li key={f.t} className="flex gap-3">
+                          <span className={dark ? "text-zinc-500" : "text-zinc-400"}>
+                            <CheckIcon />
+                          </span>
+                          <span>
+                            <span className={`block text-sm font-medium ${dark ? "text-white" : "text-zinc-950"}`}>
+                              {f.t}
+                            </span>
+                            <span className={`mt-1 block text-[13px] leading-relaxed ${dark ? "text-zinc-400" : "text-zinc-500"}`}>
+                              {f.n}
+                            </span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <a
+                      href="#contact"
+                      className={`mt-10 block rounded-full py-3 text-center text-sm font-medium tracking-tight transition-colors ${
+                        dark
+                          ? "bg-white text-zinc-950 hover:bg-zinc-100"
+                          : "bg-zinc-950 text-white hover:bg-zinc-800"
+                      }`}
+                    >
+                      Demander un devis gratuit
+                    </a>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <p className="mt-6 text-center text-zinc-500 text-sm">
