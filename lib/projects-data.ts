@@ -9,7 +9,14 @@ export type Project = {
   accentColor: string;
   mockup: string;
   features: string[];
-  testimonial: string;
+  // Objectif du projet — formulation orientée approche, jamais un avis client
+  approach: string;
+  // Réalité de terrain du métier — observation, jamais une promesse de résultat
+  challenge: string;
+  // Ce que le site doit apporter, formulé en bénéfice + explication en langage simple
+  needs: { label: string; note: string }[];
+  // Axes de valeur propres au secteur — affichés dans le panneau de droite
+  highlights: { label: string; value: string }[];
   slides: CarouselSlide[];
 };
 
@@ -26,7 +33,20 @@ export const PROJECTS: Project[] = [
     accentColor: "amber",
     mockup: "💈",
     features: ["Réservation", "Galerie", "Avis clients", "Tarifs"],
-    testimonial: "Nous avons augmenté nos rendez-vous de 180% en 3 mois.",
+    approach: "Objectif : transformer les visiteurs en rendez-vous, avec une image à la hauteur du salon.",
+    challenge:
+      "Les rendez-vous se prennent encore par téléphone, souvent en pleine coupe — et certains appels restent sans réponse.",
+    needs: [
+      { label: "Réserver sans appeler", note: "Le client choisit son créneau depuis son téléphone, même le soir." },
+      { label: "Montrer votre travail", note: "Une galerie de coupes qui donne envie de pousser la porte." },
+      { label: "Être trouvé dans votre ville", note: "Apparaître quand quelqu'un cherche un barbier près de chez lui." },
+    ],
+    highlights: [
+      { label: "Univers de marque", value: "Signature" },
+      { label: "Prise de RDV", value: "En 3 clics" },
+      { label: "Fidélisation", value: "Clients réguliers" },
+      { label: "Galerie", value: "Avant / après" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -59,7 +79,20 @@ export const PROJECTS: Project[] = [
     accentColor: "red",
     mockup: "🍽️",
     features: ["Menu digital", "Réservations", "Photos HD", "Localisation"],
-    testimonial: "Le design élégant de notre site a changé la perception de notre restaurant.",
+    approach: "Objectif : donner envie avant même de passer la porte, et rendre la réservation immédiate.",
+    challenge:
+      "La carte évolue au fil des saisons, et le téléphone sonne souvent en plein service.",
+    needs: [
+      { label: "Réserver une table en ligne", note: "Sans occuper le téléphone pendant le coup de feu." },
+      { label: "Une carte toujours à jour", note: "Modifiable en quelques minutes, sans repasser par un prestataire." },
+      { label: "Donner envie avant la porte", note: "Des photos de salle et d'assiettes qui installent l'ambiance." },
+    ],
+    highlights: [
+      { label: "Ambiance", value: "Immersive" },
+      { label: "Menu digital", value: "Toujours à jour" },
+      { label: "Réservation", value: "En ligne 24/7" },
+      { label: "Attractivité", value: "Photos HD" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -89,17 +122,17 @@ export const PROJECTS: Project[] = [
         alt: "Nouvelle interface de site web restaurant avec réservation",
       },
       {
-        label: "Le résultat",
-        caption: "Tables réservées en avance, file d'attente en ligne, réputation renforcée.",
+        label: "Ce que le site permet",
+        caption: "Réserver, consulter le menu et trouver le restaurant — sans appeler.",
         type: "outcome",
         variant: "restaurant",
         src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop",
         alt: "Clients dînant dans un restaurant animé",
         metrics: [
-          { value: "+120%", label: "Réservations web" },
-          { value: "3×", label: "Visibilité locale" },
-          { value: "85%", label: "Taux de remplissage" },
-          { value: "+45%", label: "Avis en ligne" },
+          { value: "24/7", label: "Réservation en ligne" },
+          { value: "Google", label: "Visibilité locale" },
+          { value: "Menu digital", label: "Toujours à jour" },
+          { value: "Avis", label: "Collecte facilitée" },
         ],
       },
     ],
@@ -113,7 +146,20 @@ export const PROJECTS: Project[] = [
     accentColor: "lime",
     mockup: "🏋️‍♀️",
     features: ["Programmes", "Coaching", "Prise de rendez-vous", "Transformation"],
-    testimonial: "Le nouveau site a renforcé notre image et augmenté les demandes de coaching.",
+    approach: "Objectif : présenter les programmes avec clarté et déclencher la prise de contact.",
+    challenge:
+      "Les prospects hésitent longtemps avant de franchir la porte, et posent presque tous les mêmes questions sur les formules et les tarifs.",
+    needs: [
+      { label: "Des formules lisibles", note: "Chaque programme et son tarif, sans avoir à demander." },
+      { label: "Réserver une séance d'essai", note: "Un premier pas simple, sans engagement." },
+      { label: "Inspirer confiance", note: "Des photos réelles de la salle et du coaching, pas des images génériques." },
+    ],
+    highlights: [
+      { label: "Programmes", value: "Détaillés" },
+      { label: "Coaching", value: "Sur-mesure" },
+      { label: "Prise de RDV", value: "Immédiate" },
+      { label: "Motivation", value: "Transformations" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -146,7 +192,20 @@ export const PROJECTS: Project[] = [
     accentColor: "sky",
     mockup: "🚗",
     features: ["Réservation", "Disponibilités", "Tarifs", "Mobile"],
-    testimonial: "Le parcours mobile a rendu la réservation plus simple et plus premium.",
+    approach: "Objectif : rendre la réservation évidente, y compris depuis un téléphone.",
+    challenge:
+      "Entre les demandes qui arrivent à toute heure et les disponibilités à confirmer, une partie du temps part en allers-retours.",
+    needs: [
+      { label: "Voir la flotte et les tarifs", note: "Chaque véhicule, son prix et ses conditions au même endroit." },
+      { label: "Réserver depuis un téléphone", note: "La majorité des demandes se font en déplacement." },
+      { label: "Des conditions claires", note: "Caution, kilométrage, assurance : écrit une fois, plus à réexpliquer." },
+    ],
+    highlights: [
+      { label: "Flotte", value: "Mise en avant" },
+      { label: "Disponibilités", value: "Temps réel" },
+      { label: "Réservation", value: "Mobile-first" },
+      { label: "Tarifs", value: "Transparents" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -193,7 +252,20 @@ export const PROJECTS: Project[] = [
     accentColor: "cyan",
     mockup: "🧽",
     features: ["Réservation", "Prestations", "Avis", "Localisation"],
-    testimonial: "Nous avons rendu le service plus crédible et plus simple à réserver.",
+    approach: "Objectif : capter la demande locale et convertir en réservation en moins d'une minute.",
+    challenge:
+      "Beaucoup de demandes se décident dans l'instant : si la prise de contact demande trop d'étapes, le client passe au suivant.",
+    needs: [
+      { label: "Réserver en moins d'une minute", note: "Prestation, créneau, adresse — trois choix, c'est tout." },
+      { label: "Des prestations comparables", note: "Formules et tarifs côte à côte, sans zone d'ombre." },
+      { label: "Être trouvé dans votre ville", note: "Apparaître sur les recherches de nettoyage auto à proximité." },
+    ],
+    highlights: [
+      { label: "Prise de contact", value: "Immédiate" },
+      { label: "Réservation", value: "En 1 minute" },
+      { label: "Prestations", value: "Détaillées" },
+      { label: "Conversion locale", value: "Ciblée" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -227,7 +299,20 @@ export const PROJECTS: Project[] = [
     accentColor: "rose",
     mockup: "👚",
     features: ["Catalogue", "Paiement", "Marque", "Conversion"],
-    testimonial: "Le site a permis d'améliorer la perception de marque et les ventes.",
+    approach: "Objectif : installer une image de marque premium et fluidifier le parcours d'achat.",
+    challenge:
+      "Les réseaux font défiler les pièces, mais rien ne reste : la collection disparaît dans le fil au bout de quelques heures.",
+    needs: [
+      { label: "Une boutique qui vous appartient", note: "Vos pièces restent visibles, sans dépendre d'un algorithme." },
+      { label: "Mettre en scène les collections", note: "Une direction artistique qui valorise chaque pièce." },
+      { label: "Acheter sans friction", note: "Paiement sécurisé et parcours court jusqu'à la commande." },
+    ],
+    highlights: [
+      { label: "Image de marque", value: "Premium" },
+      { label: "Expérience", value: "Fluide" },
+      { label: "Collections", value: "Mises en scène" },
+      { label: "Confiance", value: "Paiement sécurisé" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -261,7 +346,20 @@ export const PROJECTS: Project[] = [
     accentColor: "violet",
     mockup: "🛠️",
     features: ["Devis", "Portfolio", "Avis", "Contact"],
-    testimonial: "Notre présence en ligne a complètement transformé notre activité.",
+    approach: "Objectif : valoriser le savoir-faire et générer des demandes de devis qualifiées.",
+    challenge:
+      "Le bouche-à-oreille fonctionne bien, mais les clients qui ne vous connaissent pas encore ne trouvent presque rien en ligne.",
+    needs: [
+      { label: "Montrer les chantiers réalisés", note: "Des photos avant/après valent mieux qu'une description." },
+      { label: "Recevoir des demandes de devis", note: "Un formulaire court qui cadre le besoin dès le départ." },
+      { label: "Être trouvé dans votre ville", note: "Apparaître quand on cherche votre métier dans votre secteur." },
+    ],
+    highlights: [
+      { label: "Savoir-faire", value: "Mis en valeur" },
+      { label: "Demande de devis", value: "Simplifiée" },
+      { label: "Réalisations", value: "Portfolio" },
+      { label: "Crédibilité", value: "Avis clients" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -295,7 +393,20 @@ export const PROJECTS: Project[] = [
     accentColor: "indigo",
     mockup: "🏠",
     features: ["Biens", "Visites", "Contact", "Conversion"],
-    testimonial: "Le site a fortement simplifié le parcours de nos prospects.",
+    approach: "Objectif : valoriser chaque bien et raccourcir le chemin vers la prise de contact.",
+    challenge:
+      "Sur les portails, les annonces se ressemblent vite, et l'identité de l'agence a peu de place pour s'exprimer.",
+    needs: [
+      { label: "Valoriser chaque bien", note: "Des pages soignées qui donnent envie de venir visiter." },
+      { label: "Prendre contact facilement", note: "Une demande de visite en quelques champs seulement." },
+      { label: "Installer votre crédibilité", note: "Un site qui rassure avant même le premier rendez-vous." },
+    ],
+    highlights: [
+      { label: "Biens", value: "Valorisés" },
+      { label: "Visites", value: "Programmées" },
+      { label: "Contact", value: "Qualifié" },
+      { label: "Design", value: "Rassurant" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -335,7 +446,20 @@ export const PROJECTS: Project[] = [
     accentColor: "pink",
     mockup: "💅",
     features: ["Réservation", "Galerie", "Avis", "Brand"],
-    testimonial: "Le design a transformé l'image de notre salon et les réservations.",
+    approach: "Objectif : traduire l'élégance du salon en ligne et faciliter la réservation.",
+    challenge:
+      "L'univers du salon est soigné jusque dans les moindres détails, mais rien de tout cela ne se voit en ligne.",
+    needs: [
+      { label: "Réserver en ligne", note: "Prestation et créneau choisis à l'avance, sans passer un appel." },
+      { label: "Traduire l'univers du salon", note: "Photos, couleurs et typographie à l'image du lieu." },
+      { label: "Mettre en avant les prestations", note: "Chaque soin, sa durée et son tarif, clairement présentés." },
+    ],
+    highlights: [
+      { label: "Univers de marque", value: "Élégant" },
+      { label: "Réservation", value: "En ligne" },
+      { label: "Prestations", value: "Mises en avant" },
+      { label: "Fidélisation", value: "Clientèle régulière" },
+    ],
     slides: [
       {
         label: "L'univers",
@@ -362,7 +486,20 @@ export const PROJECTS: Project[] = [
     accentColor: "zinc",
     mockup: "✨",
     features: ["Sur mesure", "Besoin précis", "Contact", "Adaptation"],
-    testimonial: "Chaque projet peut être pensé pour une réalité différente.",
+    approach: "Objectif : partir de votre activité réelle pour concevoir une expérience sur-mesure.",
+    challenge:
+      "Votre activité ne rentre dans aucune case toute faite — c'est souvent le signe d'un projet intéressant.",
+    needs: [
+      { label: "Partir de votre réalité", note: "On construit à partir de votre métier, pas d'un modèle existant." },
+      { label: "Aller à l'essentiel", note: "Ce dont vous avez réellement besoin, rien de superflu." },
+      { label: "Être trouvé dans votre ville", note: "La visibilité locale s'applique à presque toutes les activités." },
+    ],
+    highlights: [
+      { label: "Approche", value: "Sur-mesure" },
+      { label: "Besoin", value: "Analysé" },
+      { label: "Design", value: "Unique" },
+      { label: "Accompagnement", value: "Complet" },
+    ],
     slides: [
       {
         label: "L'univers",

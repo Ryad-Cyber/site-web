@@ -335,42 +335,130 @@ function ServicesShowcase() {
 }
 
 // Univers clients — ce que le client obtient au-delà du site : une identité complète
+// `hold` = temps d'affichage en ms. Les images défilent vite (rythme portfolio),
+// les vidéos gardent leur propre respiration pour que le plan ait le temps d'exister.
 const UNIVERS = [
-  { src: "/salon_beaute.jpeg", name: "Salon de beauté", tag: "Identité & branding" },
-  { src: "/univers_restau.jpg", name: "Restaurant", tag: "Ambiance & storytelling" },
-  { src: "/vetment.jpeg", name: "Boutique de mode", tag: "Direction artistique" },
-  { src: "/gym.jpg", name: "Coach sportif", tag: "Image de marque" },
-];
+  { type: "video", src: "/video_barber.mp4", name: "Barbershop", tag: "Univers & signature", hold: 4600 },
+  { type: "image", src: "/salon_beaute.jpeg", name: "Salon de beauté", tag: "Identité & branding", hold: 3000 },
+  { type: "video", src: "/video_resto.mp4", name: "Restaurant", tag: "Ambiance & storytelling", hold: 4600 },
+  { type: "image", src: "/vetment.jpeg", name: "Boutique de mode", tag: "Direction artistique", hold: 3000 },
+  { type: "video", src: "/video_maison.mp4", name: "Immobilier", tag: "Mise en valeur des biens", hold: 4600 },
+  { type: "video", src: "/video_loca.mp4", name: "Location de véhicules", tag: "Expérience premium", hold: 5400 },
+] as const;
 
-function UniversStrip() {
+// Showcase cinématique — un univers à la fois, fondu lent + dérive d'échelle
+function UniversShowcase() {
+  const [index, setIndex] = useState(0);
+  const reduce = useReducedMotion();
+
+  const active = UNIVERS[index];
+  const hold = active.hold;
+
+  // Minuterie relancée à chaque plan : chaque univers tient sa propre durée
+  useEffect(() => {
+    if (reduce) return;
+    const t = setTimeout(() => setIndex((v) => (v + 1) % UNIVERS.length), hold);
+    return () => clearTimeout(t);
+  }, [reduce, index, hold]);
+
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-      {UNIVERS.map((item, i) => (
-        <motion.figure
-          key={item.src}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative overflow-hidden rounded-2xl bg-zinc-900"
-        >
-          <div className="relative aspect-[4/5]">
-            <Image
-              src={item.src}
-              alt={`Univers de marque — ${item.name}`}
-              fill
-              sizes="(max-width: 1024px) 50vw, 25vw"
-              className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-          </div>
-          <figcaption className="absolute inset-x-0 bottom-0 p-4">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-white/50">{item.tag}</p>
-            <p className="mt-1.5 text-sm font-medium text-white">{item.name}</p>
-          </figcaption>
-        </motion.figure>
-      ))}
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Scène */}
+      <div className="relative overflow-hidden rounded-[1.75rem] bg-zinc-900 aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/9]">
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={active.src}
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
+              scale: { duration: hold / 1000 + 1.1, ease: "linear" },
+            }}
+            className="absolute inset-0"
+          >
+            {active.type === "video" ? (
+              <video
+                src={active.src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <Image
+                src={active.src}
+                alt={`Univers de marque — ${active.name}`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1100px"
+                className="object-cover"
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+
+        {/* Légende */}
+        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active.name}
+              initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">{active.tag}</p>
+              <p className="mt-2 text-2xl sm:text-3xl font-[family-name:var(--font-instrument-serif)] font-normal italic text-white">
+                {active.name}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Sélecteur — noms + barre de progression, pas de flèches ni de puces */}
+      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-8">
+        {UNIVERS.map((item, i) => {
+          const isActive = i === index;
+          return (
+            <button
+              key={item.src}
+              onClick={() => setIndex(i)}
+              className="group relative pb-2 text-left"
+              aria-label={`Voir l'univers ${item.name}`}
+              aria-current={isActive}
+            >
+              <span
+                className={`text-xs sm:text-sm tracking-tight transition-colors duration-500 ${
+                  isActive ? "text-white" : "text-zinc-600 group-hover:text-zinc-400"
+                }`}
+              >
+                {item.name}
+              </span>
+              <span className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+              {isActive && (
+                <motion.span
+                  key={`${item.src}-progress`}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: reduce ? 0 : hold / 1000, ease: "linear" }}
+                  className="absolute inset-x-0 bottom-0 h-px origin-left bg-white"
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </motion.div>
   );
 }
 
@@ -544,7 +632,7 @@ export default function Home() {
               />
             </div>
 
-            <UniversStrip />
+            <UniversShowcase />
 
             <div className="mt-10">
               <a
@@ -627,59 +715,83 @@ export default function Home() {
           </ScrollReveal>
         </section>
 
-        {/* POURQUOI NOUS — aperçu court */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <SectionHeading
-              label="Pourquoi nous"
-              title={
-                <>
-                  Pensé comme{" "}
-                  <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-500">
+        {/* POURQUOI NOUS — aperçu éditorial, colonne de gauche sticky */}
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-24 md:py-36">
+          <div className="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
+            {/* Colonne titre — reste en place pendant le défilement des piliers */}
+            <div className="lg:sticky lg:top-32 lg:self-start">
+              <motion.div
+                initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">Pourquoi nous</p>
+                <h2 className="mt-6 text-3xl sm:text-4xl lg:text-[3.25rem] font-semibold tracking-[-0.03em] leading-[1.05] text-zinc-950">
+                  Pensé comme
+                  <br />
+                  <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
                     une pièce unique
                   </span>
-                </>
-              }
-              subtitle="Design sur-mesure, obsession du détail et accompagnement réel — jamais un template recyclé."
-            />
-          </div>
+                </h2>
+                <p className="mt-7 max-w-sm text-base leading-relaxed text-zinc-500">
+                  Design sur-mesure, obsession du détail et accompagnement réel — jamais un template recyclé.
+                </p>
 
-          <div className="mx-auto grid max-w-4xl gap-y-8 sm:grid-cols-3 sm:gap-y-0 sm:divide-x sm:divide-zinc-200">
-            {[
-              { k: "Sur-mesure", d: "Un design pensé pour votre activité, jamais un modèle recyclé." },
-              { k: "Orienté résultats", d: "Chaque détail conçu pour convertir vos visiteurs en clients." },
-              { k: "Accompagnement", d: "Un partenaire présent avant, pendant et après la livraison." },
-            ].map((item, i) => (
-              <motion.div
-                key={item.k}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="sm:px-6 sm:first:pl-0 sm:last:pr-0"
-              >
-                <h3 className="text-lg font-semibold text-zinc-900">{item.k}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-500">{item.d}</p>
+                <a
+                  href="/why-us"
+                  className="group mt-10 inline-flex items-center gap-2.5 text-sm font-medium text-zinc-950 transition-colors hover:text-zinc-500"
+                >
+                  Découvrir notre approche
+                  <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 transition-colors duration-300 group-hover:border-zinc-950">
+                    <svg
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </a>
               </motion.div>
-            ))}
-          </div>
+            </div>
 
-          <div className="mt-12 text-center">
-            <a
-              href="/why-us"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-900 transition-colors hover:text-zinc-500"
-            >
-              Découvrir notre approche
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
+            {/* Colonne piliers — révélation séquentielle au scroll */}
+            <div className="flex flex-col">
+              {[
+                {
+                  k: "Sur-mesure",
+                  d: "Un design pensé pour votre activité, jamais un modèle recyclé. Chaque projet part d'une page blanche et de vos objectifs réels.",
+                },
+                {
+                  k: "Orienté résultats",
+                  d: "Chaque détail conçu pour convertir vos visiteurs en clients : hiérarchie claire, appels à l'action évidents, parcours sans friction.",
+                },
+                {
+                  k: "Accompagnement",
+                  d: "Un partenaire présent avant, pendant et après la livraison. Vous gardez un interlocuteur unique, pas un ticket de support.",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.k}
+                  initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.85, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="border-t border-zinc-200 py-10 first:border-t-0 first:pt-0 last:pb-0"
+                >
+                  <span className="text-xs tabular-nums tracking-[0.2em] text-zinc-400">
+                    0{i + 1}
+                  </span>
+                  <h3 className="mt-4 text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-zinc-950">
+                    {item.k}
+                  </h3>
+                  <p className="mt-3 max-w-md text-base leading-relaxed text-zinc-500">{item.d}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -727,7 +839,7 @@ export default function Home() {
         </section>
         {/* CONTACT */}
         <section id="contact" className="bg-zinc-950 text-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-32">
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-12">
                 <SectionHeading

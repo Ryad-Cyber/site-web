@@ -37,8 +37,8 @@ export default function RealisationSection({ project, index }: RealisationSectio
           <p className="text-base text-zinc-300 mb-6 leading-relaxed">
             {project.description}
           </p>
-          <p className="text-sm text-zinc-400 italic mb-6 border-l border-white/10 pl-4">
-            “{project.testimonial}”
+          <p className="text-sm text-zinc-400 mb-6 border-l border-white/10 pl-4">
+            {project.approach}
           </p>
           <div className="flex flex-wrap gap-3 mb-6">
             {project.features.map((feat: string) => (

@@ -115,10 +115,10 @@ export default function DesignsPage() {
                     ))}
                   </div>
 
-                  {/* Testimonial */}
+                  {/* Objectif du projet */}
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <p className="text-sm italic text-zinc-300 mb-3">
-                      "{designs[selectedProject].testimonial}"
+                    <p className="text-sm text-zinc-300">
+                      {designs[selectedProject].approach}
                     </p>
                   </div>
                 </div>
@@ -257,19 +257,19 @@ export default function DesignsPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                value: "5",
-                label: "Projets d'exception",
-                description: "Chacun conçu avec une obsession pour les détails",
+                value: `${designs.length}`,
+                label: "Univers présentés",
+                description: "Un secteur, une direction artistique dédiée",
               },
               {
-                value: "100%",
-                label: "Conversions réussies",
-                description: "Tous les projets génèrent des résultats mesurables",
+                value: "Sur-mesure",
+                label: "Aucun template",
+                description: "Chaque design est conçu pour une activité précise",
               },
               {
-                value: "Classe mondiale",
-                label: "Qualité de design",
-                description: "Au niveau de Vercel, Framer, Apple et Stripe",
+                value: "Mobile-first",
+                label: "Conçu pour convertir",
+                description: "Appel, réservation et devis accessibles en un geste",
               },
             ].map((stat, i) => (
               <motion.div

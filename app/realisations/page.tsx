@@ -247,8 +247,8 @@ export default function ProjectsPage() {
               transition={{ delay: 0.25 }}
               className="pt-4 border-t border-white/10"
             >
-              <p className="text-sm text-zinc-500 italic">
-                "{selectedProject.testimonial}"
+              <p className="text-sm text-zinc-500">
+                {selectedProject.approach}
               </p>
             </motion.div>
           </div>
@@ -293,26 +293,19 @@ export default function ProjectsPage() {
               </motion.p>
 
               <div className="grid grid-cols-2 gap-2.5 mb-6">
-  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
-    <p className="text-xs text-zinc-400">Impact</p>
-    <p className="text-base font-bold text-white">+30%</p>
-  </div>
-
-  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
-    <p className="text-xs text-zinc-400">Conversion</p>
-    <p className="text-base font-bold text-white">x2</p>
-  </div>
-
-  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
-    <p className="text-xs text-zinc-400">Visibilité</p>
-    <p className="text-base font-bold text-white">+180%</p>
-  </div>
-
-  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
-    <p className="text-xs text-zinc-400">Leads</p>
-    <p className="text-base font-bold text-white">+75%</p>
-  </div>
-</div>
+                {selectedProject.highlights.map((item, idx) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.22 + idx * 0.05, duration: 0.35 }}
+                    className="bg-white/5 border border-white/10 rounded-xl p-3.5"
+                  >
+                    <p className="text-xs text-zinc-400">{item.label}</p>
+                    <p className="text-sm font-bold text-white mt-0.5 leading-snug">{item.value}</p>
+                  </motion.div>
+                ))}
+              </div>
 
               <motion.div
                 initial={{ opacity: 0 }}
@@ -346,8 +339,8 @@ export default function ProjectsPage() {
                 transition={{ delay: 0.45, duration: 0.4 }}
                 className="mt-auto pt-6 border-t border-white/10"
               >
-                <p className="text-sm text-zinc-500 italic">
-                  "{selectedProject.testimonial}"
+                <p className="text-sm text-zinc-500">
+                  {selectedProject.approach}
                 </p>
               </motion.div>
             </motion.div>

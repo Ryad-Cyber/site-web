@@ -44,9 +44,9 @@ export default function FullScreenRealisation({ project, index }: { project: Rea
         </p>
         <h2 className="text-3xl font-bold text-white mb-3">{project.name}</h2>
         <p className="text-base text-zinc-300 mb-4">{project.description}</p>
-        <blockquote className="border-l border-white/20 pl-4 italic text-zinc-400 mb-4">
-          “{project.testimonial}”
-        </blockquote>
+        <p className="border-l border-white/20 pl-4 text-zinc-400 mb-4">
+          {project.approach}
+        </p>
         <div className="flex flex-wrap justify-center gap-2 mb-2">
           {project.features.map((f: string) => (
             <span key={f} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white">

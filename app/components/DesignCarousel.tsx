@@ -161,7 +161,7 @@ function OutcomeOverlay({
               transition={{ delay: 0.15 + i * 0.1, duration: 0.45 }}
               className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-md px-3 py-3 sm:px-4 sm:py-4"
             >
-              <p className="text-xl sm:text-2xl font-bold text-white tracking-tight">{metric.value}</p>
+              <p className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">{metric.value}</p>
               <p className="text-[10px] sm:text-xs text-white/60 mt-0.5">{metric.label}</p>
             </motion.div>
           ))}
