@@ -5,34 +5,49 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-function MenuIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  );
-}
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-function CloseIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
-
-const DESKTOP_LINKS = [
+// Liens de navigation principaux (sections de la home + accueil)
+const PRIMARY_LINKS = [
   { href: "/", label: "Accueil" },
   { href: "/#services", label: "Services" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];
 
-const MOBILE_LINKS = [
+// Pages du site
+const PAGE_LINKS = [
   { href: "/realisations", label: "Réalisations" },
   { href: "/results", label: "Résultats" },
-  { href: "/why-us", label: "Why us / Pourquoi nous" },
+  { href: "/why-us", label: "Pourquoi nous" },
 ];
+
+function MenuToggle({ open, lightBars }: { open: boolean; lightBars: boolean }) {
+  const bar = `absolute left-0 block h-[1.5px] w-5 rounded-full ${lightBars ? "bg-zinc-950" : "bg-white"}`;
+  const t = { duration: 0.3, ease: EASE };
+  return (
+    <span className="relative block h-5 w-5">
+      <motion.span
+        className={bar}
+        style={{ top: 5 }}
+        animate={{ rotate: open ? 45 : 0, y: open ? 4 : 0 }}
+        transition={t}
+      />
+      <motion.span
+        className={bar}
+        style={{ top: 9 }}
+        animate={{ opacity: open ? 0 : 1 }}
+        transition={{ duration: 0.15 }}
+      />
+      <motion.span
+        className={bar}
+        style={{ top: 13 }}
+        animate={{ rotate: open ? -45 : 0, y: open ? -4 : 0 }}
+        transition={t}
+      />
+    </span>
+  );
+}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,17 +64,33 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHome]);
 
-  const transparent = isHome && !scrolled;
+  // Verrou de défilement + fermeture au clavier quand le menu plein écran est ouvert
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    if (!mobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const close = () => setMobileMenuOpen(false);
+  const transparent = (isHome && !scrolled) || mobileMenuOpen;
+  const lightBars = isLightPage && !mobileMenuOpen;
 
   return (
     <motion.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: EASE }}
       className="fixed top-0 inset-x-0 z-50"
     >
       <nav
-        className={`max-w-6xl mx-auto h-16 sm:h-[4.5rem] px-4 sm:px-6 flex items-center justify-between gap-4 transition-colors duration-500 ${
+        className={`relative z-50 max-w-6xl mx-auto h-16 sm:h-[4.5rem] px-4 sm:px-6 flex items-center justify-between gap-4 transition-colors duration-500 ${
           transparent
             ? "bg-transparent border-b border-transparent"
             : isLightPage
@@ -68,7 +99,11 @@ export default function Header() {
         }`}
       >
         {/* Logo */}
-        <a href="/" className="inline-flex items-center transition-opacity hover:opacity-80">
+        <a
+          href="/"
+          onClick={close}
+          className="inline-flex items-center transition-opacity hover:opacity-80"
+        >
           <Image
             src="/RyadStudio.png"
             alt="Ryad Web Studio"
@@ -81,7 +116,7 @@ export default function Header() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-9 text-sm h-full">
-          {DESKTOP_LINKS.map((link) => (
+          {PRIMARY_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -101,108 +136,128 @@ export default function Header() {
           ))}
         </div>
 
-        {/* CTA + Hamburger Toggle */}
+        {/* CTA + Toggle */}
         <div className="flex items-center gap-3">
           <a
             href="/#contact"
             className={`hidden sm:inline-flex items-center justify-center text-sm font-medium tracking-tight px-4 py-2 rounded-full transition-transform duration-300 hover:scale-[1.03] ${
-              isLightPage ? "bg-zinc-950 text-white" : "bg-white text-zinc-950"
+              lightBars ? "bg-zinc-950 text-white" : "bg-white text-zinc-950"
             }`}
           >
             Obtenir un devis
           </a>
 
-          {/* Hamburger Menu Toggle */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 rounded-full transition-colors duration-300 ${
-              isLightPage ? "text-zinc-950 hover:bg-zinc-950/10" : "text-white hover:bg-white/10"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className={`relative z-50 p-2 rounded-full transition-colors duration-300 ${
+              lightBars ? "hover:bg-zinc-950/10" : "hover:bg-white/10"
             }`}
-            aria-label="Menu"
+            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            <MenuToggle open={mobileMenuOpen} lightBars={lightBars} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Menu plein écran */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            key="overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-transparent"
-            onClick={() => setMobileMenuOpen(false)}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="fixed inset-0 z-40 bg-[#0a0a0b] text-white"
           >
-            <motion.div
-              initial={{ x: 320, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: 320, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 280, damping: 30, mass: 0.8 }}
-              className="absolute right-0 top-0 h-full w-full max-w-sm bg-[#0a0a0b] border-l border-white/10 flex flex-col overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Menu Header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
-                <Image
-                  src="/RyadStudio.png"
-                  alt="Ryad Web Studio"
-                  width={156}
-                  height={62}
-                  className="h-8 w-auto object-contain"
-                  priority
-                />
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-white p-2 rounded-full transition-colors hover:bg-white/10"
+            <div className="h-full max-w-6xl mx-auto flex flex-col px-6 sm:px-10 pt-24 pb-8">
+              <div className="flex-1 flex flex-col justify-center overflow-y-auto">
+                {/* Navigation principale */}
+                <div className="flex flex-col">
+                  {PRIMARY_LINKS.map((link, i) => (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      onClick={close}
+                      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      transition={{ delay: 0.12 + i * 0.06, duration: 0.5, ease: EASE }}
+                      className="group flex items-center gap-4 border-b border-white/5 py-4"
+                    >
+                      <span className="w-6 text-xs tabular-nums text-zinc-600">
+                        0{i + 1}
+                      </span>
+                      <span className="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] text-zinc-400 transition-colors duration-300 group-hover:text-white">
+                        {link.label}
+                      </span>
+                    </motion.a>
+                  ))}
+                </div>
+
+                {/* Pages */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.12 + PRIMARY_LINKS.length * 0.06, duration: 0.4 }}
+                  className="mt-8 mb-2 text-xs uppercase tracking-[0.3em] text-zinc-600"
                 >
-                  <CloseIcon />
-                </motion.button>
+                  Explorer
+                </motion.p>
+                <div className="flex flex-col">
+                  {PAGE_LINKS.map((link, i) => (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      onClick={close}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.12 + (PRIMARY_LINKS.length + i) * 0.06,
+                        duration: 0.45,
+                        ease: EASE,
+                      }}
+                      className="group flex items-center justify-between py-3"
+                    >
+                      <span className="text-lg text-zinc-400 transition-colors duration-300 group-hover:text-white">
+                        {link.label}
+                      </span>
+                      <svg
+                        className="w-4 h-4 text-zinc-600 transition-all duration-300 group-hover:text-white group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </motion.a>
+                  ))}
+                </div>
               </div>
 
-              {/* Mobile Nav Links */}
-              <div className="flex-1 px-6 py-8 space-y-1 overflow-y-auto">
-                {MOBILE_LINKS.map((link, index) => (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.06 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group flex items-center justify-between rounded-xl px-4 py-4 tracking-wide transition-colors duration-300 hover:bg-white/5"
-                  >
-                    <p className="text-base font-normal text-zinc-200 group-hover:text-white transition-colors">
-                      {link.label}
-                    </p>
-                    <svg className="w-4 h-4 text-zinc-600 group-hover:text-white transition-all group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </motion.a>
-                ))}
-              </div>
-
-              {/* Mobile CTA */}
+              {/* Bas — CTA + contact direct */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="border-t border-white/10 px-6 py-5"
+                transition={{ delay: 0.5, duration: 0.5, ease: EASE }}
+                className="pt-6 border-t border-white/10"
               >
                 <a
                   href="/#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full px-4 py-3.5 text-center rounded-full bg-white text-zinc-950 font-medium tracking-tight transition-transform hover:scale-[1.01]"
+                  onClick={close}
+                  className="block w-full px-5 py-3.5 text-center rounded-full bg-white text-zinc-950 font-medium tracking-tight transition-transform hover:scale-[1.01]"
                 >
                   Obtenir un devis gratuit
                 </a>
+                <a
+                  href="tel:+33749635085"
+                  className="mt-4 block text-center text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+                >
+                  07 49 63 50 85
+                </a>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

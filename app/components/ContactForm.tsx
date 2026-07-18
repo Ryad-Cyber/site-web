@@ -72,9 +72,9 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="glass-card rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl shadow-violet-500/10">
+    <div className="glass-card rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl shadow-black/30">
       <div className="mb-6">
-        <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-2">
+        <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 mb-2">
           Devis gratuit
         </p>
         <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
@@ -95,7 +95,7 @@ export default function ContactForm() {
             name="name"
             type="text"
             placeholder="Votre nom"
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-white/25 focus:border-white/25 transition-all"
           />
         </div>
 
@@ -110,7 +110,7 @@ export default function ContactForm() {
             required
             autoComplete="email"
             placeholder="votre@email.com"
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-white/25 focus:border-white/25 transition-all"
           />
         </div>
 
@@ -123,7 +123,7 @@ export default function ContactForm() {
             name="activity"
             type="text"
             placeholder="Restaurant, coiffeur, artisan..."
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-white/25 focus:border-white/25 transition-all"
           />
         </div>
 
@@ -136,12 +136,12 @@ export default function ContactForm() {
             name="message"
             rows={4}
             placeholder="Décrivez votre projet et vos objectifs..."
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all resize-none"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-white/25 focus:border-white/25 transition-all resize-none"
           />
         </div>
 
         {status === "success" && (
-          <p className="text-emerald-400 text-sm font-medium animate-fade-in">
+          <p className="text-white text-sm font-medium animate-fade-in">
             Message envoyé ! Je vous réponds sous 24h.
           </p>
         )}
@@ -152,7 +152,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white font-semibold hover:from-violet-500 hover:to-blue-500 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-violet-500/25 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="w-full py-4 rounded-full bg-white text-zinc-950 font-medium tracking-tight hover:bg-zinc-100 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-black/20 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {status === "loading" ? "Envoi en cours..." : "Recevoir mon devis gratuit"}
         </button>
