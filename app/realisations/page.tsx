@@ -46,7 +46,7 @@ export default function ProjectsPage() {
   const currentSlideData = selectedProject.slides[currentSlide];
 
   return (
-    <main className="relative min-h-screen bg-zinc-950 text-white overflow-hidden pt-24 sm:pt-28">
+    <main className="relative min-h-screen bg-zinc-950 text-white overflow-hidden pt-20 sm:pt-24">
       <Header />
       
       {/* Background gradient */}
@@ -58,11 +58,11 @@ export default function ProjectsPage() {
       <div className="flex flex-col lg:grid lg:grid-cols-[320px_1fr_400px] min-h-[calc(100vh-6rem)]">
         {/* LEFT - Project list (no internal scroll on desktop) */}
         <div className="w-full lg:border-r border-white/10 flex flex-col">
-          <div className="p-4 lg:p-8 border-b border-white/10">
+          <div className="p-4 lg:p-6 border-b border-white/10">
             <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-2">
               Réalisations
             </p>
-            <h1 className="text-xl lg:text-2xl font-bold text-white">
+            <h1 className="text-lg lg:text-xl font-bold text-white">
               Nos projets
             </h1>
           </div>
@@ -107,8 +107,8 @@ export default function ProjectsPage() {
         </div>
 
         {/* CENTER - Media carousel (main focus) */}
-        <div className="flex-1 flex flex-col items-center justify-center p-4 lg:p-8 lg:p-12">
-          <div className="max-w-2xl w-full">
+        <div className="flex-1 flex flex-col items-center justify-center p-4 lg:p-8">
+          <div className="max-w-xl w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedProject.id}
@@ -121,7 +121,7 @@ export default function ProjectsPage() {
                 onMouseLeave={() => setIsPaused(false)}
               >
                 <div 
-                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[650px] w-full mx-auto cursor-pointer"
+                  className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[480px] w-full mx-auto cursor-pointer"
                   onClick={() => setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length)}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.gradient} opacity-20`} />
@@ -204,7 +204,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Mobile project details */}
-          <div className="lg:hidden w-full mt-6 space-y-4">
+          <div className="lg:hidden w-full mt-5 space-y-3">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -216,7 +216,7 @@ export default function ProjectsPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-2xl font-bold text-white"
+              className="text-xl font-bold text-white"
             >
               {selectedProject.name}
             </motion.h2>
@@ -255,7 +255,7 @@ export default function ProjectsPage() {
         </div>
 
         {/* RIGHT - Project details */}
-        <div className="hidden lg:flex flex-col p-8 border-l border-white/10">
+        <div className="hidden lg:flex flex-col p-6 border-l border-white/10">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedProject.id}
@@ -278,7 +278,7 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.4 }}
-                className="text-3xl font-bold text-white mb-6"
+                className="text-2xl font-bold text-white mb-4"
               >
                 {selectedProject.name}
               </motion.h2>
@@ -287,30 +287,30 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-sm text-zinc-400 mb-8 leading-relaxed"
+                className="text-sm text-zinc-400 mb-6 leading-relaxed"
               >
                 {selectedProject.description}
               </motion.p>
 
-              <div className="grid grid-cols-2 gap-3 mb-8">
-  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <div className="grid grid-cols-2 gap-2.5 mb-6">
+  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
     <p className="text-xs text-zinc-400">Impact</p>
-    <p className="text-lg font-bold text-white">+30%</p>
+    <p className="text-base font-bold text-white">+30%</p>
   </div>
 
-  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
     <p className="text-xs text-zinc-400">Conversion</p>
-    <p className="text-lg font-bold text-white">x2</p>
+    <p className="text-base font-bold text-white">x2</p>
   </div>
 
-  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
     <p className="text-xs text-zinc-400">Visibilité</p>
-    <p className="text-lg font-bold text-white">+180%</p>
+    <p className="text-base font-bold text-white">+180%</p>
   </div>
 
-  <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+  <div className="bg-white/5 border border-white/10 rounded-xl p-3.5">
     <p className="text-xs text-zinc-400">Leads</p>
-    <p className="text-lg font-bold text-white">+75%</p>
+    <p className="text-base font-bold text-white">+75%</p>
   </div>
 </div>
 
@@ -318,7 +318,7 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.25 }}
-                className="space-y-3 mb-8"
+                className="space-y-2.5 mb-6"
               >
                 {selectedProject.features.map((feature, idx) => (
                   <motion.div

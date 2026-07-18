@@ -258,12 +258,12 @@ const heroY = useTransform(
       <Header />
 
       {/* HERO — editorial, light, cinematic */}
-      <section ref={heroRef} className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden pt-24">
+      <section ref={heroRef} className="relative min-h-[85svh] flex flex-col justify-end overflow-hidden pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(0,0,0,0.04),transparent)]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.025)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
 
         <motion.div
-  className="relative max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 pb-16 sm:pb-24 w-full"
+  className="relative max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 pb-12 sm:pb-16 w-full"
   style={{ opacity: heroOpacity, y: heroY }}
 >
           <motion.div
@@ -272,7 +272,7 @@ const heroY = useTransform(
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <SectionLabel>Résultats</SectionLabel>
-            <h1 className="text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.95] tracking-[-0.04em] font-semibold max-w-5xl">
+            <h1 className="text-[clamp(2.25rem,6.5vw,5rem)] leading-[0.98] tracking-[-0.04em] font-semibold max-w-5xl">
               Ce qu&apos;un site
               <br />
               <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-500">
@@ -287,7 +287,7 @@ const heroY = useTransform(
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-8 sm:mt-10 max-w-xl text-lg sm:text-xl text-zinc-500 leading-relaxed"
+            className="mt-6 sm:mt-8 max-w-xl text-base sm:text-lg text-zinc-500 leading-relaxed"
           >
             Pas une liste de promesses marketing. Une présentation claire de ce que vous gagnez — et de ce que vous perdez en attendant.
           </motion.p>
@@ -296,7 +296,7 @@ const heroY = useTransform(
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-16 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-zinc-400"
+            className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-zinc-400"
           >
             <motion.span
   animate={{ y: [0, 6, 0] }}
@@ -314,8 +314,8 @@ const heroY = useTransform(
 
       {/* STATS STRIP — animated counters */}
       <section className="border-y border-zinc-200/80 bg-white">
-        <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-14 sm:py-20">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-10 sm:py-14">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               { value: 97, suffix: "%", label: "des consommateurs cherchent en ligne avant d'acheter" },
               { value: 75, suffix: "%", label: "jugent la crédibilité d'une entreprise sur son site" },
@@ -330,25 +330,25 @@ const heroY = useTransform(
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="group"
               >
-                <p className="text-5xl sm:text-6xl font-semibold tracking-[-0.03em] text-zinc-950">
+                <p className="text-4xl sm:text-5xl font-semibold tracking-[-0.03em] text-zinc-950">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </p>
-                <p className="mt-3 text-sm sm:text-[15px] text-zinc-500 leading-relaxed max-w-[220px]">
+                <p className="mt-2 text-sm sm:text-[15px] text-zinc-500 leading-relaxed max-w-[220px]">
                   {stat.label}
                 </p>
               </motion.div>
             ))}
           </div>
-          <p className="mt-10 text-[11px] text-zinc-400 tracking-wide">
+          <p className="mt-8 text-[11px] text-zinc-400 tracking-wide">
             Données agrégées d&apos;études sectorielles (Google, Stanford, BrightLocal). Chiffres indicatifs.
           </p>
         </div>
       </section>
 
       {/* BEFORE / AFTER — comparison */}
-      <section className="py-20 sm:py-28 lg:py-32">
+      <section className="py-14 sm:py-20 lg:py-24">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -356,12 +356,12 @@ const heroY = useTransform(
               transition={{ duration: 0.6 }}
             >
               <SectionLabel>Avant / Après</SectionLabel>
-              <SerifHeading className="text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.05] mb-6">
+              <SerifHeading className="text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.08] mb-4">
                 De invisible
                 <br />
                 à incontournable.
               </SerifHeading>
-              <p className="text-zinc-500 text-lg leading-relaxed mb-8 max-w-md">
+              <p className="text-zinc-500 text-base leading-relaxed mb-6 max-w-md">
                 Même activité, même talent — mais une présence en ligne qui rassure, informe et convertit.
               </p>
 
@@ -435,16 +435,16 @@ const heroY = useTransform(
       </section>
 
       {/* BENTO — positive outcomes */}
-      <section className="py-20 sm:py-28 bg-zinc-950 text-white">
+      <section className="py-14 sm:py-20 bg-zinc-950 text-white">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-12 sm:mb-16 max-w-2xl"
+            className="mb-10 sm:mb-12 max-w-2xl"
           >
             <SectionLabel>Ce que vous gagnez</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.03em] leading-tight">
               Cinq résultats concrets,
               <span className="block font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400 mt-1">
                 pas des promesses vagues.
@@ -460,13 +460,13 @@ const heroY = useTransform(
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.06 }}
-                className={`${item.span} group rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300 flex flex-col justify-between min-h-[180px]`}
+                className={`${item.span} group rounded-3xl border border-white/10 bg-white/[0.04] p-5 sm:p-6 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300 flex flex-col justify-between min-h-[150px]`}
               >
                 <div>
-                  <p className="text-3xl sm:text-4xl font-semibold tracking-tight text-white/90 mb-4">
+                  <p className="text-2xl sm:text-3xl font-semibold tracking-tight text-white/90 mb-3">
                     {item.stat}
                   </p>
-                  <h3 className="text-lg sm:text-xl font-medium text-white mb-2">{item.title}</h3>
+                  <h3 className="text-base sm:text-lg font-medium text-white mb-2">{item.title}</h3>
                   <p className="text-sm sm:text-[15px] text-zinc-400 leading-relaxed">{item.desc}</p>
                 </div>
                 <div className="mt-6 h-px w-full bg-gradient-to-r from-white/20 to-transparent group-hover:from-white/40 transition-colors" />
@@ -477,20 +477,20 @@ const heroY = useTransform(
       </section>
 
       {/* MISTAKES — bento grid light */}
-      <section className="py-20 sm:py-28">
+      <section className="py-14 sm:py-20">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-14 items-start">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="lg:sticky lg:top-28"
+              className="lg:sticky lg:top-24"
             >
               <SectionLabel>Erreurs fréquentes</SectionLabel>
-              <SerifHeading className="text-4xl sm:text-5xl leading-[1.05] mb-5">
+              <SerifHeading className="text-3xl sm:text-4xl leading-[1.08] mb-4">
                 Ce que font les entreprises qui stagnent.
               </SerifHeading>
-              <p className="text-zinc-500 text-lg leading-relaxed">
+              <p className="text-zinc-500 text-base leading-relaxed">
                 Ce ne sont pas des fautes graves — ce sont des choix qui coûtent silencieusement des clients chaque semaine.
               </p>
             </motion.div>
@@ -503,10 +503,10 @@ const heroY = useTransform(
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className={`rounded-2xl border border-zinc-200 bg-white p-5 sm:p-6 hover:shadow-lg hover:shadow-zinc-200/50 hover:border-zinc-300 transition-all duration-300 ${i === 0 ? "sm:col-span-2" : ""}`}
+                  className={`rounded-2xl border border-zinc-200 bg-white p-4 sm:p-5 hover:shadow-lg hover:shadow-zinc-200/50 hover:border-zinc-300 transition-all duration-300 ${i === 0 ? "sm:col-span-2" : ""}`}
                 >
                   <span className="text-xs font-mono text-zinc-400">{mistake.label}</span>
-                  <h3 className="mt-2 text-base sm:text-lg font-semibold text-zinc-950 leading-snug">
+                  <h3 className="mt-2 text-base font-semibold text-zinc-950 leading-snug">
                     {mistake.title}
                   </h3>
                   <p className="mt-2 text-sm text-zinc-500 leading-relaxed">{mistake.desc}</p>
@@ -518,26 +518,26 @@ const heroY = useTransform(
       </section>
 
       {/* RISK COMPARISON */}
-      <section className="py-20 sm:py-28 bg-white border-y border-zinc-200/80">
+      <section className="py-14 sm:py-20 bg-white border-y border-zinc-200/80">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+            className="text-center max-w-2xl mx-auto mb-10 sm:mb-12"
           >
             <SectionLabel>Le vrai calcul</SectionLabel>
-            <SerifHeading className="text-4xl sm:text-5xl leading-[1.05]">
+            <SerifHeading className="text-3xl sm:text-4xl leading-[1.08]">
               Investir coûte moins que ne rien faire.
             </SerifHeading>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="rounded-3xl border-2 border-red-100 bg-red-50/50 p-6 sm:p-8"
+              className="rounded-3xl border-2 border-red-100 bg-red-50/50 p-5 sm:p-6"
             >
               <p className="text-xs uppercase tracking-[0.25em] text-red-400 mb-4">Sans site web</p>
               <ul className="space-y-4">
@@ -563,7 +563,7 @@ const heroY = useTransform(
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="rounded-3xl border-2 border-emerald-200 bg-emerald-50/40 p-6 sm:p-8"
+              className="rounded-3xl border-2 border-emerald-200 bg-emerald-50/40 p-5 sm:p-6"
             >
               <p className="text-xs uppercase tracking-[0.25em] text-emerald-600 mb-4">Avec un site professionnel</p>
               <ul className="space-y-4">
@@ -588,16 +588,16 @@ const heroY = useTransform(
       </section>
 
       {/* TIMELINE */}
-      <section className="py-20 sm:py-28">
+      <section className="py-14 sm:py-20">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-14 sm:mb-20"
+            className="mb-10 sm:mb-14"
           >
             <SectionLabel>Dans le temps</SectionLabel>
-            <SerifHeading className="text-4xl sm:text-5xl leading-[1.05] max-w-2xl">
+            <SerifHeading className="text-3xl sm:text-4xl leading-[1.08] max-w-2xl">
               Comment les résultats s&apos;installent progressivement.
             </SerifHeading>
           </motion.div>
@@ -605,7 +605,7 @@ const heroY = useTransform(
           <div className="relative">
             <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-zinc-200" />
 
-            <div className="grid lg:grid-cols-3 gap-8 lg:gap-6">
+            <div className="grid lg:grid-cols-3 gap-6 lg:gap-5">
               {TIMELINE.map((step, i) => (
                 <motion.div
                   key={step.phase}
@@ -616,9 +616,9 @@ const heroY = useTransform(
                   className="relative"
                 >
                   <div className="hidden lg:flex items-center justify-center w-4 h-4 rounded-full bg-zinc-950 border-4 border-[#fbfbfd] mx-auto mb-8 relative z-10" />
-                  <div className="rounded-3xl border border-zinc-200 bg-white p-6 sm:p-8 h-full hover:shadow-xl hover:shadow-zinc-200/40 transition-shadow duration-300">
-                    <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-3">{step.phase}</p>
-                    <h3 className="text-xl sm:text-2xl font-semibold tracking-tight mb-4">{step.title}</h3>
+                  <div className="rounded-3xl border border-zinc-200 bg-white p-5 sm:p-6 h-full hover:shadow-xl hover:shadow-zinc-200/40 transition-shadow duration-300">
+                    <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 mb-2.5">{step.phase}</p>
+                    <h3 className="text-lg sm:text-xl font-semibold tracking-tight mb-3">{step.title}</h3>
                     <ul className="space-y-3">
                       {step.items.map((item) => (
                         <li key={item} className="flex gap-3 text-sm text-zinc-500">
@@ -636,22 +636,22 @@ const heroY = useTransform(
       </section>
 
       {/* VISUAL PROOF — metric cards */}
-      <section className="py-20 sm:py-28 bg-zinc-950 text-white overflow-hidden">
+      <section className="py-14 sm:py-20 bg-zinc-950 text-white overflow-hidden">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
               <SectionLabel>Preuves visuelles</SectionLabel>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-tight mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.03em] leading-tight mb-5">
                 Les chiffres que vos concurrents
                 <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
                   {" "}connaissent déjà.
                 </span>
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
+              <p className="text-zinc-400 text-base leading-relaxed max-w-md">
                 Un site n&apos;est pas une dépense décorative. C&apos;est votre meilleur commercial — celui qui ne prend jamais de congés.
               </p>
             </motion.div>
@@ -669,13 +669,13 @@ const heroY = useTransform(
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6 hover:bg-white/[0.07] transition-colors"
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 hover:bg-white/[0.07] transition-colors"
                 >
-                  <p className="text-3xl sm:text-4xl font-semibold tracking-tight">
+                  <p className="text-2xl sm:text-3xl font-semibold tracking-tight">
                     {card.prefix}
                     <AnimatedCounter value={card.value} suffix={card.suffix} />
                   </p>
-                  <p className="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">{card.label}</p>
+                  <p className="mt-2.5 text-xs sm:text-sm text-zinc-400 leading-relaxed">{card.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -684,27 +684,27 @@ const heroY = useTransform(
       </section>
 
       {/* FINAL CTA — presentation-style */}
-      <section className="py-24 sm:py-32 lg:py-40">
+      <section className="py-16 sm:py-24 lg:py-28">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-zinc-950 text-white px-6 sm:px-12 lg:px-20 py-16 sm:py-20 lg:py-24"
+            className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-zinc-950 text-white px-6 sm:px-10 lg:px-16 py-12 sm:py-16 lg:py-20"
           >
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_80%_20%,rgba(255,255,255,0.08),transparent)]" />
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
 
             <div className="relative max-w-3xl">
               <SectionLabel>Prochaine étape</SectionLabel>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.02] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-[-0.03em] leading-[1.05] mb-5">
                 Vous comprenez pourquoi
                 <span className="block font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
                   ça vaut le coup.
                 </span>
               </h2>
-              <p className="text-lg sm:text-xl text-zinc-400 leading-relaxed mb-10 max-w-xl">
+              <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-8 max-w-xl">
                 Commencez par un échange gratuit. Analyse, maquette et devis — sans engagement, sans pression.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">

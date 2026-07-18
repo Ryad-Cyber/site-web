@@ -31,7 +31,7 @@ export default function WhyUsPage() {
     <main className="min-h-screen bg-zinc-950 text-white overflow-hidden">
       <Header />
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
+      <section className="relative min-h-[85vh] flex items-center justify-center pt-20 pb-12 overflow-hidden">
         <div className="absolute inset-0 opacity-40">
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/20 blur-[140px] rounded-full" />
           <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-violet-500/15 blur-[120px] rounded-full" />
@@ -44,17 +44,17 @@ export default function WhyUsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-4">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-400 mb-3">
               Pourquoi nous
             </p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5">
               Nous construisons des
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
                 sites qui impressionnent
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto mb-6 leading-relaxed">
               Pas juste de beaux sites. Des machines à clients, construites avec attention au détail et une obsession pour les résultats.
             </p>
           </motion.div>
@@ -63,17 +63,17 @@ export default function WhyUsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <a
               href="/#contact"
-              className="px-8 py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all"
+              className="px-6 py-3.5 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all"
             >
               Commencer un projet
             </a>
             <a
               href="/#contact"
-              className="px-8 py-4 rounded-2xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all"
+              className="px-6 py-3.5 rounded-2xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all"
             >
               En savoir plus
             </a>
@@ -82,19 +82,19 @@ export default function WhyUsPage() {
       </section>
 
       {/* WHAT MAKES US DIFFERENT */}
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
+      <section className="relative py-12 md:py-18 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3">
               Ce qui nous rend différents
             </h2>
-            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+            <p className="text-base text-zinc-400 max-w-2xl mx-auto">
               Nous ne sommes pas une agence ordinaire. Voici ce qui nous distingue.
             </p>
           </motion.div>
@@ -104,7 +104,7 @@ export default function WhyUsPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-3 gap-4"
           >
             {[
               {
@@ -141,12 +141,12 @@ export default function WhyUsPage() {
               <motion.div
                 key={item.title}
                 variants={itemVariants}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-6 hover:border-white/20 transition-all duration-300"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-5 hover:border-white/20 transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-violet-500/0 to-white/0 group-hover:from-blue-500/10 group-hover:via-violet-500/5 group-hover:to-white/5 transition-all duration-500" />
                 <div className="relative">
-                  <p className="text-3xl mb-3">{item.icon}</p>
-                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-2xl mb-2.5">{item.icon}</p>
+                  <h3 className="text-base font-semibold mb-1.5">{item.title}</h3>
                   <p className="text-sm text-zinc-400 leading-relaxed">{item.description}</p>
                 </div>
               </motion.div>
@@ -156,24 +156,24 @@ export default function WhyUsPage() {
       </section>
 
       {/* PROCESS */}
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
+      <section className="relative py-12 md:py-18 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3">
               Notre processus
             </h2>
-            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+            <p className="text-base text-zinc-400 max-w-2xl mx-auto">
               Simple, transparent et orienté vers vos résultats.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-4 gap-3">
             {[
               { step: "01", title: "Découverte", desc: "Nous explorons votre activité, vos objectifs et vos clients." },
               { step: "02", title: "Maquette", desc: "Vous validez le design avant que nous ne codions une seule ligne." },
@@ -186,10 +186,10 @@ export default function WhyUsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-all"
+                className="relative rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition-all"
               >
-                <div className="text-4xl font-bold text-blue-400 mb-4">{phase.step}</div>
-                <h3 className="text-lg font-semibold mb-2">{phase.title}</h3>
+                <div className="text-3xl font-bold text-blue-400 mb-3">{phase.step}</div>
+                <h3 className="text-base font-semibold mb-1.5">{phase.title}</h3>
                 <p className="text-sm text-zinc-400">{phase.desc}</p>
               </motion.div>
             ))}
@@ -198,9 +198,9 @@ export default function WhyUsPage() {
       </section>
 
       {/* STATS */}
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
+      <section className="relative py-12 md:py-18 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {[
               { value: "15+", label: "Sites créés" },
               { value: "100%", label: "En responsive" },
@@ -226,7 +226,7 @@ export default function WhyUsPage() {
       </section>
 
       {/* CTA FINAL */}
-      <section className="relative py-16 md:py-24 px-4 sm:px-6">
+      <section className="relative py-12 md:py-18 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -235,22 +235,22 @@ export default function WhyUsPage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
               Prêt à créer quelque chose d&apos;extraordinaire ?
             </h2>
-            <p className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-base text-zinc-400 mb-6 max-w-2xl mx-auto">
               Parlons de votre projet. Nous vous ferons une proposition personnalisée, gratuitement.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="/#contact"
-                className="px-8 py-4 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all"
+                className="px-6 py-3.5 rounded-2xl bg-white text-zinc-950 font-semibold hover:bg-zinc-100 transition-all"
               >
                 Demander un devis
               </a>
               <a
                 href="tel:+33749635085"
-                className="px-8 py-4 rounded-2xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all"
+                className="px-6 py-3.5 rounded-2xl border border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 transition-all"
               >
                 Appeler directement
               </a>

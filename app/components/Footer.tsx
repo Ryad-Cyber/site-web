@@ -49,8 +49,8 @@ export default function Footer() {
   return (
     <footer className="bg-zinc-950 text-zinc-400">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           
           {/* About Card - Highlighted */}
           <div className="lg:col-span-1">
@@ -162,7 +162,7 @@ export default function Footer() {
         </div>
 
         {/* Social Media Cluster */}
-        <div className="mt-12 pt-8 border-t border-white/10">
+        <div className="mt-8 pt-6 border-t border-white/10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               <span className="text-xs text-zinc-500 uppercase tracking-wider">Suivez-nous</span>

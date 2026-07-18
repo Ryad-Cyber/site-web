@@ -72,12 +72,12 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="glass-card rounded-3xl p-8 md:p-10 border border-white/10 shadow-2xl shadow-violet-500/10">
-      <div className="mb-8">
+    <div className="glass-card rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl shadow-violet-500/10">
+      <div className="mb-6">
         <p className="text-sm font-medium text-violet-400 uppercase tracking-wider mb-2">
           Devis gratuit
         </p>
-        <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+        <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
           Obtenez votre estimation gratuite
         </h3>
         <p className="mt-2 text-zinc-400 text-sm md:text-base">
