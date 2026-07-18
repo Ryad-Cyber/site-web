@@ -4,26 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function HeroVisual() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
+    setShouldLoad(true);
   }, []);
 
   useEffect(() => {
@@ -35,11 +20,10 @@ export default function HeroVisual() {
 
   return (
     <motion.div
-      ref={containerRef}
-      initial={{ opacity: 0, scale: 0.97 }}
+      initial={{ opacity: 0, scale: 1.04 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-full max-w-[560px] mx-auto aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] xl:aspect-[1/1.1] overflow-hidden rounded-3xl border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] bg-zinc-900"
+      transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute inset-0 z-0"
     >
       {shouldLoad && (
         <video
@@ -51,11 +35,13 @@ export default function HeroVisual() {
           playsInline
           preload="metadata"
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="h-full w-full object-cover"
         />
       )}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+      {/* Overlay — assure la lisibilité du texte sans masquer la vidéo */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/70" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,transparent,rgba(0,0,0,0.45))]" />
     </motion.div>
   );
 }

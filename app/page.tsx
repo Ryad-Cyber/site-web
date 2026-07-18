@@ -2,7 +2,7 @@
 
 import { QRCodeCanvas } from "qrcode.react";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useInView, useAnimation, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useAnimation } from "framer-motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
@@ -249,27 +249,6 @@ function ServiceCard({
 }
 
 export default function Home() {
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMouse({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  const { scrollYProgress } = useScroll();
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 50]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
-
   return (
     <>
       <Header />
@@ -277,105 +256,76 @@ export default function Home() {
       <main className="bg-zinc-50 text-zinc-900">
 
         {/* HERO */}
-<motion.section
-  id="home"
-  className="relative overflow-hidden bg-[#0a0a0b] text-white pt-16 pb-8 sm:pt-20 sm:pb-10 md:pt-24 md:pb-16 lg:pt-28 lg:pb-20"
->
-<div
-  className="pointer-events-none absolute inset-0 z-0"
-  style={{
-    background: `radial-gradient(600px at ${mouse.x}px ${mouse.y}px, rgba(255,255,255,0.08), transparent 80%)`,
-  }}
-/>
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_28%)]" />
-  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_55%)]" />
-
-  <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-    
-    {/* GRID IMPORTANT */}
-    <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
-
-      {/* LEFT */}
-      <ScrollReveal>
-        <div>
-          {/* badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border border-white/10 bg-white/[0.04] text-xs sm:text-sm text-zinc-300 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
-            Ryad Web Studio — Sites web & applications
-          </div>
-
-          {/* H1 */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.08] tracking-tight">
-  <span className="whitespace-nowrap">
-    Des sites web qui
-  </span>
-  <br />
-  <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 text-transparent bg-clip-text">
-    transforment vos visiteurs en clients
-  </span>
-</h1>
-
-          {/* TEXT */}
-          <p className="mt-4 text-base sm:text-lg text-zinc-300 max-w-xl leading-relaxed">
-            Sites web modernes pour entreprises locales qui veulent plus d’appels, de réservations et de visibilité sur Google.
-          </p>
-
-          <p className="mt-2 text-sm text-zinc-500">
-            Coiffeurs, restaurants, coachs, artisans et autres activités locales.
-          </p>
-
-          {/* TAGS */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {[
-              "Sites web",
-              "Applications mobiles",
-              "Réservations",
-              "Appels clients",
-              "Visibilité Google",
-              "Entreprises locales",
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="px-2.5 py-1 rounded-full text-xs lg:text-sm text-zinc-300 bg-white/[0.04] border border-white/10"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="mt-5 flex flex-col sm:flex-row gap-3">
-            <a
-              href="#contact"
-              className="px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl bg-white text-zinc-950 font-semibold hover:scale-[1.01] transition-all"
-            >
-              Demander un devis gratuit →
-            </a>
-
-            <a
-              href="#tarifs"
-              className="px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl border border-white/15 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08]"
-            >
-              Voir les tarifs
-            </a>
-          </div>
-
-          <p className="mt-3 text-xs text-zinc-500">
-            Réponse sous 24h • Devis gratuit • Sans engagement
-          </p>
-        </div>
-      </ScrollReveal>
-
-      {/* RIGHT - IMAGE RESTORED */}
-      <ScrollReveal delay={0.2}>
-        <motion.div className="relative" style={{ scale: heroScale }}>
+        <section
+          id="home"
+          className="relative min-h-[100svh] flex items-center overflow-hidden bg-[#0a0a0b] text-white"
+        >
           <HeroVisual />
-        </motion.div>
-      </ScrollReveal>
 
-    </div>
-  </div>
-</motion.section>
+          <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+            {/* badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-sm text-xs sm:text-sm text-zinc-200 mb-8"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80" />
+              Ryad Web Studio
+            </motion.div>
+
+            {/* H1 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-semibold leading-[1.05] tracking-[-0.02em]"
+            >
+              Des sites web qui
+              <br />
+              <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-200">
+                transforment vos visiteurs
+              </span>
+              <br />
+              en clients
+            </motion.h1>
+
+            {/* TEXT */}
+            <motion.p
+              initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 text-base sm:text-lg text-zinc-300 max-w-xl leading-relaxed"
+            >
+              Sites web modernes pour entreprises locales qui veulent plus d’appels, de réservations et de visibilité sur Google.
+            </motion.p>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-9"
+            >
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-zinc-950 font-medium tracking-tight hover:scale-[1.02] transition-transform duration-300"
+              >
+                Demander un devis gratuit
+              </a>
+            </motion.div>
+
+            {/* Élément de confiance */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, delay: 1.2 }}
+              className="mt-5 text-xs text-zinc-400 tracking-wide"
+            >
+              Réponse sous 24h · Devis gratuit · Sans engagement
+            </motion.p>
+          </div>
+        </section>
 
         {/* Scrolling ticker bar */}
         <section className="w-full px-4 sm:px-6 py-4">
