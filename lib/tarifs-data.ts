@@ -4,15 +4,6 @@
 // Règle éditoriale : tout reste qualitatif. Aucun engagement chiffré
 // (nombre de pages, de révisions…) sans validation explicite.
 
-export type Plan = {
-  name: string;
-  price: string;
-  desc: string;
-  addsLabel: string;
-  features: { t: string; n: string }[];
-  featured: boolean;
-};
-
 // Socle commun — affiché au-dessus des cartes pour que l'Essentiel
 // se lise comme « socle + ceci », jamais comme une offre vide.
 export const SOCLE = [
@@ -22,44 +13,21 @@ export const SOCLE = [
   "Premier aperçu sous 48h",
 ];
 
-export const TARIFS_PLANS: Plan[] = [
-  {
-    name: "Pack Essentiel",
-    price: "499€",
-    desc: "Une présence professionnelle solide.",
-    addsLabel: "Ce qui est inclus",
-    features: [
-      { t: "Un site rapide et soigné", n: "Impeccable sur téléphone comme sur ordinateur." },
-      { t: "Être trouvé dans votre ville", n: "Vous apparaissez quand on cherche votre métier près de chez vous." },
-      { t: "Vous faire contacter facilement", n: "Appel, WhatsApp et formulaire accessibles depuis chaque page." },
-    ],
-    featured: false,
-  },
-  {
-    name: "Pack Business",
-    price: "699€",
-    desc: "Votre site devient un outil commercial.",
-    addsLabel: "En plus de l'Essentiel",
-    features: [
-      { t: "Présenter vos services en détail", n: "Chaque prestation expliquée, pour répondre aux questions avant qu'on les pose." },
-      { t: "Faciliter les demandes de contact", n: "Un chemin court et évident entre l'intérêt et la prise de contact." },
-      { t: "Mettre votre réputation en avant", n: "Ce qui inspire confiance placé là où le visiteur décide." },
-    ],
-    featured: true,
-  },
-  {
-    name: "Pack Premium",
-    price: "899€",
-    desc: "Une image de marque supérieure.",
-    addsLabel: "En plus du Business",
-    features: [
-      { t: "Une direction artistique sur-mesure", n: "Couleurs, typographies et mise en page créées pour vous." },
-      { t: "Un univers de marque complet", n: "Une identité cohérente, du site jusqu'à vos réseaux." },
-      { t: "Une expérience soignée au détail", n: "Animations et transitions qui installent le haut de gamme." },
-    ],
-    featured: false,
-  },
-];
+// Vitrine de la home — trois registres d'image, jamais trois sites :
+//   proof     → capture entière d'un vrai site, cadre navigateur (le document)
+//   mechanism → plan serré sur une zone d'action : réserver, demander (le mécanisme)
+//   fragment  → très gros plan de direction artistique, fond sombre (le fragment)
+// Règles : pas de nom de métier visible, pas de fausses notifications.
+export type TierMedia = {
+  register: "proof" | "mechanism" | "fragment";
+  src: string;
+  alt: string;
+  caption?: string;
+  // "browser" ajoute une barre de navigateur au-dessus du média —
+  // uniquement pour une capture brute de site, jamais pour un mockup
+  // qui contient déjà son propre cadrage (laptop, téléphone…).
+  frame?: "browser";
+};
 
 // ---------------------------------------------------------------------------
 // Modèle additif (/tarifs)
@@ -73,9 +41,11 @@ export const TARIFS_PLANS: Plan[] = [
 export type Tier = {
   name: string;
   price: string;
-  // Ce que le visiteur doit comprendre en 5 secondes
+  // Ce que le visiteur doit comprendre en 5 secondes — même phrase
+  // sur la home et sur /tarifs, jamais deux variantes.
   positioning: string;
   items: string[];
+  media: TierMedia;
   featured: boolean;
 };
 
@@ -93,6 +63,14 @@ export const TIERS: Tier[] = [
       "Mise en ligne et configuration technique",
       "Formation à la gestion de base",
     ],
+    media: {
+      register: "proof",
+      // PROVISOIRE — à remplacer par la capture Expert Nuisible dès qu'elle
+      // est fournie : changer `src`, et ajouter `frame: "browser"` si c'est
+      // une capture d'écran brute (le mockup actuel se cadre tout seul).
+      src: "/site_artisan.png",
+      alt: "Site professionnel réalisé par le studio, affiché sur ordinateur et téléphone",
+    },
     featured: false,
   },
   {
@@ -104,6 +82,11 @@ export const TIERS: Tier[] = [
       "Parcours pensé pour déclencher la demande",
       "Votre réputation mise en avant",
     ],
+    media: {
+      register: "mechanism",
+      src: "/barber_interface.png",
+      alt: "Module de réservation en ligne d'un site réalisé par le studio",
+    },
     featured: true,
   },
   {
@@ -115,6 +98,14 @@ export const TIERS: Tier[] = [
       "Univers de marque unique — du site jusqu'à vos réseaux",
       "Des finitions premium dans chaque détail — une expérience plus soignée et mémorable",
     ],
+    media: {
+      register: "fragment",
+      // vetment.jpeg : mur typographique + scénographie — direction artistique
+      // pure, sans fausses statistiques (salon_beaute.jpeg en contient, à éviter)
+      src: "/vetment.jpeg",
+      alt: "Détail d'un univers de marque créé par le studio",
+      caption: "Un univers créé pour une seule marque : la vôtre.",
+    },
     featured: false,
   },
 ];

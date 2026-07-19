@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
-import { TARIFS_PLANS, SOCLE } from "../lib/tarifs-data";
+import { TIERS, SOCLE } from "../lib/tarifs-data";
 import PlanCard from "./components/PlanCard";
 
 const WHATSAPP_URL =
@@ -822,15 +822,15 @@ export default function Home() {
             </motion.p>
 
             <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-              {TARIFS_PLANS.map((plan, index) => (
+              {TIERS.map((tier, index) => (
                 <motion.div
-                  key={plan.name}
+                  key={tier.name}
                   initial={{ opacity: 0, y: 32 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <PlanCard plan={plan} />
+                  <PlanCard tier={tier} />
                 </motion.div>
               ))}
             </div>
