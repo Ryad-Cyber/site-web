@@ -18,12 +18,22 @@ export default function PlanCard({
 }) {
   return (
     <div
-      className={`flex flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-colors duration-300 ${
+      className={`relative flex flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-colors duration-300 ${
         tier.featured
           ? "border-zinc-950 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.25)]"
           : "border-zinc-200 hover:border-zinc-300"
       }`}
     >
+      {/* Liseré signature — dégradé du logo Ryad Studio, désaturé/assombri.
+          RÈGLE D'EXCLUSIVITÉ : cet accent est réservé à la recommandation
+          (une seule occurrence par page). Ne jamais le réutiliser ailleurs
+          comme élément décoratif. */}
+      {tier.featured && (
+        <span
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-[3px] rounded-t-[14px] bg-gradient-to-r from-[#524bb0] via-[#4661ab] to-[#3a76ad]"
+        />
+      )}
       <div className="flex items-center gap-2.5">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-950">
           {tier.name}

@@ -489,7 +489,7 @@ function RefusalTemplates() {
             initial={false}
             animate={{ opacity: started ? (corrected ? 0.09 : peak) : 0, y: started ? 0 : 10 }}
             transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
-            className="text-2xl sm:text-4xl font-semibold tracking-[-0.02em] leading-tight text-zinc-400"
+            className="text-xl sm:text-2xl font-semibold tracking-[-0.02em] leading-tight text-zinc-400"
           >
             Le même site que tout le monde.
           </motion.p>
@@ -503,7 +503,7 @@ function RefusalTemplates() {
           filter: corrected ? "blur(0px)" : "blur(8px)",
         }}
         transition={{ duration: 0.9, ease: EASE }}
-        className="mt-8 font-[family-name:var(--font-instrument-serif)] text-3xl italic leading-[1.15] text-white sm:text-5xl"
+        className="mt-8 font-[family-name:var(--font-instrument-serif)] text-4xl italic leading-[1.12] text-white sm:text-6xl"
       >
         Le vôtre ne ressemblera qu&apos;à vous.
       </motion.p>
@@ -539,12 +539,9 @@ function RefusalLisibilite() {
             filter: corrected ? "blur(0px)" : "blur(8px)",
           }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="[grid-area:1/1] text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl"
+          className="[grid-area:1/1] font-[family-name:var(--font-instrument-serif)] text-4xl italic leading-[1.12] text-white sm:text-6xl"
         >
-          Chaque mot doit pouvoir se lire{" "}
-          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-            sans effort.
-          </span>
+          Le vôtre se lira sans effort.
         </motion.p>
       </div>
     </div>
@@ -568,12 +565,12 @@ function RefusalVitesse() {
           <motion.div
             animate={{ opacity: [0.35, 0.6, 0.35] }}
             transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-            className="h-9 w-4/5 rounded-md bg-zinc-800 sm:h-12"
+            className="h-10 w-4/5 rounded-md bg-zinc-800 sm:h-14"
           />
           <motion.div
             animate={{ opacity: [0.35, 0.6, 0.35] }}
             transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
-            className="h-9 w-1/2 rounded-md bg-zinc-800 sm:h-12"
+            className="h-10 w-1/2 rounded-md bg-zinc-800 sm:h-14"
           />
         </motion.div>
         {/* la correction apparaît sans transition — c'est le propos */}
@@ -581,51 +578,77 @@ function RefusalVitesse() {
           initial={false}
           animate={{ opacity: corrected ? 1 : 0 }}
           transition={{ duration: 0.05 }}
-          className="[grid-area:1/1] text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl"
+          className="[grid-area:1/1] font-[family-name:var(--font-instrument-serif)] text-4xl italic leading-[1.12] text-white sm:text-6xl"
         >
-          Le vôtre répondra{" "}
-          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-            au premier geste.
-          </span>
+          Le vôtre répondra au premier geste.
         </motion.p>
       </div>
     </div>
   );
 }
 
-// 04 — Le climax : le constat inerte, puis le seul bouton de la section.
-// La démonstration finale : donner envie d'appeler, ici même.
+// 04 — Le climax : composition centrée, halo discret, la plus grande
+// correction de la séquence — puis le seul bouton de la section,
+// conséquence naturelle. La démonstration finale : donner envie, ici même.
 function RefusalDesir() {
   const { ref, started, corrected } = useDemoPhase(1400);
   return (
-    <div ref={ref}>
-      <RefusalHeading index="04" label="Les sites qui ne donnent pas envie d'appeler" />
-      <motion.p
-        initial={false}
-        animate={{ opacity: started ? (corrected ? 0.35 : 0.7) : 0, y: started ? 0 : 10 }}
-        transition={{ duration: 0.8, ease: EASE }}
-        className="mt-8 text-2xl font-semibold leading-tight tracking-[-0.02em] text-zinc-400 sm:text-4xl"
-      >
-        Un site peut être joli et ne rien déclencher.
-      </motion.p>
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: corrected ? 1 : 0,
-          y: corrected ? 0 : 16,
-          scale: corrected ? 1 : 0.96,
-          filter: corrected ? "blur(0px)" : "blur(6px)",
-        }}
-        transition={{ duration: 0.9, ease: EASE }}
-        className="mt-10"
-      >
-        <a
-          href="#contact"
-          className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium tracking-tight text-zinc-950 transition-transform duration-300 hover:scale-[1.02]"
+    <div ref={ref} className="relative pt-8 text-center md:pt-14">
+      {/* Halo — n'existe que derrière le climax : l'œil traverse
+          l'obscurité et arrive dans la lumière au moment du CTA */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.05] blur-[120px]"
+      />
+
+      <div className="relative">
+        <p className="flex items-baseline justify-center gap-4">
+          <span className="text-xs tabular-nums tracking-[0.2em] text-zinc-600">04</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">
+            Les sites qui ne donnent pas envie d&apos;appeler
+          </span>
+        </p>
+
+        <motion.p
+          initial={false}
+          animate={{ opacity: started ? (corrected ? 0.35 : 0.7) : 0, y: started ? 0 : 10 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="mx-auto mt-8 max-w-xl text-xl font-semibold leading-tight tracking-[-0.02em] text-zinc-400 sm:text-2xl"
         >
-          Et si on parlait du vôtre ?
-        </a>
-      </motion.div>
+          Un site peut être joli et ne rien déclencher.
+        </motion.p>
+
+        <motion.p
+          initial={false}
+          animate={{
+            opacity: corrected ? 1 : 0,
+            y: corrected ? 0 : 16,
+            filter: corrected ? "blur(0px)" : "blur(10px)",
+          }}
+          transition={{ duration: 1, ease: EASE }}
+          className="mt-8 font-[family-name:var(--font-instrument-serif)] text-4xl italic leading-[1.08] text-white sm:text-6xl md:text-7xl"
+        >
+          Le vôtre donnera envie.
+        </motion.p>
+
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: corrected ? 1 : 0,
+            y: corrected ? 0 : 16,
+            scale: corrected ? 1 : 0.96,
+          }}
+          transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+          className="mt-11"
+        >
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium tracking-tight text-zinc-950 transition-transform duration-300 hover:scale-[1.02]"
+          >
+            Et si on parlait du vôtre ?
+          </a>
+        </motion.div>
+      </div>
     </div>
   );
 }
