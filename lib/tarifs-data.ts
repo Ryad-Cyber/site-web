@@ -38,7 +38,7 @@ export const TARIFS_PLANS: Plan[] = [
   {
     name: "Pack Business",
     price: "699€",
-    desc: "Pour recevoir plus de demandes.",
+    desc: "Votre site devient un outil commercial.",
     addsLabel: "En plus de l'Essentiel",
     features: [
       { t: "Présenter vos services en détail", n: "Chaque prestation expliquée, pour répondre aux questions avant qu'on les pose." },
@@ -50,7 +50,7 @@ export const TARIFS_PLANS: Plan[] = [
   {
     name: "Pack Premium",
     price: "899€",
-    desc: "Une image qui vous distingue.",
+    desc: "Une image de marque supérieure.",
     addsLabel: "En plus du Business",
     features: [
       { t: "Une direction artistique sur-mesure", n: "Couleurs, typographies et mise en page créées pour vous." },
@@ -62,13 +62,16 @@ export const TARIFS_PLANS: Plan[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Comparaison détaillée (/tarifs)
-// Cellule : true = inclus, false = non inclus, string = le niveau change
-// la nature de la prestation (logique Apple : le texte différencie,
-// la coche rassure).
+// Comparaison progressive (/tarifs)
+// Cellule :
+//   0        → non inclus (tiret)
+//   1..3     → profondeur de la prestation (nombre de coches)
+//   string   → inclus + supplément qui change la nature (« ✓ + texte »)
+// La lecture visée : chaque pack contient déjà beaucoup, les niveaux
+// supérieurs ajoutent de la profondeur — pas des cases manquantes.
 // ---------------------------------------------------------------------------
 
-export type Cell = boolean | string;
+export type Cell = 0 | 1 | 2 | 3 | string;
 
 export type CompareRow = {
   label: string;
@@ -86,40 +89,38 @@ export const COMPARE_GROUPS: CompareGroup[] = [
     title: "Design & image",
     rows: [
       {
-        label: "Design du site",
+        label: "Design sur-mesure",
         note: "Jamais un template : chaque site part de votre activité.",
-        cells: ["Sur-mesure", "Sur-mesure", "Direction artistique dédiée"],
+        cells: [1, 1, "Direction artistique dédiée"],
       },
-      { label: "Conçu mobile d'abord", cells: [true, true, true] },
       {
-        label: "Animations et transitions premium",
-        note: "Le mouvement qui installe une sensation haut de gamme.",
-        cells: [false, false, true],
+        label: "Animations & interactions premium",
+        cells: [0, 0, 1],
       },
       {
         label: "Univers de marque complet",
         note: "Une identité cohérente, du site jusqu'à vos réseaux.",
-        cells: [false, false, true],
+        cells: [0, 0, 1],
       },
     ],
   },
   {
-    title: "Contenu & structure",
+    title: "Contenu",
     rows: [
       {
         label: "Pages essentielles",
         note: "Accueil, prestations, contact : le nécessaire, bien fait.",
-        cells: [true, true, true],
+        cells: [1, 1, 1],
       },
       {
-        label: "Présentation détaillée de chaque service",
-        note: "Chaque prestation expliquée, pour répondre avant qu'on demande.",
-        cells: [false, true, true],
+        label: "Présentation de vos services",
+        note: "De la présentation claire à la page détaillée par prestation.",
+        cells: [1, 2, 2],
       },
       {
         label: "Mise en scène de votre univers",
         note: "Photos, ambiance et ton adaptés à votre clientèle.",
-        cells: [false, true, "Poussée au détail"],
+        cells: [0, 1, 2],
       },
     ],
   },
@@ -128,18 +129,13 @@ export const COMPARE_GROUPS: CompareGroup[] = [
     rows: [
       {
         label: "Être trouvé dans votre ville",
-        note: "Apparaître quand on cherche votre métier près de chez vous.",
-        cells: [true, true, true],
+        note: "Des fondations solides aux recherches les plus précises.",
+        cells: [1, 2, 2],
       },
       {
         label: "Structure comprise par Google",
-        note: "Titres, descriptions et pages rapides : les fondations.",
-        cells: [true, true, true],
-      },
-      {
-        label: "Visibilité sur les recherches précises",
-        note: "Les pages par service captent les demandes spécifiques.",
-        cells: [false, true, true],
+        note: "Titres, descriptions et pages rapides.",
+        cells: [1, 1, 1],
       },
     ],
   },
@@ -147,19 +143,17 @@ export const COMPARE_GROUPS: CompareGroup[] = [
     title: "Contact & demandes",
     rows: [
       {
-        label: "Appel, WhatsApp et formulaire",
-        note: "Vos coordonnées accessibles depuis chaque page.",
-        cells: [true, true, true],
+        label: "Contact en un geste",
+        note: "Appel, WhatsApp et formulaire accessibles partout.",
+        cells: [1, 1, 1],
       },
       {
         label: "Parcours pensé pour déclencher la demande",
-        note: "Un chemin court entre l'intérêt et la prise de contact.",
-        cells: [false, true, true],
+        cells: [0, 1, 1],
       },
       {
-        label: "Mise en avant de votre réputation",
-        note: "Ce qui inspire confiance placé là où le visiteur décide.",
-        cells: [false, true, true],
+        label: "Réputation mise en avant",
+        cells: [0, 1, 1],
       },
     ],
   },
@@ -168,18 +162,16 @@ export const COMPARE_GROUPS: CompareGroup[] = [
     rows: [
       {
         label: "Mise en ligne et configuration technique",
-        note: "Sécurité, performance : vous n'avez rien à gérer.",
-        cells: [true, true, true],
+        cells: [1, 1, 1],
       },
       {
         label: "Formation à la gestion de base",
         note: "Textes, images, horaires : vous restez autonome.",
-        cells: [true, true, true],
+        cells: [1, 1, 1],
       },
-      { label: "Interlocuteur unique", cells: [true, true, true] },
       {
         label: "Suivi après le lancement",
-        cells: [true, true, "Renforcé"],
+        cells: [1, 1, 2],
       },
     ],
   },

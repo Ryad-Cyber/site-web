@@ -9,17 +9,10 @@ import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
 import { TARIFS_PLANS, SOCLE } from "../lib/tarifs-data";
+import PlanCard from "./components/PlanCard";
 
 const WHATSAPP_URL =
   "https://wa.me/33749635085?text=Bonjour, j'aimerais un site web pour mon activité";
-
-function CheckIcon() {
-  return (
-    <svg className="w-4 h-4 shrink-0 text-current opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
 
 // Système de titres de section — cohérent avec la DA du Hero (Instrument Serif italique)
 function SectionHeading({
@@ -445,6 +438,198 @@ function UniversShowcase() {
   );
 }
 
+// ---------------------------------------------------------------------------
+// NOTRE EXIGENCE — galerie sombre : quatre erreurs courantes démontrées
+// typographiquement, puis corrigées. Pas de cartes, pas d'icônes —
+// le texte lui-même commet l'erreur avant de la réparer.
+// ---------------------------------------------------------------------------
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Phase de démonstration : l'erreur s'installe à l'entrée dans le viewport,
+// la correction prend le relais après `delay`. Reduced motion = correction directe.
+function useDemoPhase(delay: number) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-20% 0px" });
+  const reduce = useReducedMotion();
+  const [corrected, setCorrected] = useState(false);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (reduce) {
+      setCorrected(true);
+      return;
+    }
+    const t = setTimeout(() => setCorrected(true), delay);
+    return () => clearTimeout(t);
+  }, [inView, reduce, delay]);
+
+  return { ref, started: inView, corrected };
+}
+
+function RefusalHeading({ index, label }: { index: string; label: string }) {
+  return (
+    <p className="flex items-baseline gap-4">
+      <span className="text-xs tabular-nums tracking-[0.2em] text-zinc-600">{index}</span>
+      <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">{label}</span>
+    </p>
+  );
+}
+
+// 01 — La mêmeté : la même phrase clonée, puis une seule voix qui reste
+function RefusalTemplates() {
+  const { ref, started, corrected } = useDemoPhase(1600);
+  return (
+    <div ref={ref}>
+      <RefusalHeading index="01" label="Les sites interchangeables" />
+      <div className="mt-8 space-y-1.5">
+        {[0.5, 0.4, 0.3].map((peak, i) => (
+          <motion.p
+            key={i}
+            initial={false}
+            animate={{ opacity: started ? (corrected ? 0.09 : peak) : 0, y: started ? 0 : 10 }}
+            transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
+            className="text-2xl sm:text-4xl font-semibold tracking-[-0.02em] leading-tight text-zinc-400"
+          >
+            Le même site que tout le monde.
+          </motion.p>
+        ))}
+      </div>
+      <motion.p
+        initial={false}
+        animate={{
+          opacity: corrected ? 1 : 0,
+          y: corrected ? 0 : 14,
+          filter: corrected ? "blur(0px)" : "blur(8px)",
+        }}
+        transition={{ duration: 0.9, ease: EASE }}
+        className="mt-8 font-[family-name:var(--font-instrument-serif)] text-3xl italic leading-[1.15] text-white sm:text-5xl"
+      >
+        Le vôtre ne ressemblera qu&apos;à vous.
+      </motion.p>
+    </div>
+  );
+}
+
+// 02 — L'illisible : la phrase composée mal, puis dépliée proprement
+function RefusalLisibilite() {
+  const { ref, started, corrected } = useDemoPhase(1800);
+  return (
+    <div ref={ref}>
+      <RefusalHeading index="02" label="Les pages illisibles" />
+      <div className="mt-8 grid">
+        <motion.p
+          initial={false}
+          animate={{
+            opacity: started && !corrected ? 0.7 : 0,
+            filter: corrected ? "blur(5px)" : "blur(0px)",
+          }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="[grid-area:1/1] max-w-[270px] self-center text-justify text-[11px] leading-[1.2] tracking-tight text-zinc-500"
+        >
+          chaque mot doit pouvoir se lire sans effort, chaque information doit se trouver en un
+          regard, sinon le visiteur plisse les yeux, referme la page, retourne sur google et
+          appelle quelqu&apos;un d&apos;autre sans jamais vous le dire
+        </motion.p>
+        <motion.p
+          initial={false}
+          animate={{
+            opacity: corrected ? 1 : 0,
+            y: corrected ? 0 : 14,
+            filter: corrected ? "blur(0px)" : "blur(8px)",
+          }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="[grid-area:1/1] text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl"
+        >
+          Chaque mot doit pouvoir se lire{" "}
+          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+            sans effort.
+          </span>
+        </motion.p>
+      </div>
+    </div>
+  );
+}
+
+// 03 — La lenteur : un squelette de chargement, puis la phrase qui claque net
+function RefusalVitesse() {
+  const { ref, started, corrected } = useDemoPhase(1200);
+  return (
+    <div ref={ref}>
+      <RefusalHeading index="03" label="Les sites lents" />
+      <div className="mt-8 grid">
+        {/* l'attente est la démonstration — jamais plus d'une seconde */}
+        <motion.div
+          initial={false}
+          animate={{ opacity: started && !corrected ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="[grid-area:1/1] space-y-3 self-center"
+        >
+          <motion.div
+            animate={{ opacity: [0.35, 0.6, 0.35] }}
+            transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+            className="h-9 w-4/5 rounded-md bg-zinc-800 sm:h-12"
+          />
+          <motion.div
+            animate={{ opacity: [0.35, 0.6, 0.35] }}
+            transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
+            className="h-9 w-1/2 rounded-md bg-zinc-800 sm:h-12"
+          />
+        </motion.div>
+        {/* la correction apparaît sans transition — c'est le propos */}
+        <motion.p
+          initial={false}
+          animate={{ opacity: corrected ? 1 : 0 }}
+          transition={{ duration: 0.05 }}
+          className="[grid-area:1/1] text-3xl font-semibold leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl"
+        >
+          Le vôtre répondra{" "}
+          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+            au premier geste.
+          </span>
+        </motion.p>
+      </div>
+    </div>
+  );
+}
+
+// 04 — Le climax : le constat inerte, puis le seul bouton de la section.
+// La démonstration finale : donner envie d'appeler, ici même.
+function RefusalDesir() {
+  const { ref, started, corrected } = useDemoPhase(1400);
+  return (
+    <div ref={ref}>
+      <RefusalHeading index="04" label="Les sites qui ne donnent pas envie d'appeler" />
+      <motion.p
+        initial={false}
+        animate={{ opacity: started ? (corrected ? 0.35 : 0.7) : 0, y: started ? 0 : 10 }}
+        transition={{ duration: 0.8, ease: EASE }}
+        className="mt-8 text-2xl font-semibold leading-tight tracking-[-0.02em] text-zinc-400 sm:text-4xl"
+      >
+        Un site peut être joli et ne rien déclencher.
+      </motion.p>
+      <motion.div
+        initial={false}
+        animate={{
+          opacity: corrected ? 1 : 0,
+          y: corrected ? 0 : 16,
+          scale: corrected ? 1 : 0.96,
+          filter: corrected ? "blur(0px)" : "blur(6px)",
+        }}
+        transition={{ duration: 0.9, ease: EASE }}
+        className="mt-10"
+      >
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium tracking-tight text-zinc-950 transition-transform duration-300 hover:scale-[1.02]"
+        >
+          Et si on parlait du vôtre ?
+        </a>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -637,78 +822,17 @@ export default function Home() {
             </motion.p>
 
             <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-              {TARIFS_PLANS.map((plan, index) => {
-                const dark = plan.featured;
-                return (
-                  <motion.div
-                    key={plan.name}
-                    initial={{ opacity: 0, y: 32 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className={`relative flex flex-col rounded-2xl p-6 sm:p-8 transition-colors duration-300 ${
-                      dark
-                        ? "border border-zinc-950 bg-zinc-950 text-white lg:scale-[1.03]"
-                        : "border border-zinc-200 bg-white hover:border-zinc-300"
-                    }`}
-                  >
-                    {plan.featured && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-zinc-950 px-3.5 py-1 text-[11px] font-medium tracking-wide text-white">
-                        Recommandé
-                      </span>
-                    )}
-
-                    <h3 className={`text-xs font-semibold uppercase tracking-[0.2em] ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
-                      {plan.name}
-                    </h3>
-                    <p className={`mt-3 text-base font-medium tracking-tight ${dark ? "text-white" : "text-zinc-950"}`}>
-                      {plan.desc}
-                    </p>
-
-                    <p className="mt-6 text-3xl sm:text-4xl font-semibold tracking-[-0.03em]">
-                      <span className={`mr-1.5 align-middle text-xs font-normal ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
-                        dès
-                      </span>
-                      {plan.price}
-                      <span className={`ml-1 text-sm font-normal ${dark ? "text-zinc-500" : "text-zinc-400"}`}>TTC</span>
-                    </p>
-
-                    {/* L'écart avec le palier précédent, énoncé avant la liste */}
-                    <p className={`mt-8 text-[10px] uppercase tracking-[0.25em] ${dark ? "text-zinc-500" : "text-zinc-400"}`}>
-                      {plan.addsLabel}
-                    </p>
-
-                    <ul className="mt-5 flex-1 space-y-5">
-                      {plan.features.map((f) => (
-                        <li key={f.t} className="flex gap-3">
-                          <span className={dark ? "text-zinc-500" : "text-zinc-400"}>
-                            <CheckIcon />
-                          </span>
-                          <span>
-                            <span className={`block text-sm font-medium ${dark ? "text-white" : "text-zinc-950"}`}>
-                              {f.t}
-                            </span>
-                            <span className={`mt-1 block text-[13px] leading-relaxed ${dark ? "text-zinc-400" : "text-zinc-500"}`}>
-                              {f.n}
-                            </span>
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <a
-                      href="#contact"
-                      className={`mt-10 block rounded-full py-3 text-center text-sm font-medium tracking-tight transition-colors ${
-                        dark
-                          ? "bg-white text-zinc-950 hover:bg-zinc-100"
-                          : "bg-zinc-950 text-white hover:bg-zinc-800"
-                      }`}
-                    >
-                      Demander un devis gratuit
-                    </a>
-                  </motion.div>
-                );
-              })}
+              {TARIFS_PLANS.map((plan, index) => (
+                <motion.div
+                  key={plan.name}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <PlanCard plan={plan} />
+                </motion.div>
+              ))}
             </div>
 
             <div className="mt-10 text-center">
@@ -736,83 +860,67 @@ export default function Home() {
           </ScrollReveal>
         </section>
 
-        {/* POURQUOI NOUS — aperçu éditorial, colonne de gauche sticky */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-24 md:py-36">
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-20">
-            {/* Colonne titre — reste en place pendant le défilement des piliers */}
-            <div className="lg:sticky lg:top-32 lg:self-start">
-              <motion.div
-                initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        {/* NOTRE EXIGENCE — galerie sombre : quatre erreurs démontrées, puis corrigées */}
+        <section className="bg-[#0a0a0b] text-white">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 py-24 md:py-40">
+            <motion.div
+              initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: EASE }}
+            >
+              <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Notre exigence</p>
+              <h2 className="mt-6 text-3xl sm:text-4xl lg:text-[3rem] font-semibold leading-[1.08] tracking-[-0.03em]">
+                Une certaine idée du
+                <br />
+                <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+                  travail bien fait
+                </span>
+              </h2>
+              <p className="mt-6 max-w-md text-base leading-relaxed text-zinc-400">
+                Quatre erreurs que l&apos;on croise partout. Regardez-les disparaître.
+              </p>
+            </motion.div>
+
+            <div className="mt-24 space-y-24 md:mt-32 md:space-y-36">
+              <RefusalTemplates />
+              <RefusalLisibilite />
+              <RefusalVitesse />
+              <RefusalDesir />
+            </div>
+
+            {/* Pont vers la preuve — /why-us */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: EASE }}
+              className="mt-24 border-t border-white/10 pt-10 md:mt-32"
+            >
+              <p className="text-lg leading-relaxed text-zinc-400">
+                Voici ce que nous refusons.{" "}
+                <span className="font-[family-name:var(--font-instrument-serif)] italic text-white">
+                  Voici ce que nous faisons à la place.
+                </span>
+              </p>
+              <a
+                href="/why-us"
+                className="group mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-white transition-colors hover:text-zinc-400"
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">Pourquoi nous</p>
-                <h2 className="mt-6 text-3xl sm:text-4xl lg:text-[3.25rem] font-semibold tracking-[-0.03em] leading-[1.05] text-zinc-950">
-                  Pensé comme
-                  <br />
-                  <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-                    une pièce unique
-                  </span>
-                </h2>
-                <p className="mt-7 max-w-sm text-base leading-relaxed text-zinc-500">
-                  Design sur-mesure, obsession du détail et accompagnement réel — jamais un template recyclé.
-                </p>
-
-                <a
-                  href="/why-us"
-                  className="group mt-10 inline-flex items-center gap-2.5 text-sm font-medium text-zinc-950 transition-colors hover:text-zinc-500"
-                >
-                  Découvrir notre approche
-                  <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 transition-colors duration-300 group-hover:border-zinc-950">
-                    <svg
-                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Colonne piliers — révélation séquentielle au scroll */}
-            <div className="flex flex-col">
-              {[
-                {
-                  k: "Sur-mesure",
-                  d: "Un design pensé pour votre activité, jamais un modèle recyclé. Chaque projet part d'une page blanche et de vos objectifs réels.",
-                },
-                {
-                  k: "Orienté résultats",
-                  d: "Chaque détail conçu pour convertir vos visiteurs en clients : hiérarchie claire, appels à l'action évidents, parcours sans friction.",
-                },
-                {
-                  k: "Accompagnement",
-                  d: "Un partenaire présent avant, pendant et après la livraison. Vous gardez un interlocuteur unique, pas un ticket de support.",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.k}
-                  initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.85, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="border-t border-zinc-200 py-10 first:border-t-0 first:pt-0 last:pb-0"
-                >
-                  <span className="text-xs tabular-nums tracking-[0.2em] text-zinc-400">
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-4 text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-zinc-950">
-                    {item.k}
-                  </h3>
-                  <p className="mt-3 max-w-md text-base leading-relaxed text-zinc-500">{item.d}</p>
-                </motion.div>
-              ))}
-            </div>
+                Découvrir notre approche
+                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-colors duration-300 group-hover:border-white/60">
+                  <svg
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+              </a>
+            </motion.div>
           </div>
         </section>
 
