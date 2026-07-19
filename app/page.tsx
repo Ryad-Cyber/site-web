@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
-import { TIERS, SOCLE } from "../lib/tarifs-data";
+import { TIERS, cumulativeItems } from "../lib/tarifs-data";
 import PlanCard from "./components/PlanCard";
 
 const WHATSAPP_URL =
@@ -807,21 +807,9 @@ export default function Home() {
               />
             </div>
 
-            {/* Socle commun — l'Essentiel se lit comme « socle + ceci », pas comme une offre vide */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-10 text-center text-xs tracking-wide text-zinc-500"
-            >
-              <span className="uppercase tracking-[0.2em] text-zinc-400">Chaque pack comprend</span>
-              <span className="mt-2 block text-sm text-zinc-600">
-                {SOCLE.join(" · ")}
-              </span>
-            </motion.p>
-
-            <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+            {/* items-start : hauteurs naturelles — pas d'étirement qui creuserait
+                un vide dans l'Essentiel ; l'escalier 7→10→13 dit la montée en gamme */}
+            <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-start">
               {TIERS.map((tier, index) => (
                 <motion.div
                   key={tier.name}
@@ -830,7 +818,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <PlanCard tier={tier} />
+                  <PlanCard tier={tier} items={cumulativeItems(index)} />
                 </motion.div>
               ))}
             </div>

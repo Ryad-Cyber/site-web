@@ -4,19 +4,12 @@
 // Règle éditoriale : tout reste qualitatif. Aucun engagement chiffré
 // (nombre de pages, de révisions…) sans validation explicite.
 
-// Socle commun — affiché au-dessus des cartes pour que l'Essentiel
-// se lise comme « socle + ceci », jamais comme une offre vide.
-export const SOCLE = [
-  "Design sur-mesure",
-  "Conçu mobile d'abord",
-  "Mise en ligne accompagnée",
-  "Premier aperçu sous 48h",
-];
-
-// Vitrine de la home — trois registres d'image, jamais trois sites :
-//   proof     → capture entière d'un vrai site, cadre navigateur (le document)
-//   mechanism → plan serré sur une zone d'action : réserver, demander (le mécanisme)
-//   fragment  → très gros plan de direction artistique, fond sombre (le fragment)
+// Aperçus visuels par niveau — RÉSERVÉS à une future zone secondaire sur
+// /tarifs (« Voir un exemple de ce que ce niveau permet »), jamais dans
+// les cartes tarifaires principales. Trois registres :
+//   proof     → capture entière d'un vrai site (le document)
+//   mechanism → plan serré sur une zone d'action : réserver, demander
+//   fragment  → très gros plan de direction artistique
 // Règles : pas de nom de métier visible, pas de fausses notifications.
 export type TierMedia = {
   register: "proof" | "mechanism" | "fragment";
@@ -115,4 +108,13 @@ export function inheritanceLabel(index: number): string | null {
   if (index === 0) return null;
   const count = TIERS.slice(0, index).reduce((n, t) => n + t.items.length, 0);
   return `Les ${count} prestations ${index === 1 ? "de l'Essentiel" : "du Business"}, plus :`;
+}
+
+// Liste cumulative pour les cartes de la home : chaque niveau reprend
+// toutes les coches des niveaux précédents + les siennes. Seul l'intitulé
+// court est gardé (la précision après « — » vit sur /tarifs).
+export function cumulativeItems(index: number): string[] {
+  return TIERS.slice(0, index + 1)
+    .flatMap((t) => t.items)
+    .map((item) => item.split(" — ")[0]);
 }
