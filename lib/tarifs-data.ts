@@ -62,117 +62,66 @@ export const TARIFS_PLANS: Plan[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Comparaison progressive (/tarifs)
-// Cellule :
-//   0        → non inclus (tiret)
-//   1..3     → profondeur de la prestation (nombre de coches)
-//   string   → inclus + supplément qui change la nature (« ✓ + texte »)
-// La lecture visée : chaque pack contient déjà beaucoup, les niveaux
-// supérieurs ajoutent de la profondeur — pas des cases manquantes.
+// Modèle additif (/tarifs)
+// Chaque niveau reprend tout le précédent et n'affiche que ses ajouts.
+// La liste la plus longue appartient au pack le moins cher : c'est elle
+// qui prouve qu'Essentiel est une offre complète, pas une version limitée.
+// Les items utilisent « — » pour séparer la prestation de sa précision.
+// Aucun terme technique : on parle comme le client.
 // ---------------------------------------------------------------------------
 
-export type Cell = 0 | 1 | 2 | 3 | string;
-
-export type CompareRow = {
-  label: string;
-  note?: string;
-  cells: [Cell, Cell, Cell]; // Essentiel, Business, Premium
+export type Tier = {
+  name: string;
+  price: string;
+  // Ce que le visiteur doit comprendre en 5 secondes
+  positioning: string;
+  items: string[];
+  featured: boolean;
 };
 
-export type CompareGroup = {
-  title: string;
-  rows: CompareRow[];
-};
-
-export const COMPARE_GROUPS: CompareGroup[] = [
+export const TIERS: Tier[] = [
   {
-    title: "Design & image",
-    rows: [
-      {
-        label: "Design sur-mesure",
-        note: "Jamais un template : chaque site part de votre activité.",
-        cells: [1, 1, "Direction artistique dédiée"],
-      },
-      {
-        label: "Animations & interactions premium",
-        cells: [0, 0, 1],
-      },
-      {
-        label: "Univers de marque complet",
-        note: "Une identité cohérente, du site jusqu'à vos réseaux.",
-        cells: [0, 0, 1],
-      },
+    name: "Essentiel",
+    price: "499€",
+    positioning: "Un vrai site professionnel, complet.",
+    items: [
+      "Site professionnel sur-mesure — jamais un template",
+      "Conçu mobile d'abord",
+      "Être trouvé dans votre ville",
+      "Contact en un geste — appel, WhatsApp, formulaire",
+      "Pages essentielles — accueil, prestations, contact",
+      "Mise en ligne et configuration technique",
+      "Formation à la gestion de base",
     ],
+    featured: false,
   },
   {
-    title: "Contenu",
-    rows: [
-      {
-        label: "Pages essentielles",
-        note: "Accueil, prestations, contact : le nécessaire, bien fait.",
-        cells: [1, 1, 1],
-      },
-      {
-        label: "Présentation de vos services",
-        note: "De la présentation claire à la page détaillée par prestation.",
-        cells: [1, 2, 2],
-      },
-      {
-        label: "Mise en scène de votre univers",
-        note: "Photos, ambiance et ton adaptés à votre clientèle.",
-        cells: [0, 1, 2],
-      },
+    name: "Business",
+    price: "699€",
+    positioning: "Le choix logique pour développer votre activité.",
+    items: [
+      "Des pages dédiées à vos services — pour répondre clairement aux demandes de vos clients",
+      "Parcours pensé pour déclencher la demande",
+      "Votre réputation mise en avant",
     ],
+    featured: true,
   },
   {
-    title: "Visibilité Google",
-    rows: [
-      {
-        label: "Être trouvé dans votre ville",
-        note: "Des fondations solides aux recherches les plus précises.",
-        cells: [1, 2, 2],
-      },
-      {
-        label: "Structure comprise par Google",
-        note: "Titres, descriptions et pages rapides.",
-        cells: [1, 1, 1],
-      },
+    name: "Premium",
+    price: "899€",
+    positioning: "Une image premium qui vous différencie.",
+    items: [
+      "Direction artistique dédiée",
+      "Univers de marque unique — du site jusqu'à vos réseaux",
+      "Des finitions premium dans chaque détail — une expérience plus soignée et mémorable",
     ],
-  },
-  {
-    title: "Contact & demandes",
-    rows: [
-      {
-        label: "Contact en un geste",
-        note: "Appel, WhatsApp et formulaire accessibles partout.",
-        cells: [1, 1, 1],
-      },
-      {
-        label: "Parcours pensé pour déclencher la demande",
-        cells: [0, 1, 1],
-      },
-      {
-        label: "Réputation mise en avant",
-        cells: [0, 1, 1],
-      },
-    ],
-  },
-  {
-    title: "Accompagnement",
-    rows: [
-      {
-        label: "Mise en ligne et configuration technique",
-        cells: [1, 1, 1],
-      },
-      {
-        label: "Formation à la gestion de base",
-        note: "Textes, images, horaires : vous restez autonome.",
-        cells: [1, 1, 1],
-      },
-      {
-        label: "Suivi après le lancement",
-        cells: [1, 1, 2],
-      },
-    ],
+    featured: false,
   },
 ];
+
+// Libellé d'héritage calculé depuis les données — jamais un compte en dur
+export function inheritanceLabel(index: number): string | null {
+  if (index === 0) return null;
+  const count = TIERS.slice(0, index).reduce((n, t) => n + t.items.length, 0);
+  return `Les ${count} prestations ${index === 1 ? "de l'Essentiel" : "du Business"}, plus :`;
+}

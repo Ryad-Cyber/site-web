@@ -1,26 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import PlanCard from "../components/PlanCard";
-import {
-  TARIFS_PLANS,
-  SOCLE,
-  COMPARE_GROUPS,
-  type Cell,
-} from "../../lib/tarifs-data";
+import { TIERS, inheritanceLabel } from "../../lib/tarifs-data";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// Grille commune à l'en-tête sticky et au corps — colonnes alignées
-const GRID = "grid grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))]";
-
-function Check({ muted = false }: { muted?: boolean }) {
+function Check() {
   return (
     <svg
-      className={`h-[15px] w-[15px] shrink-0 ${muted ? "text-zinc-400" : "text-zinc-900"}`}
+      className="mt-1 h-[15px] w-[15px] shrink-0 text-zinc-900"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -31,25 +21,17 @@ function Check({ muted = false }: { muted?: boolean }) {
   );
 }
 
-// Cellule : tiret (absent), 1-3 coches (profondeur), coche + supplément (texte)
-function CellContent({ cell }: { cell: Cell }) {
-  if (cell === 0) {
-    return <span className="text-zinc-300">—</span>;
-  }
-  if (typeof cell === "number") {
-    return (
-      <span className="flex items-center gap-1">
-        {Array.from({ length: cell }).map((_, i) => (
-          <Check key={i} />
-        ))}
-      </span>
-    );
-  }
+// Ligne de prestation : « prestation — précision », la précision en retrait
+function TierItem({ item }: { item: string }) {
+  const [main, detail] = item.split(" — ");
   return (
-    <span className="flex flex-col items-center gap-1 text-center">
+    <li className="flex items-start gap-3 py-2.5">
       <Check />
-      <span className="text-[12px] font-medium leading-snug text-zinc-600">+ {cell}</span>
-    </span>
+      <span className="text-sm leading-relaxed">
+        <span className="font-medium text-zinc-950">{main}</span>
+        {detail && <span className="text-zinc-500"> — {detail}</span>}
+      </span>
+    </li>
   );
 }
 
@@ -70,15 +52,13 @@ const MINI_FAQ = [
 ];
 
 export default function TarifsView() {
-  const [mobilePlan, setMobilePlan] = useState(1); // Business pré-sélectionné
-
   return (
     <>
       <Header />
 
       <main className="bg-zinc-50 text-zinc-900">
-        {/* HERO court — on vient ici pour comparer, pas pour rêver */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-16 md:pt-40 md:pb-20">
+        {/* HERO court */}
+        <section className="mx-auto max-w-6xl px-4 sm:px-6 pt-32 pb-16 md:pt-40 md:pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -87,208 +67,90 @@ export default function TarifsView() {
           >
             <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">Tarifs</p>
             <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold leading-[1.06] tracking-[-0.03em] text-zinc-950">
-              Trois packs,
+              Trois offres,
               <br />
               <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-                une progression claire
+                une lecture simple
               </span>
             </h1>
             <p className="mt-7 max-w-lg text-base leading-relaxed text-zinc-500">
-              Chaque niveau reprend tout le précédent et y ajoute de la profondeur. Comparez
-              ligne par ligne, choisissez ce dont votre activité a besoin.
-            </p>
-            <p className="mt-6 text-xs tracking-wide text-zinc-400">
-              Chaque pack comprend : {SOCLE.join(" · ")}
+              Chaque niveau reprend tout le précédent et y ajoute des éléments. Rien à décoder,
+              rien à recouper.
             </p>
           </motion.div>
         </section>
 
-        {/* CARTES — la décision doit pouvoir se prendre sans lire le tableau */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-24 md:pb-32">
-          <div className="grid gap-5 sm:gap-6 md:grid-cols-3 items-stretch">
-            {TARIFS_PLANS.map((plan, index) => (
-              <motion.div
-                key={plan.name}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
-              >
-                <PlanCard plan={plan} />
-              </motion.div>
-            ))}
-          </div>
-        </section>
+        {/* LES TROIS OFFRES — colonnes additives */}
+        <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-24 md:pb-36">
+          <div className="grid md:grid-cols-3 md:divide-x md:divide-zinc-200">
+            {TIERS.map((tier, index) => {
+              const inherit = inheritanceLabel(index);
+              return (
+                <motion.div
+                  key={tier.name}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, delay: index * 0.1, ease: EASE }}
+                  className="border-t border-zinc-200 py-10 first:border-t-0 first:pt-0 md:border-t-0 md:py-0 md:px-8 md:first:pl-0 md:last:pr-0"
+                >
+                  {/* Tête d'offre */}
+                  <div className="flex items-center gap-2.5">
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-950">
+                      {tier.name}
+                    </h2>
+                    {tier.featured && (
+                      <span className="rounded-full bg-zinc-950 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white">
+                        Recommandé
+                      </span>
+                    )}
+                  </div>
 
-        {/* COMPARAISON PROGRESSIVE */}
-        <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-24 md:pb-36">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: EASE }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-zinc-950">
-              Comparer{" "}
-              <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
-                en détail
-              </span>
-            </h2>
-            <p className="mt-3 text-sm text-zinc-500">
-              Le nombre de coches indique la profondeur de la prestation à chaque niveau.
-            </p>
-          </motion.div>
-
-          {/* ---------- Desktop ---------- */}
-          <div className="mt-12 hidden lg:block">
-            {/* En-tête sticky — léger : noms et prix, rien de plus */}
-            <div
-              className={`${GRID} sticky top-[4.5rem] z-10 border-b border-zinc-200 bg-zinc-50/95 py-4 backdrop-blur-sm`}
-            >
-              <div />
-              {TARIFS_PLANS.map((plan) => (
-                <div key={plan.name} className="px-4 text-center">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-950">
-                    {plan.name.replace("Pack ", "")}
+                  <p className="mt-3 text-base font-medium tracking-tight text-zinc-950">
+                    {tier.positioning}
                   </p>
-                  <p className="mt-1 text-sm text-zinc-500">dès {plan.price}</p>
-                  {plan.featured && (
-                    <p className="mt-0.5 text-[10px] tracking-wide text-zinc-400">Recommandé</p>
-                  )}
-                </div>
-              ))}
-            </div>
 
-            {/* Corps — beaucoup d'air, filets fins, cellules centrées */}
-            {COMPARE_GROUPS.map((group) => (
-              <div key={group.title}>
-                <p className="pt-14 pb-4 text-xs uppercase tracking-[0.3em] text-zinc-400">
-                  {group.title}
-                </p>
+                  <p className="mt-5 text-3xl font-semibold tracking-[-0.03em]">
+                    <span className="mr-1.5 align-middle text-xs font-normal text-zinc-400">
+                      dès
+                    </span>
+                    {tier.price}
+                    <span className="ml-1 text-sm font-normal text-zinc-400">TTC</span>
+                  </p>
 
-                {group.rows.map((row) => (
-                  <motion.div
-                    key={row.label}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.5, ease: EASE }}
-                    className={`${GRID} border-t border-zinc-200/70`}
-                  >
-                    <div className="py-5 pr-8">
-                      <p className="text-sm font-medium text-zinc-950">{row.label}</p>
-                      {row.note && (
-                        <p className="mt-1 text-[13px] leading-relaxed text-zinc-500">
-                          {row.note}
-                        </p>
-                      )}
-                    </div>
-                    {row.cells.map((cell, ci) => (
-                      <div key={ci} className="flex items-center justify-center px-4 py-5">
-                        <CellContent cell={cell} />
-                      </div>
-                    ))}
-                  </motion.div>
-                ))}
-              </div>
-            ))}
-
-            {/* Rappel CTA en pied de tableau */}
-            <div className={`${GRID} mt-2 border-t border-zinc-200`}>
-              <div />
-              {TARIFS_PLANS.map((plan) => (
-                <div key={plan.name} className="px-4 pt-6 text-center">
+                  {/* CTA en tête — Business est le seul bouton plein */}
                   <a
                     href="/#contact"
-                    className={`inline-block w-full rounded-full py-2.5 text-[13px] font-medium tracking-tight transition-colors ${
-                      plan.featured
+                    className={`mt-6 block rounded-full py-3 text-center text-sm font-medium tracking-tight transition-colors ${
+                      tier.featured
                         ? "bg-zinc-950 text-white hover:bg-zinc-800"
                         : "border border-zinc-300 text-zinc-950 hover:border-zinc-950"
                     }`}
                   >
-                    Choisir {plan.name.replace("Pack ", "")}
+                    Demander un devis gratuit
                   </a>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* ---------- Mobile : sélecteur de pack + liste ---------- */}
-          <div className="mt-10 lg:hidden">
-            <div className="grid grid-cols-3 gap-1 rounded-full border border-zinc-200 bg-white p-1">
-              {TARIFS_PLANS.map((plan, i) => (
-                <button
-                  key={plan.name}
-                  onClick={() => setMobilePlan(i)}
-                  aria-pressed={mobilePlan === i}
-                  className={`rounded-full py-2.5 text-center transition-colors duration-300 ${
-                    mobilePlan === i ? "bg-zinc-950 text-white" : "text-zinc-500"
-                  }`}
-                >
-                  <span className="block text-xs font-medium">
-                    {plan.name.replace("Pack ", "")}
-                  </span>
-                  <span className="block text-[10px] text-zinc-400">dès {plan.price}</span>
-                </button>
-              ))}
-            </div>
+                  {/* Ligne d'héritage — la seule respiration serif de la section */}
+                  {inherit && (
+                    <p className="mt-8 font-[family-name:var(--font-instrument-serif)] text-lg italic text-zinc-500">
+                      {inherit}
+                    </p>
+                  )}
 
-            <div className="mt-8">
-              {COMPARE_GROUPS.map((group) => (
-                <div key={group.title} className="mt-9 first:mt-0">
-                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">{group.title}</p>
-                  <ul className="mt-3">
-                    {group.rows.map((row) => {
-                      const cell = row.cells[mobilePlan];
-                      const included = cell !== 0;
-                      return (
-                        <li
-                          key={row.label}
-                          className="flex items-start justify-between gap-4 border-t border-zinc-200/70 py-3.5 first:border-t-0"
-                        >
-                          <span className="min-w-0">
-                            <span
-                              className={`block text-sm font-medium ${
-                                included ? "text-zinc-950" : "text-zinc-400"
-                              }`}
-                            >
-                              {row.label}
-                            </span>
-                            {typeof cell === "string" && (
-                              <span className="mt-0.5 block text-[12px] text-zinc-500">
-                                + {cell}
-                              </span>
-                            )}
-                          </span>
-                          <span className="mt-0.5 shrink-0">
-                            {cell === 0 ? (
-                              <span className="text-zinc-300">—</span>
-                            ) : typeof cell === "number" ? (
-                              <span className="flex items-center gap-1">
-                                {Array.from({ length: cell }).map((_, i) => (
-                                  <Check key={i} />
-                                ))}
-                              </span>
-                            ) : (
-                              <Check />
-                            )}
-                          </span>
-                        </li>
-                      );
-                    })}
+                  {/* Prestations */}
+                  <ul className={inherit ? "mt-3" : "mt-8"}>
+                    {tier.items.map((item) => (
+                      <TierItem key={item} item={item} />
+                    ))}
                   </ul>
-                </div>
-              ))}
-
-              <a
-                href="/#contact"
-                className="mt-10 block rounded-full bg-zinc-950 py-3.5 text-center text-sm font-medium tracking-tight text-white transition-colors hover:bg-zinc-800"
-              >
-                Choisir {TARIFS_PLANS[mobilePlan].name.replace("Pack ", "")} — dès{" "}
-                {TARIFS_PLANS[mobilePlan].price}
-              </a>
-            </div>
+                </motion.div>
+              );
+            })}
           </div>
+
+          <p className="mt-14 text-center text-sm text-zinc-500">
+            Chaque projet est unique : le prix dépend de vos besoins et objectifs.
+          </p>
         </section>
 
         {/* MINI FAQ */}
