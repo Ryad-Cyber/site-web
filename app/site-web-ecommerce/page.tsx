@@ -1,34 +1,35 @@
+import type { Metadata } from "next";
+import SectorLanding from "../components/SectorLanding";
+
+export const metadata: Metadata = {
+  title: "Création de boutique en ligne et site e-commerce | Ryad Web Studio",
+  description:
+    "Boutique en ligne sur-mesure : vos collections mises en scène, un parcours d'achat court et un paiement sécurisé. Une vitrine qui vous appartient, pas un fil d'actualité.",
+  alternates: { canonical: "/site-web-ecommerce" },
+  openGraph: {
+    title: "Création de boutique en ligne et site e-commerce | Ryad Web Studio",
+    description:
+      "Vos produits mis en valeur, un parcours d'achat fluide et une image de marque premium.",
+    url: "/site-web-ecommerce",
+    type: "website",
+  },
+};
+
 export default function EcommercePage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-white pt-24 px-6">
-
-      <section className="max-w-6xl mx-auto text-center">
-        <h1 className="text-3xl md:text-5xl font-bold">
-          Sites e-commerce performants
-        </h1>
-        <p className="text-zinc-400 mt-3">
-          Vendez vos produits avec un site optimisé conversion.
-        </p>
-
-        <div className="mt-6">
-          <a href="/#contact" className="px-5 py-2.5 bg-white text-black rounded-full font-semibold">
-            Lancer ma boutique
-          </a>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto mt-14 grid md:grid-cols-3 gap-4">
-        {[
-          "Paiement sécurisé",
-          "Catalogue produits",
-          "Optimisation conversion"
-        ].map((item) => (
-          <div key={item} className="p-5 rounded-2xl border border-white/10 bg-white/5">
-            {item}
-          </div>
-        ))}
-      </section>
-
-    </main>
+    <SectorLanding
+      projectId={6}
+      h1={
+        <>
+          Une boutique
+          <br />
+          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+            qui vous appartient
+          </span>
+        </>
+      }
+      intro="Sur les réseaux, vos pièces disparaissent dans le fil en quelques heures. Une boutique en ligne les garde visibles, mises en scène et prêtes à être achetées."
+      whatsappText="Bonjour, j'aimerais créer ma boutique en ligne"
+    />
   );
 }

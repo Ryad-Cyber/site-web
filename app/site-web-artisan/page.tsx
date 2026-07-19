@@ -1,34 +1,35 @@
+import type { Metadata } from "next";
+import SectorLanding from "../components/SectorLanding";
+
+export const metadata: Metadata = {
+  title: "Création de site web pour artisan | Ryad Web Studio",
+  description:
+    "Site web sur-mesure pour artisans du bâtiment : plombier, électricien, menuisier. Montrez vos chantiers, recevez des demandes de devis et soyez trouvé dans votre ville.",
+  alternates: { canonical: "/site-web-artisan" },
+  openGraph: {
+    title: "Création de site web pour artisan | Ryad Web Studio",
+    description:
+      "Vos chantiers mis en valeur et des demandes de devis qualifiées, sans dépendre du bouche-à-oreille.",
+    url: "/site-web-artisan",
+    type: "website",
+  },
+};
+
 export default function ArtisanPage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-white pt-24 px-6">
-
-      <section className="max-w-6xl mx-auto text-center">
-        <h1 className="text-3xl md:text-5xl font-bold">
-          Sites web pour artisans
-        </h1>
-        <p className="text-zinc-400 mt-3">
-          Plomberie, électricité, bâtiment : soyez visible localement.
-        </p>
-
-        <div className="mt-6">
-          <a href="/#contact" className="px-5 py-2.5 bg-white text-black rounded-full font-semibold">
-            Être contacté
-          </a>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto mt-14 grid md:grid-cols-3 gap-4">
-        {[
-          "Appels directs clients",
-          "SEO Google Maps",
-          "Site ultra rapide"
-        ].map((item) => (
-          <div key={item} className="p-5 rounded-2xl border border-white/10 bg-white/5">
-            {item}
-          </div>
-        ))}
-      </section>
-
-    </main>
+    <SectorLanding
+      projectId={7}
+      h1={
+        <>
+          Votre savoir-faire mérite
+          <br />
+          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+            d&apos;être vu
+          </span>
+        </>
+      }
+      intro="Plomberie, électricité, menuiserie, rénovation : vos chantiers parlent pour vous. Encore faut-il que les clients qui ne vous connaissent pas puissent les trouver."
+      whatsappText="Bonjour, j'aimerais un site web pour mon activité d'artisan"
+    />
   );
 }

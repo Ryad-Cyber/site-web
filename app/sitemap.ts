@@ -1,22 +1,37 @@
 import { MetadataRoute } from "next";
 
+const BASE = "https://ryadstudio.com";
+
+// Pages secteur — cibles du référencement local, priorité juste sous la home
+const SECTOR_PATHS = [
+  "/site-web-restaurant",
+  "/site-web-coiffeur",
+  "/site-web-artisan",
+  "/site-web-ecommerce",
+  "/site-web-immobilier",
+  "/site-web-location-voiture",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
+
   return [
+    { url: BASE, lastModified, changeFrequency: "weekly", priority: 1 },
     {
-      url: "https://ryadstudio.com",
-      lastModified: new Date(),
+      url: `${BASE}/creation-site-internet`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
-    {
-      url: "https://ryadstudio.com/realisations",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://ryadstudio.com/results",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://ryadstudio.com/why-us",
-      lastModified: new Date(),
-    },
+    ...SECTOR_PATHS.map((path) => ({
+      url: `${BASE}${path}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    { url: `${BASE}/realisations`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/why-us`, lastModified, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/results`, lastModified, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/contact`, lastModified, changeFrequency: "yearly", priority: 0.5 },
   ];
 }

@@ -7,25 +7,11 @@ import Footer from "../components/Footer";
 import { PROJECTS } from "../../lib/projects-data";
 import Image from "next/image";
 
-const CATEGORY_COLORS = {
-  "Beauté & Coiffure": "from-amber-400 to-orange-400",
-  "Restaurant Gastronomique": "from-red-400 to-rose-400",
-  "Salle de sport & Coach sportif": "from-lime-400 to-green-400",
-  "Mobilité": "from-sky-400 to-cyan-400",
-  "Service / entretien": "from-cyan-400 to-blue-400",
-  "Vêtements / e-commerce": "from-rose-400 to-pink-400",
-  "Entreprise locale": "from-violet-400 to-purple-400",
-  "Immobilier": "from-indigo-400 to-violet-400",
-  "Beauté & spa": "from-pink-400 to-fuchsia-400",
-  "Projet personnalisé": "from-zinc-400 to-slate-400",
-};
-
 export default function ProjectsPage() {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const selectedProject = PROJECTS[selectedIdx];
-  const colorGradient = CATEGORY_COLORS[selectedProject.category as keyof typeof CATEGORY_COLORS] || "from-blue-400 to-violet-400";
 
   // Auto-slide functionality
   useEffect(() => {
@@ -51,8 +37,8 @@ export default function ProjectsPage() {
       
       {/* Background gradient */}
       <div className="fixed inset-0 opacity-30 pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-br ${colorGradient} blur-[150px] rounded-full transition-colors duration-700`} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-[120px] rounded-full" />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-white/[0.06] blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-white/[0.04] blur-[120px] rounded-full" />
       </div>
 
       <div className="flex flex-col lg:grid lg:grid-cols-[320px_1fr_400px] min-h-[calc(100vh-6rem)]">
@@ -97,7 +83,7 @@ export default function ProjectsPage() {
                   {idx === selectedIdx && (
                     <motion.div
                       layoutId="activeIndicator"
-                      className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-400 to-violet-400"
+                      className="w-1.5 h-1.5 rounded-full bg-white"
                     />
                   )}
                 </div>
@@ -124,7 +110,7 @@ export default function ProjectsPage() {
                   className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl overflow-hidden aspect-[16/10] max-h-[480px] w-full mx-auto cursor-pointer"
                   onClick={() => setCurrentSlide((prev) => (prev + 1) % selectedProject.slides.length)}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.gradient} opacity-20`} />
+                  
                   
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -208,7 +194,7 @@ export default function ProjectsPage() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-sm font-semibold uppercase tracking-widest text-blue-400"
+              className="text-xs uppercase tracking-[0.3em] text-zinc-500"
             >
               {selectedProject.category}
             </motion.p>
@@ -236,7 +222,7 @@ export default function ProjectsPage() {
             >
               {selectedProject.features.map((feature, idx) => (
                 <div key={feature} className="flex items-center gap-3">
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${colorGradient}`} />
+                  <div className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
                   <span className="text-sm text-zinc-300">{feature}</span>
                 </div>
               ))}
@@ -269,7 +255,7 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
-                className="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-3"
+                className="text-xs uppercase tracking-[0.3em] text-zinc-500 mb-3"
               >
                 {selectedProject.category}
               </motion.p>
@@ -322,7 +308,7 @@ export default function ProjectsPage() {
                     className="flex items-center gap-3 group"
                   >
                     <motion.div
-                      className={`w-2 h-2 rounded-full bg-gradient-to-r ${colorGradient}`}
+                      className="w-1.5 h-1.5 rounded-full bg-zinc-500"
                       whileHover={{ scale: 1.5 }}
                       transition={{ duration: 0.2 }}
                     />

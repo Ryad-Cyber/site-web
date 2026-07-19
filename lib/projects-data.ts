@@ -509,13 +509,6 @@ export const PROJECTS: Project[] = [
         alt: "Projet personnalisé",
       },
       {
-        label: "Réserver",
-        caption: "Contactez-nous pour créer quelque chose d'adapté à votre activité.",
-        type: "photo",
-        src: "/site_autre.png",
-        alt: "Interface de site web personnalisé",
-      },
-      {
         label: "Nos clients",
         caption: "Des projets uniques réalisés sur mesure pour des entrepreneurs de tous secteurs.",
         type: "photo",

@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function ContactPage() {
   return (
@@ -12,6 +13,7 @@ export default function ContactPage() {
           Une page de contact simple est en construction. Revenez bientôt ou utilisez le formulaire sur la page d'accueil pour nous joindre immédiatement.
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

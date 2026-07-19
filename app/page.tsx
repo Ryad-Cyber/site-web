@@ -114,12 +114,12 @@ const FAQ_ITEMS = [
     a: "Oui. Je vous forme à la gestion de base (textes, images, horaires). Pour des changements plus avancés ou des ajouts de fonctionnalités, je reste disponible sur demande.",
   },
   {
-    q: "Proposez-vous l'hébergement ?",
-    a: "Oui, l'hébergement professionnel peut être inclus selon la formule. Certificat SSL, sauvegardes et performance sont pris en charge — vous n'avez rien à gérer techniquement.",
+    q: "L'hébergement est-il compris dans les packs ?",
+    a: "Non, l'hébergement et le nom de domaine restent à votre nom et ne sont pas compris dans les packs. Je m'occupe de la mise en ligne et de toute la configuration technique — certificat de sécurité, performance, sauvegardes — pour que vous n'ayez rien à gérer. Vous restez propriétaire de votre site et de vos accès.",
   },
   {
-    q: "Aidez-vous pour le référencement (SEO) ?",
-    a: "Les fondamentaux sont inclus : structure optimisée, balises meta, vitesse de chargement et SEO local de base. Des forfaits SEO avancés sont disponibles si vous souhaitez aller plus loin.",
+    q: "Est-ce qu'on me trouvera sur Google ?",
+    a: "Oui, c'est prévu dès la conception. Chaque site est construit pour être trouvé dans votre ville : une structure claire, des pages rapides et les informations dont Google a besoin pour vous proposer aux clients proches de chez vous. Si vous souhaitez aller plus loin, un accompagnement dédié à votre visibilité locale peut être ajouté.",
   },
   {
     q: "Que se passe-t-il après la livraison ?",

@@ -1,34 +1,35 @@
+import type { Metadata } from "next";
+import SectorLanding from "../components/SectorLanding";
+
+export const metadata: Metadata = {
+  title: "Création de site web pour agence immobilière | Ryad Web Studio",
+  description:
+    "Site web sur-mesure pour agences immobilières : chaque bien valorisé, demandes de visite simplifiées et une identité qui vous distingue des portails d'annonces.",
+  alternates: { canonical: "/site-web-immobilier" },
+  openGraph: {
+    title: "Création de site web pour agence immobilière | Ryad Web Studio",
+    description:
+      "Vos biens valorisés et une identité qui vous distingue des portails d'annonces.",
+    url: "/site-web-immobilier",
+    type: "website",
+  },
+};
+
 export default function ImmobilierPage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-white pt-24 px-6">
-
-      <section className="max-w-6xl mx-auto text-center">
-        <h1 className="text-3xl md:text-5xl font-bold">
-          Sites web immobilier
-        </h1>
-        <p className="text-zinc-400 mt-3">
-          Mettez en valeur vos biens avec un design premium.
-        </p>
-
-        <div className="mt-6">
-          <a href="/#contact" className="px-5 py-2.5 bg-white text-black rounded-full font-semibold">
-            Obtenir un site
-          </a>
-        </div>
-      </section>
-
-      <section className="max-w-6xl mx-auto mt-14 grid md:grid-cols-3 gap-4">
-        {[
-          "Annonces immobilières",
-          "Galeries images HD",
-          "Formulaires leads"
-        ].map((item) => (
-          <div key={item} className="p-5 rounded-2xl border border-white/10 bg-white/5">
-            {item}
-          </div>
-        ))}
-      </section>
-
-    </main>
+    <SectorLanding
+      projectId={8}
+      h1={
+        <>
+          Vos biens méritent mieux
+          <br />
+          <span className="font-[family-name:var(--font-instrument-serif)] font-normal italic text-zinc-400">
+            qu&apos;une annonce parmi d&apos;autres
+          </span>
+        </>
+      }
+      intro="Sur les portails, toutes les agences se fondent dans le même gabarit. Votre site est le seul endroit où votre manière de travailler peut vraiment se voir."
+      whatsappText="Bonjour, j'aimerais un site web pour mon agence immobilière"
+    />
   );
 }
