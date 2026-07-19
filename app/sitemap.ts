@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     { url: `${BASE}/realisations`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/tarifs`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/why-us`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/results`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/contact`, lastModified, changeFrequency: "yearly", priority: 0.5 },

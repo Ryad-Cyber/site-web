@@ -74,6 +74,7 @@ const SOCIAL_LINKS = [
 
 const NAVIGATION = [
   { label: "Réalisations", href: "/realisations" },
+  { label: "Tarifs", href: "/tarifs" },
   { label: "Résultats", href: "/results" },
   { label: "Pourquoi nous", href: "/why-us" },
   { label: "FAQ", href: "/#faq" },

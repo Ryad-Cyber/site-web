@@ -8,50 +8,10 @@ import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
+import { TARIFS_PLANS, SOCLE } from "../lib/tarifs-data";
 
 const WHATSAPP_URL =
   "https://wa.me/33749635085?text=Bonjour, j'aimerais un site web pour mon activité";
-
-// Logique de paliers : chaque niveau reprend le précédent et affiche uniquement
-// ce qu'il ajoute — le visiteur lit l'écart, pas une liste à recouper.
-const TARIFS_PLANS = [
-  {
-    name: "Pack Essentiel",
-    price: "499€",
-    desc: "Une présence professionnelle solide.",
-    addsLabel: "Ce qui est inclus",
-    features: [
-      { t: "Un site rapide et soigné", n: "Impeccable sur téléphone comme sur ordinateur." },
-      { t: "Être trouvé dans votre ville", n: "Vous apparaissez quand on cherche votre métier près de chez vous." },
-      { t: "Vous faire contacter facilement", n: "Appel, WhatsApp et formulaire accessibles depuis chaque page." },
-    ],
-    featured: false,
-  },
-  {
-    name: "Pack Business",
-    price: "699€",
-    desc: "Pour recevoir plus de demandes.",
-    addsLabel: "En plus de l'Essentiel",
-    features: [
-      { t: "Présenter vos services en détail", n: "Chaque prestation expliquée, pour répondre aux questions avant qu'on les pose." },
-      { t: "Faciliter les demandes de contact", n: "Un chemin court et évident entre l'intérêt et la prise de contact." },
-      { t: "Mettre votre réputation en avant", n: "Ce qui inspire confiance placé là où le visiteur décide." },
-    ],
-    featured: true,
-  },
-  {
-    name: "Pack Premium",
-    price: "899€",
-    desc: "Une image qui vous distingue.",
-    addsLabel: "En plus du Business",
-    features: [
-      { t: "Une direction artistique sur-mesure", n: "Couleurs, typographies et mise en page créées pour vous." },
-      { t: "Un univers de marque complet", n: "Une identité cohérente, du site jusqu'à vos réseaux." },
-      { t: "Une expérience soignée au détail", n: "Animations et transitions qui installent le haut de gamme." },
-    ],
-    featured: false,
-  },
-];
 
 function CheckIcon() {
   return (
@@ -662,6 +622,20 @@ export default function Home() {
               />
             </div>
 
+            {/* Socle commun — l'Essentiel se lit comme « socle + ceci », pas comme une offre vide */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-10 text-center text-xs tracking-wide text-zinc-500"
+            >
+              <span className="uppercase tracking-[0.2em] text-zinc-400">Chaque pack comprend</span>
+              <span className="mt-2 block text-sm text-zinc-600">
+                {SOCLE.join(" · ")}
+              </span>
+            </motion.p>
+
             <div className="grid md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
               {TARIFS_PLANS.map((plan, index) => {
                 const dark = plan.featured;
@@ -674,13 +648,13 @@ export default function Home() {
                     transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                     className={`relative flex flex-col rounded-2xl p-6 sm:p-8 transition-colors duration-300 ${
                       dark
-                        ? "border border-zinc-950 bg-zinc-950 text-white"
+                        ? "border border-zinc-950 bg-zinc-950 text-white lg:scale-[1.03]"
                         : "border border-zinc-200 bg-white hover:border-zinc-300"
                     }`}
                   >
                     {plan.featured && (
                       <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-zinc-950 px-3.5 py-1 text-[11px] font-medium tracking-wide text-white">
-                        Le plus choisi
+                        Recommandé
                       </span>
                     )}
 
@@ -737,9 +711,28 @@ export default function Home() {
               })}
             </div>
 
-            <p className="mt-6 text-center text-zinc-500 text-sm">
-              Chaque projet est unique : le prix dépend de vos besoins et objectifs.
-            </p>
+            <div className="mt-10 text-center">
+              <a
+                href="/tarifs"
+                className="group inline-flex items-center gap-2.5 text-sm font-medium text-zinc-950 transition-colors hover:text-zinc-500"
+              >
+                Comparer les packs en détail
+                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 transition-colors duration-300 group-hover:border-zinc-950">
+                  <svg
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+              </a>
+              <p className="mt-5 text-sm text-zinc-500">
+                Chaque projet est unique : le prix dépend de vos besoins et objectifs.
+              </p>
+            </div>
           </ScrollReveal>
         </section>
 

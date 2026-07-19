@@ -11,6 +11,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PRIMARY_LINKS = [
   { href: "/", label: "Accueil" },
   { href: "/#services", label: "Services" },
+  { href: "/#tarifs", label: "Tarifs" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];
