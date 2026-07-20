@@ -63,11 +63,12 @@ export const TIERS: Tier[] = [
       "Vous changez vos textes et vos photos quand vous voulez",
     ],
     homePromises: [
-      "Une belle image pour votre activité",
-      "Un site parfaitement lisible sur téléphone",
-      "Être trouvé sur Google dans votre ville",
-      "Recevoir facilement appels et messages",
-      "Un site complet, prêt à fonctionner",
+      "Une présence professionnelle pour votre activité",
+      "Un site adapté aux téléphones",
+      "Vos services, horaires et coordonnées clairement affichés",
+      "Être visible sur Google dans votre ville",
+      "Appels et messages faciles depuis le site",
+      "Site mis en ligne pour vous",
     ],
     media: {
       register: "proof",
@@ -89,9 +90,10 @@ export const TIERS: Tier[] = [
       "Ce qui rassure vos clients placé au bon endroit",
     ],
     homePromises: [
-      "Des pages dédiées à chacun de vos services",
-      "Un site pensé pour vous amener plus de demandes",
-      "Ce qui rassure vos clients mis en avant",
+      "Une page détaillée pour chacun de vos services",
+      "Des boutons d'appel et de contact à chaque étape",
+      "Vos avis et références clients affichés",
+      "Plus de contenu pour présenter votre activité",
     ],
     media: {
       register: "mechanism",
@@ -110,9 +112,10 @@ export const TIERS: Tier[] = [
       "Des détails soignés qui marquent vos visiteurs",
     ],
     homePromises: [
-      "Un style visuel créé uniquement pour vous",
-      "La même image partout : votre site comme vos réseaux",
-      "Des finitions soignées dans chaque détail",
+      "Un design créé de zéro pour votre entreprise",
+      "Vos couleurs et votre style appliqués partout",
+      "Des animations et transitions soignées",
+      "Un site cohérent avec vos réseaux et vos supports",
     ],
     media: {
       register: "fragment",

@@ -1,31 +1,40 @@
 import { type Tier, homeInheritLabel } from "../../lib/tarifs-data";
 
-// Carte tarifaire de la home — elle VEND, elle ne compare pas :
-// promesses synthétiques, pas la liste contractuelle (celle-ci vit sur /tarifs).
+// Dégradé signature du logo Ryad Studio (violet → bleu).
+// RÈGLE D'EXCLUSIVITÉ : réservé au pack recommandé, une seule carte par page.
+const SIGNATURE_BADGE = "from-[#6D5AE0] to-[#4A8FE0]";
+
+// Carte tarifaire de la home — elle VEND, elle ne compare pas : promesses
+// synthétiques, pas la liste contractuelle (celle-ci vit sur /tarifs).
 //
-// Mise en avant de Business, deux mécanismes seulement :
-//   A — une ombre portée teintée du dégradé du logo (violet → bleu). Sur fond
-//       clair, l'ombre soustrait de la luminance : c'est le seul geste qui
-//       reste perceptible, là où un halo lumineux se dilue.
-//   B — Business en blanc pur, les deux autres légèrement en retrait.
-// Aucun troisième effet : c'est l'empilement qui fait « SaaS ».
+// Mise en avant de Business — deux signaux seulement, aucun trait visible :
+//   1. le badge « Recommandé », seul aplat saturé (assez petit pour l'être)
+//   2. une ombre portée teintée du dégradé du logo
+// Et un choix de composition : Business n'a PAS de bordure. Une carte
+// blanche sans contour posée sur une ombre flotte au-dessus de la page,
+// là où les cartes bordées y sont épinglées. La hiérarchie vient de cette
+// différence de nature, pas d'un ornement ajouté.
+// Réglage : alpha de l'ombre (0.42).
 export default function PlanCard({ tier, index }: { tier: Tier; index: number }) {
   const inherit = homeInheritLabel(index);
+  const featured = tier.featured;
 
   return (
     <div
-      className={`flex flex-col rounded-2xl border p-6 sm:p-7 transition-colors duration-300 ${
-        tier.featured
-          ? "border-zinc-950 bg-white shadow-[0_28px_60px_-24px_rgba(91,80,200,0.38),0_10px_28px_-14px_rgba(74,120,200,0.22)]"
-          : "border-zinc-200 bg-[#FCFCFC] hover:border-zinc-300"
+      className={`flex h-full flex-col rounded-2xl p-6 sm:p-7 ${
+        featured
+          ? "bg-white shadow-[0_28px_60px_-24px_rgba(91,80,200,0.42),0_10px_28px_-14px_rgba(74,120,200,0.24)]"
+          : "border border-zinc-200 bg-[#FCFCFC] transition-colors duration-300 hover:border-zinc-300"
       }`}
     >
       <div className="flex items-center gap-2.5">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-950">
           {tier.name}
         </h3>
-        {tier.featured && (
-          <span className="rounded-full bg-zinc-950 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white">
+        {featured && (
+          <span
+            className={`rounded-full bg-gradient-to-r ${SIGNATURE_BADGE} px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white`}
+          >
             Recommandé
           </span>
         )}
@@ -44,7 +53,7 @@ export default function PlanCard({ tier, index }: { tier: Tier; index: number })
       <a
         href="#contact"
         className={`mt-6 block rounded-full py-3 text-center text-sm font-medium tracking-tight transition-colors ${
-          tier.featured
+          featured
             ? "bg-zinc-950 text-white hover:bg-zinc-800"
             : "border border-zinc-300 text-zinc-950 hover:border-zinc-950"
         }`}
