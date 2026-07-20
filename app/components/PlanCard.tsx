@@ -1,44 +1,25 @@
-import { type Tier } from "../../lib/tarifs-data";
+import { type Tier, homeInheritLabel } from "../../lib/tarifs-data";
 
-// Carte tarifaire classique de la home — logique cumulative :
-// chaque niveau affiche toutes les coches des niveaux précédents
-// plus les siennes. Business est mis en avant légèrement : bordure
-// sombre, badge, seul CTA plein. Aucune image dans ces cartes.
+// Carte tarifaire de la home — elle VEND, elle ne compare pas :
+// promesses synthétiques, pas la liste contractuelle (celle-ci vit sur /tarifs).
 //
-// Composition : CTA sous le prix (les trois boutons s'alignent sur une
-// même ligne), liste en dessous, carte en hauteur naturelle — jamais de
-// vide interne qui ferait paraître l'Essentiel incomplet. La montée
-// 7 → 10 → 13 coches dessine un escalier ascendant vers la droite.
-export default function PlanCard({
-  tier,
-  items,
-}: {
-  tier: Tier;
-  items: string[];
-}) {
-  return (
-    <div className="relative h-full">
-      {/* Halo signature — teinte du logo (violet → bleu) posée DERRIÈRE la carte.
-          Dégradé RADIAL et non linéaire : un dégradé linéaire flouté se lit
-          comme un rectangle coloré, un radial se lit comme une source de
-          lumière. C'est ce qui fait sentir la couleur sans la voir.
-          RÈGLE D'EXCLUSIVITÉ : réservé à la recommandation, une seule
-          occurrence par page. Jamais un ornement.
-          Réglage d'intensité : les deux valeurs alpha ci-dessous (0.11 / 0.07). */}
-      {tier.featured && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-8 -z-10 rounded-[2.5rem] bg-[radial-gradient(closest-side,rgba(123,91,240,0.11),rgba(74,158,232,0.07)_58%,transparent_100%)] blur-2xl"
-        />
-      )}
+// Mise en avant de Business, deux mécanismes seulement :
+//   A — une ombre portée teintée du dégradé du logo (violet → bleu). Sur fond
+//       clair, l'ombre soustrait de la luminance : c'est le seul geste qui
+//       reste perceptible, là où un halo lumineux se dilue.
+//   B — Business en blanc pur, les deux autres légèrement en retrait.
+// Aucun troisième effet : c'est l'empilement qui fait « SaaS ».
+export default function PlanCard({ tier, index }: { tier: Tier; index: number }) {
+  const inherit = homeInheritLabel(index);
 
-      <div
-        className={`relative flex h-full flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-colors duration-300 ${
-          tier.featured
-            ? "border-zinc-950 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.25)]"
-            : "border-zinc-200 hover:border-zinc-300"
-        }`}
-      >
+  return (
+    <div
+      className={`flex flex-col rounded-2xl border p-6 sm:p-7 transition-colors duration-300 ${
+        tier.featured
+          ? "border-zinc-950 bg-white shadow-[0_28px_60px_-24px_rgba(91,80,200,0.38),0_10px_28px_-14px_rgba(74,120,200,0.22)]"
+          : "border-zinc-200 bg-[#FCFCFC] hover:border-zinc-300"
+      }`}
+    >
       <div className="flex items-center gap-2.5">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-950">
           {tier.name}
@@ -71,21 +52,28 @@ export default function PlanCard({
         Demander un devis gratuit
       </a>
 
-      <ul className="mt-7 space-y-2 border-t border-zinc-100 pt-6">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-2.5 text-sm text-zinc-600">
-            <svg
-              className="mt-0.5 h-4 w-4 shrink-0 text-zinc-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            {item}
-          </li>
-        ))}
+      <div className="mt-7 border-t border-zinc-100 pt-6">
+        {inherit && (
+          <p className="mb-4 font-[family-name:var(--font-instrument-serif)] text-[15px] italic text-zinc-500">
+            {inherit}
+          </p>
+        )}
+
+        <ul className="space-y-2.5">
+          {tier.homePromises.map((promise) => (
+            <li key={promise} className="flex items-start gap-2.5 text-sm text-zinc-600">
+              <svg
+                className="mt-0.5 h-4 w-4 shrink-0 text-zinc-900"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              {promise}
+            </li>
+          ))}
         </ul>
       </div>
     </div>

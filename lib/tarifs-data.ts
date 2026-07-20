@@ -37,7 +37,13 @@ export type Tier = {
   // Ce que le visiteur doit comprendre en 5 secondes — même phrase
   // sur la home et sur /tarifs, jamais deux variantes.
   positioning: string;
+  // `items` fait foi : c'est la liste contractuelle des prestations,
+  // destinée à la comparaison détaillée de /tarifs.
   items: string[];
+  // `homePromises` n'est qu'un RÉSUMÉ COMMERCIAL de `items`, pour les
+  // cartes de la home : on y vend, on n'y compare pas. Toute évolution
+  // de l'offre doit être reportée dans les DEUX listes.
+  homePromises: string[];
   media: TierMedia;
   featured: boolean;
 };
@@ -55,6 +61,13 @@ export const TIERS: Tier[] = [
       "Vos services, vos horaires et vos coordonnées bien visibles",
       "Tout est mis en ligne pour vous, sans rien à gérer",
       "Vous changez vos textes et vos photos quand vous voulez",
+    ],
+    homePromises: [
+      "Une belle image pour votre activité",
+      "Un site parfaitement lisible sur téléphone",
+      "Être trouvé sur Google dans votre ville",
+      "Recevoir facilement appels et messages",
+      "Un site complet, prêt à fonctionner",
     ],
     media: {
       register: "proof",
@@ -75,6 +88,11 @@ export const TIERS: Tier[] = [
       "Un site fait pour vous amener plus de demandes",
       "Ce qui rassure vos clients placé au bon endroit",
     ],
+    homePromises: [
+      "Des pages dédiées à chacun de vos services",
+      "Un site pensé pour vous amener plus de demandes",
+      "Ce qui rassure vos clients mis en avant",
+    ],
     media: {
       register: "mechanism",
       src: "/barber_interface.png",
@@ -90,6 +108,11 @@ export const TIERS: Tier[] = [
       "Un style visuel créé uniquement pour votre entreprise",
       "La même belle image partout : sur votre site comme sur vos réseaux",
       "Des détails soignés qui marquent vos visiteurs",
+    ],
+    homePromises: [
+      "Un style visuel créé uniquement pour vous",
+      "La même image partout : votre site comme vos réseaux",
+      "Des finitions soignées dans chaque détail",
     ],
     media: {
       register: "fragment",
@@ -107,6 +130,14 @@ export const TIERS: Tier[] = [
 // précédents + les siennes. Les coches racontent la montée en gamme
 // d'elles-mêmes — aucune ligne d'héritage à lire, aucune hiérarchie de
 // couleur : une prestation héritée reste de la valeur pleine.
+// Utilisée par /tarifs (comparaison), jamais par la home (qui vend).
 export function cumulativeItems(index: number): string[] {
   return TIERS.slice(0, index + 1).flatMap((t) => t.items);
+}
+
+// Cartes de la home : au lieu de répéter les promesses des niveaux
+// inférieurs, on les résume en une ligne et on n'affiche que les ajouts.
+export function homeInheritLabel(index: number): string | null {
+  if (index === 0) return null;
+  return `Tout ce qui est inclus dans ${TIERS[index - 1].name}, plus :`;
 }

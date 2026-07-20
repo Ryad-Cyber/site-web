@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Chatbot from "./components/Chatbot";
 import HeroVisual from "./components/HeroVisual";
-import { TIERS, cumulativeItems } from "../lib/tarifs-data";
+import { TIERS } from "../lib/tarifs-data";
 import PlanCard from "./components/PlanCard";
 
 const WHATSAPP_URL =
@@ -866,7 +866,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <PlanCard tier={tier} items={cumulativeItems(index)} />
+                  <PlanCard tier={tier} index={index} />
                 </motion.div>
               ))}
             </div>
