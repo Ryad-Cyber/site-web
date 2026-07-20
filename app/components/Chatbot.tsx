@@ -32,7 +32,7 @@ function getBotReply(input: string): string {
 
   // Pricing
   if (lower.match(/(prix|tarif|coût|combien|budget|cher|€|euros)/)) {
-    return "Mes formules démarrent à 499€ (Essentiel), 699€ (Business) et 899€ (Premium), TTC. Chaque projet commence par une analyse et une maquette gratuites. Voulez-vous que je vous guide sur la bonne formule ?";
+    return "Mes formules démarrent à 499€ (Essentiel), 799€ (Business) et 1199€ (Premium), TTC. Chaque projet commence par une analyse et une maquette gratuites. Voulez-vous que je vous guide sur la bonne formule ?";
   }
   
   // Timeline/Delivery

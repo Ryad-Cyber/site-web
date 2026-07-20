@@ -17,23 +17,28 @@ export default function PlanCard({
   items: string[];
 }) {
   return (
-    <div
-      className={`relative flex flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-colors duration-300 ${
-        tier.featured
-          ? "border-zinc-950 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.25)]"
-          : "border-zinc-200 hover:border-zinc-300"
-      }`}
-    >
-      {/* Liseré signature — dégradé du logo Ryad Studio, désaturé/assombri.
-          RÈGLE D'EXCLUSIVITÉ : cet accent est réservé à la recommandation
-          (une seule occurrence par page). Ne jamais le réutiliser ailleurs
-          comme élément décoratif. */}
+    <div className="relative h-full">
+      {/* Halo signature — teinte du logo (violet → bleu) posée DERRIÈRE la carte.
+          Dégradé RADIAL et non linéaire : un dégradé linéaire flouté se lit
+          comme un rectangle coloré, un radial se lit comme une source de
+          lumière. C'est ce qui fait sentir la couleur sans la voir.
+          RÈGLE D'EXCLUSIVITÉ : réservé à la recommandation, une seule
+          occurrence par page. Jamais un ornement.
+          Réglage d'intensité : les deux valeurs alpha ci-dessous (0.11 / 0.07). */}
       {tier.featured && (
-        <span
+        <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-[3px] rounded-t-[14px] bg-gradient-to-r from-[#524bb0] via-[#4661ab] to-[#3a76ad]"
+          className="pointer-events-none absolute -inset-8 -z-10 rounded-[2.5rem] bg-[radial-gradient(closest-side,rgba(123,91,240,0.11),rgba(74,158,232,0.07)_58%,transparent_100%)] blur-2xl"
         />
       )}
+
+      <div
+        className={`relative flex h-full flex-col rounded-2xl border bg-white p-6 sm:p-7 transition-colors duration-300 ${
+          tier.featured
+            ? "border-zinc-950 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.25)]"
+            : "border-zinc-200 hover:border-zinc-300"
+        }`}
+      >
       <div className="flex items-center gap-2.5">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-zinc-950">
           {tier.name}
@@ -81,7 +86,8 @@ export default function PlanCard({
             {item}
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
     </div>
   );
 }

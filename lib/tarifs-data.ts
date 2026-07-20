@@ -46,15 +46,15 @@ export const TIERS: Tier[] = [
   {
     name: "Essentiel",
     price: "499€",
-    positioning: "Un vrai site professionnel, complet.",
+    positioning: "Installer une présence professionnelle.",
     items: [
-      "Site professionnel sur-mesure — jamais un template",
-      "Conçu mobile d'abord",
-      "Être trouvé dans votre ville",
-      "Contact en un geste — appel, WhatsApp, formulaire",
-      "Pages essentielles — accueil, prestations, contact",
-      "Mise en ligne et configuration technique",
-      "Formation à la gestion de base",
+      "Un site qui donne une belle image de votre entreprise",
+      "Un site clair et agréable depuis un téléphone",
+      "Être trouvé sur Google par les clients de votre ville",
+      "Vos clients vous appellent ou vous écrivent en un clic",
+      "Vos services, vos horaires et vos coordonnées bien visibles",
+      "Tout est mis en ligne pour vous, sans rien à gérer",
+      "Vous changez vos textes et vos photos quand vous voulez",
     ],
     media: {
       register: "proof",
@@ -68,12 +68,12 @@ export const TIERS: Tier[] = [
   },
   {
     name: "Business",
-    price: "699€",
-    positioning: "Le choix logique pour développer votre activité.",
+    price: "799€",
+    positioning: "Faire de votre site un outil commercial.",
     items: [
-      "Des pages dédiées à vos services — pour répondre clairement aux demandes de vos clients",
-      "Parcours pensé pour déclencher la demande",
-      "Votre réputation mise en avant",
+      "Chaque service que vous proposez, expliqué clairement",
+      "Un site fait pour vous amener plus de demandes",
+      "Ce qui rassure vos clients placé au bon endroit",
     ],
     media: {
       register: "mechanism",
@@ -84,12 +84,12 @@ export const TIERS: Tier[] = [
   },
   {
     name: "Premium",
-    price: "899€",
-    positioning: "Une image premium qui vous différencie.",
+    price: "1199€",
+    positioning: "Construire une image qui vous distingue.",
     items: [
-      "Direction artistique dédiée",
-      "Univers de marque unique — du site jusqu'à vos réseaux",
-      "Des finitions premium dans chaque détail — une expérience plus soignée et mémorable",
+      "Un style visuel créé uniquement pour votre entreprise",
+      "La même belle image partout : sur votre site comme sur vos réseaux",
+      "Des détails soignés qui marquent vos visiteurs",
     ],
     media: {
       register: "fragment",
@@ -103,18 +103,10 @@ export const TIERS: Tier[] = [
   },
 ];
 
-// Libellé d'héritage calculé depuis les données — jamais un compte en dur
-export function inheritanceLabel(index: number): string | null {
-  if (index === 0) return null;
-  const count = TIERS.slice(0, index).reduce((n, t) => n + t.items.length, 0);
-  return `Les ${count} prestations ${index === 1 ? "de l'Essentiel" : "du Business"}, plus :`;
-}
-
-// Liste cumulative pour les cartes de la home : chaque niveau reprend
-// toutes les coches des niveaux précédents + les siennes. Seul l'intitulé
-// court est gardé (la précision après « — » vit sur /tarifs).
+// Liste cumulative : chaque niveau reprend toutes les coches des niveaux
+// précédents + les siennes. Les coches racontent la montée en gamme
+// d'elles-mêmes — aucune ligne d'héritage à lire, aucune hiérarchie de
+// couleur : une prestation héritée reste de la valeur pleine.
 export function cumulativeItems(index: number): string[] {
-  return TIERS.slice(0, index + 1)
-    .flatMap((t) => t.items)
-    .map((item) => item.split(" — ")[0]);
+  return TIERS.slice(0, index + 1).flatMap((t) => t.items);
 }

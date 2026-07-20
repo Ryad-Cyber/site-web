@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { TIERS, inheritanceLabel } from "../../lib/tarifs-data";
+import { TIERS, cumulativeItems } from "../../lib/tarifs-data";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -21,16 +21,14 @@ function Check() {
   );
 }
 
-// Ligne de prestation : « prestation — précision », la précision en retrait
+// Ligne de prestation — toutes ont le même poids visuel : une prestation
+// héritée reste de la valeur pleine, jamais du secondaire. Seule la
+// longueur de la liste raconte la montée en gamme.
 function TierItem({ item }: { item: string }) {
-  const [main, detail] = item.split(" — ");
   return (
     <li className="flex items-start gap-3 py-2.5">
       <Check />
-      <span className="text-sm leading-relaxed">
-        <span className="font-medium text-zinc-950">{main}</span>
-        {detail && <span className="text-zinc-500"> — {detail}</span>}
-      </span>
+      <span className="text-sm leading-relaxed text-zinc-700">{item}</span>
     </li>
   );
 }
@@ -84,7 +82,7 @@ export default function TarifsView() {
         <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-24 md:pb-36">
           <div className="grid md:grid-cols-3 md:divide-x md:divide-zinc-200">
             {TIERS.map((tier, index) => {
-              const inherit = inheritanceLabel(index);
+              const items = cumulativeItems(index);
               return (
                 <motion.div
                   key={tier.name}
@@ -130,16 +128,10 @@ export default function TarifsView() {
                     Demander un devis gratuit
                   </a>
 
-                  {/* Ligne d'héritage — la seule respiration serif de la section */}
-                  {inherit && (
-                    <p className="mt-8 font-[family-name:var(--font-instrument-serif)] text-lg italic text-zinc-500">
-                      {inherit}
-                    </p>
-                  )}
-
-                  {/* Prestations */}
-                  <ul className={inherit ? "mt-3" : "mt-8"}>
-                    {tier.items.map((item) => (
+                  {/* Prestations — liste cumulative complète : la longueur
+                      de la colonne raconte seule la montée en gamme */}
+                  <ul className="mt-8">
+                    {items.map((item) => (
                       <TierItem key={item} item={item} />
                     ))}
                   </ul>
