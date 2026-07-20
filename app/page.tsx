@@ -45,10 +45,16 @@ function SectionHeading({
 }
 
 
-const FAQ_ITEMS = [
+const FAQ_ITEMS: { q: string; a: string; href?: string; linkLabel?: string }[] = [
   {
     q: "Combien de temps pour avoir mon site en ligne ?",
     a: "Entre 7 et 14 jours selon la formule choisie. Vous recevez une maquette sous 48 h après notre premier échange, puis nous affinons ensemble avant le développement et la mise en ligne.",
+  },
+  {
+    q: "J'ai déjà un site internet, pouvez-vous l'améliorer ?",
+    a: "Oui — et pas forcément en le refaisant entièrement. Nous commençons par un diagnostic gratuit de votre site actuel : parfois quelques améliorations suffisent, parfois il vaut mieux repartir de zéro. Et si votre site fonctionne encore, nous vous le dirons.",
+    href: "/refonte-site-internet",
+    linkLabel: "Faire diagnostiquer mon site",
   },
   {
     q: "Le devis est-il vraiment gratuit ?",
@@ -127,7 +133,26 @@ function FaqAccordion() {
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-5 pr-8 text-sm text-zinc-500 leading-relaxed">{item.a}</p>
+                  <div className="pb-5 pr-8">
+                    <p className="text-sm text-zinc-500 leading-relaxed">{item.a}</p>
+                    {item.href && (
+                      <a
+                        href={item.href}
+                        className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 transition-colors hover:text-zinc-500"
+                      >
+                        {item.linkLabel}
+                        <svg
+                          className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={1.5}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -900,37 +925,66 @@ export default function Home() {
               <RefusalDesir />
             </div>
 
-            {/* Pont vers la preuve — /why-us */}
+            {/* Pont — deux portes : celui qui n'a pas de site, celui qui en a un
+                et vient de s'y reconnaître dans les quatre erreurs */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, ease: EASE }}
-              className="mt-24 border-t border-white/10 pt-10 md:mt-32"
+              className="mt-24 grid gap-10 border-t border-white/10 pt-10 md:mt-32 md:grid-cols-2 md:gap-14"
             >
-              <p className="text-lg leading-relaxed text-zinc-400">
-                Voici ce que nous refusons.{" "}
-                <span className="font-[family-name:var(--font-instrument-serif)] italic text-white">
-                  Voici ce que nous faisons à la place.
-                </span>
-              </p>
-              <a
-                href="/why-us"
-                className="group mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-white transition-colors hover:text-zinc-400"
-              >
-                Découvrir notre approche
-                <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-colors duration-300 group-hover:border-white/60">
-                  <svg
-                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </a>
+              <div>
+                <p className="text-lg leading-relaxed text-zinc-400">
+                  Voici ce que nous refusons.{" "}
+                  <span className="font-[family-name:var(--font-instrument-serif)] italic text-white">
+                    Voici ce que nous faisons à la place.
+                  </span>
+                </p>
+                <a
+                  href="/why-us"
+                  className="group mt-6 inline-flex items-center gap-2.5 text-sm font-medium text-white transition-colors hover:text-zinc-400"
+                >
+                  Découvrir notre approche
+                  <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-colors duration-300 group-hover:border-white/60">
+                    <svg
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+
+              <div>
+                <p className="text-lg leading-relaxed text-zinc-400">
+                  Votre site se reconnaît dans ces erreurs ?{" "}
+                  <span className="font-[family-name:var(--font-instrument-serif)] italic text-white">
+                    Il n&apos;est pas condamné.
+                  </span>
+                </p>
+                <a
+                  href="/refonte-site-internet"
+                  className="group mt-6 inline-flex items-center gap-2.5 text-sm font-medium text-white transition-colors hover:text-zinc-400"
+                >
+                  Faire diagnostiquer mon site
+                  <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition-colors duration-300 group-hover:border-white/60">
+                    <svg
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>

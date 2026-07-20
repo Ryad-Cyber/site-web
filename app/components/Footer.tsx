@@ -82,7 +82,7 @@ const NAVIGATION = [
 
 const SERVICES = [
   { label: "Création de sites web", href: "/#services" },
-  { label: "Refonte & Redesign", href: "/#services" },
+  { label: "Refonte & Redesign", href: "/refonte-site-internet" },
   { label: "SEO & Visibilité", href: "/#services" },
   { label: "Applications web", href: "/#services" },
 ];

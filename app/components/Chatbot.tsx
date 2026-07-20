@@ -6,9 +6,9 @@ type Message = { role: "user" | "assistant"; content: string };
 
 const QUICK_ACTIONS = [
   { label: "Créer un site web", text: "Je veux créer un site web pour mon activité" },
+  { label: "Améliorer mon site actuel", text: "J'ai déjà un site, pouvez-vous l'améliorer ?" },
   { label: "Prix d'un site", text: "Quels sont les tarifs pour un site web ?" },
   { label: "Comment ça marche ?", text: "Comment fonctionne le processus de création ?" },
-  { label: "Audit gratuit", text: "Pouvez-vous faire un audit de mon besoin ?" },
   { label: "Par où commencer ?", text: "Par où dois-je commencer pour mon projet ?" },
   { label: "Je veux un devis", text: "Je voudrais obtenir un devis gratuit" },
 ];
@@ -21,9 +21,18 @@ function getBotReply(input: string): string {
     return "Bonjour ! Je peux vous aider à préciser votre projet : site vitrine, application web, réservation en ligne ou visibilité sur Google. Que souhaitez-vous faire ?";
   }
   
+  // Site existant — refonte / amélioration
+  if (
+    lower.match(
+      /(déjà un site|deja un site|améliorer mon site|ameliorer mon site|refonte|refaire mon site|moderniser|site actuel|ancien site|site obsolète|site obsolete)/
+    )
+  ) {
+    return "Oui — et pas forcément en le refaisant entièrement. Je commence toujours par un diagnostic gratuit de votre site actuel : affichage mobile, vitesse, clarté, facilité de contact et visibilité Google. Parfois quelques améliorations suffisent, parfois il vaut mieux repartir de zéro — et si votre site fonctionne encore, je vous le dirai. Envoyez-moi son adresse sur la page Refonte ou par WhatsApp.";
+  }
+
   // Pricing
   if (lower.match(/(prix|tarif|coût|combien|budget|cher|€|euros)/)) {
-    return "Mes formules démarrent à 299€ (Starter), 499€ (Business) et 899€ (Premium). Chaque projet commence par une étude gratuite de votre besoin. Voulez-vous que je vous guide sur la bonne formule ?";
+    return "Mes formules démarrent à 499€ (Essentiel), 699€ (Business) et 899€ (Premium), TTC. Chaque projet commence par une analyse et une maquette gratuites. Voulez-vous que je vous guide sur la bonne formule ?";
   }
   
   // Timeline/Delivery

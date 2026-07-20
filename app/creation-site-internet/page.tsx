@@ -84,6 +84,18 @@ export default function Page() {
                 Voir les réalisations
               </a>
             </div>
+
+            {/* Maillage symétrique — les deux intentions de recherche sont disjointes */}
+            <p className="mt-10 text-sm text-zinc-500">
+              Vous avez déjà un site ?{" "}
+              <a
+                href="/refonte-site-internet"
+                className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
+              >
+                Faites-le diagnostiquer gratuitement
+              </a>
+              .
+            </p>
           </div>
         </section>
 

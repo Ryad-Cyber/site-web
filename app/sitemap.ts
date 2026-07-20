@@ -23,6 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${BASE}/refonte-site-internet`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     ...SECTOR_PATHS.map((path) => ({
       url: `${BASE}${path}`,
       lastModified,
