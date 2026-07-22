@@ -52,7 +52,7 @@ export const TIERS: Tier[] = [
   {
     name: "Essentiel",
     price: "499€",
-    positioning: "Installer une présence professionnelle.",
+    positioning: "Un site professionnel complet.",
     items: [
       "Un site qui donne une belle image de votre entreprise",
       "Un site clair et agréable depuis un téléphone",
@@ -63,12 +63,12 @@ export const TIERS: Tier[] = [
       "Vous changez vos textes et vos photos quand vous voulez",
     ],
     homePromises: [
-      "Une présence professionnelle pour votre activité",
-      "Un site adapté aux téléphones",
-      "Vos services, horaires et coordonnées clairement affichés",
-      "Être visible sur Google dans votre ville",
-      "Appels et messages faciles depuis le site",
-      "Site mis en ligne pour vous",
+      "Un site qui présente votre entreprise",
+      "Vos services, horaires et coordonnées affichés",
+      "Un site facile à lire sur téléphone",
+      "Visible sur Google dans votre ville",
+      "Bouton pour vous appeler ou vous écrire",
+      "Mis en ligne par nos soins",
     ],
     media: {
       register: "proof",
@@ -83,17 +83,17 @@ export const TIERS: Tier[] = [
   {
     name: "Business",
     price: "799€",
-    positioning: "Faire de votre site un outil commercial.",
+    positioning: "Plus de pages, plus de demandes.",
     items: [
       "Chaque service que vous proposez, expliqué clairement",
       "Un site fait pour vous amener plus de demandes",
       "Ce qui rassure vos clients placé au bon endroit",
     ],
     homePromises: [
-      "Une page détaillée pour chacun de vos services",
-      "Des boutons d'appel et de contact à chaque étape",
+      "Une page par service au lieu d'une seule liste",
+      "Plus de textes et de photos pour expliquer votre travail",
       "Vos avis et références clients affichés",
-      "Plus de contenu pour présenter votre activité",
+      "Un formulaire de demande de devis",
     ],
     media: {
       register: "mechanism",
@@ -105,17 +105,17 @@ export const TIERS: Tier[] = [
   {
     name: "Premium",
     price: "1199€",
-    positioning: "Construire une image qui vous distingue.",
+    positioning: "Un design unique, rien qu'à vous.",
     items: [
       "Un style visuel créé uniquement pour votre entreprise",
       "La même belle image partout : sur votre site comme sur vos réseaux",
       "Des détails soignés qui marquent vos visiteurs",
     ],
     homePromises: [
-      "Un design créé de zéro pour votre entreprise",
-      "Vos couleurs et votre style appliqués partout",
-      "Des animations et transitions soignées",
-      "Un site cohérent avec vos réseaux et vos supports",
+      "Un design dessiné pour vous, pas un modèle",
+      "Vos couleurs et votre logo utilisés partout",
+      "Des animations quand on fait défiler les pages",
+      "Un site qui ne ressemble à aucun autre",
     ],
     media: {
       register: "fragment",
