@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site Web — Ryad Studio
 
-## Getting Started
+Site web de présentation de **Ryad Studio**, une activité de création de sites web pour les professionnels et petites entreprises.
 
-First, run the development server:
+## Présentation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ce projet présente les services proposés par Ryad Studio pour accompagner des professionnels dans la création de leur présence en ligne.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Le site met en avant les différentes offres, les prestations proposées et les moyens de contact.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* Next.js
+* React
+* TypeScript / TSX
+* Tailwind CSS
+* Framer Motion
+* Resend
+* Vercel
 
-## Learn More
+## Fonctionnalités
 
-To learn more about Next.js, take a look at the following resources:
+* Présentation des services
+* Présentation des offres
+* Design responsive
+* Animations et interactions
+* Formulaire / système de contact
+* Interface adaptée aux ordinateurs, tablettes et mobiles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Objectif
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Créer un site professionnel moderne permettant de présenter clairement les services de création de sites web et de faciliter la prise de contact avec les clients.
 
-## Deploy on Vercel
+## Déploiement
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Le projet est conçu pour être déployé sur Vercel.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Auteur
+
+**Ryad Boujenan**
+
+GitHub : [Ryad-Cyber](https://github.com/Ryad-Cyber)
